@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UNIT001.SYSTEMS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: #f4f4f1;
+      color: #111;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .system {
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        Menlo,
+        monospace;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100dvh;
+      padding: 24px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+    }
+
+    header,
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      font-size: 12px;
+    }
+
+    .status {
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    .hero {
+      max-width: 920px;
+      margin: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      margin: 0 0 28px;
+      font-size: clamp(44px, 8vw, 120px);
+      line-height: .82;
+      font-weight: 400;
+      letter-spacing: -.07em;
+    }
+
+    .intro {
+      max-width: 470px;
+      font-size: clamp(14px, 1.3vw, 18px);
+      line-height: 1.35;
+    }
+
+    .nav {
+      margin-top: clamp(28px, 5vh, 60px);
+      width: min(100%, 620px);
+      border-top: 1px solid #bbb;
+    }
+
+    .nav a {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 16px;
+      padding: clamp(9px, 1.3vh, 14px) 0;
+      border-bottom: 1px solid #bbb;
+      font-size: 14px;
+      transition: opacity .15s ease;
+    }
+
+    .nav a:hover {
+      opacity: .45;
+    }
+
+    .arrow {
+      font-family: monospace;
+    }
+
+    .note {
+      max-width: 560px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #666;
+    }
+
+    .blink {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 7px;
+      background: #111;
+      animation: blink 1.7s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 16px;
+      }
+
+      header,
+      footer {
+        font-size: 9px;
+      }
+
+      h1 {
+        font-size: clamp(52px, 18vw, 84px);
+        margin-bottom: 20px;
+      }
+
+      .intro {
+        font-size: 14px;
+      }
+
+      .nav {
+        margin-top: 28px;
+      }
+
+      .nav a {
+        padding: 9px 0;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header class="system">
+      <div>
+        — UNIT001<br>
+        VISUAL SYSTEM
+      </div>
+
+      <div class="status">
+        <span class="blink"></span>ACTIVE<br>
+        MOSCOW / 2026
+      </div>
+    </header>
+
+
+    <section class="hero">
+
+      <h1>
+        UNIT<br>
+        001.
+      </h1>
+
+      <div class="intro">
+        Visual systems for people and events.<br>
+        Photography, moving image, data and documentation.
+      </div>
+
+      <nav class="nav system">
+
+        <a href="#model">
+          <span>01</span>
+          <span>MODEL READY</span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a href="#actor">
+          <span>02</span>
+          <span>ACTOR READY</span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a href="#dash">
+          <span>03</span>
+          <span>DASH / EVENTS</span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a href="https://t.me/" target="_blank">
+          <span>04</span>
+          <span>CONTACT</span>
+          <span class="arrow">↗</span>
+        </a>
+
+      </nav>
+
+    </section>
+
+
+    <footer class="system">
+      <div>
+        UNIT001.SYSTEMS
+      </div>
+
+      <div class="note">
+        EVERY OBJECT HAS A POSITION.<br>
+        EVERY EVENT LEAVES A TRACE.
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>
