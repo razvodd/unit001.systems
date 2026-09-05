@@ -144,7 +144,7 @@ h2 { font-size: clamp(62px, 12vw, 220px); line-height: .84; }
 .lead-list > span { display: block; }
 .lead-summary { display: grid; margin-top: 1em; }
 .lead-summary > span { display: block; }
-.hero-link { position: absolute; left: 51%; top: 48vh; padding-bottom: 5px; font-size: 12px; }
+.hero-link { position: absolute; left: 51%; top: 48vh; display: inline-flex; align-items: center; gap: 8px; padding-bottom: 5px; font-size: 12px; }
 .hero-link,
 .hero-link:hover,
 .hero-link:focus,
@@ -170,7 +170,22 @@ h2 { font-size: clamp(62px, 12vw, 220px); line-height: .84; }
 .journey p { display: flex; flex-direction: column; gap: 12px; margin: 0; font-size: var(--type-body); white-space: nowrap; }
 .journey p span { font-size: var(--type-small); }
 .journey p b { font-weight: 400; }
-.journey i { justify-self: center; font-style: normal; font-size: var(--type-body); }
+.journey i { display: flex; justify-self: center; font-style: normal; }
+
+.icon {
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+.hero-link .icon { width: 12px; height: 12px; }
+.journey .icon { width: 16px; height: 16px; }
+.example-link .icon { width: 13px; height: 13px; }
+.cta .icon-cta { width: .38em; height: .38em; }
 .timing { grid-column: 1 / -1; align-self: end; margin: 5vh 0 0; font-size: var(--type-small); }
 #method,
 #result,
@@ -311,7 +326,6 @@ h2 { font-size: clamp(62px, 12vw, 220px); line-height: .84; }
   box-shadow: none;
 }
 .cta .cta-copy { font-size: inherit; }
-.cta > span:last-child { font-size: .4em; }
 
 body.modal-open { overflow: hidden; }
 .examples-modal {
@@ -517,9 +531,6 @@ body.modal-open { overflow: hidden; }
 .clear-hero .lead,
 .intro .explainer,
 .deliverables p,
-.cta > span:last-child {
-  font-size: var(--type-body);
-}
 
 h1,
 h2,
