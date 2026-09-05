@@ -12,6 +12,12 @@
   box-sizing: border-box;
 }
 
+:root {
+  --columns: 12;
+  --margin: clamp(24px, 3vw, 48px);
+  --gutter: clamp(12px, 1.5vw, 24px);
+}
+
 html,
 body {
   width: 100%;
@@ -56,12 +62,15 @@ a {
   height: 100dvh;
 
   padding:
-    max(20px, env(safe-area-inset-top))
-    max(24px, env(safe-area-inset-right))
-    max(20px, env(safe-area-inset-bottom))
-    max(24px, env(safe-area-inset-left));
+    max(var(--margin), env(safe-area-inset-top))
+    max(var(--margin), env(safe-area-inset-right))
+    max(var(--margin), env(safe-area-inset-bottom))
+    max(var(--margin), env(safe-area-inset-left));
 
   display: grid;
+
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  column-gap: var(--gutter);
 
   grid-template-rows:
     auto
@@ -75,12 +84,21 @@ a {
 /* HEADER */
 
 header {
-  display: flex;
-  justify-content: space-between;
+  grid-column: 1 / -1;
+
+  display: grid;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  column-gap: var(--gutter);
+
   align-items: flex-start;
 }
 
+header > :first-child {
+  grid-column: 1 / span 3;
+}
+
 .status {
+  grid-column: 10 / -1;
   text-align: right;
 }
 
@@ -109,6 +127,8 @@ header {
 /* MAIN */
 
 main {
+  grid-column: 1 / span 8;
+
   min-height: 0;
 
   display: flex;
@@ -145,7 +165,7 @@ h1 {
 /* NAVIGATION */
 
 nav {
-  width: min(620px, 100%);
+  width: 100%;
 
   margin-top: clamp(36px, 6vh, 68px);
 
@@ -178,15 +198,17 @@ nav a:hover {
 /* FOOTER */
 
 footer {
-  display: flex;
+  grid-column: 1 / -1;
 
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  column-gap: var(--gutter);
+
   align-items: flex-end;
-
-  gap: 40px;
 }
 
 footer .right {
+  grid-column: 8 / -1;
   text-align: right;
 }
 
@@ -195,12 +217,18 @@ footer .right {
 
 @media (max-width: 600px) {
 
+  :root {
+    --columns: 4;
+    --margin: 16px;
+    --gutter: 12px;
+  }
+
   .screen {
     padding:
-      max(15px, env(safe-area-inset-top))
-      max(16px, env(safe-area-inset-right))
-      max(15px, env(safe-area-inset-bottom))
-      max(16px, env(safe-area-inset-left));
+      max(var(--margin), env(safe-area-inset-top))
+      max(var(--margin), env(safe-area-inset-right))
+      max(var(--margin), env(safe-area-inset-bottom))
+      max(var(--margin), env(safe-area-inset-left));
   }
 
   .system {
@@ -209,6 +237,18 @@ footer .right {
 
   h1 {
     font-size: clamp(62px, 20vw, 92px);
+  }
+
+  header > :first-child {
+    grid-column: 1 / span 2;
+  }
+
+  .status {
+    grid-column: 3 / -1;
+  }
+
+  main {
+    grid-column: 1 / -1;
   }
 
   .description {
@@ -233,7 +273,11 @@ footer .right {
   }
 
   footer {
-    gap: 15px;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  }
+
+  footer .right {
+    grid-column: 3 / -1;
   }
 
 }
