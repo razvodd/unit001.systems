@@ -528,9 +528,10 @@ body.modal-open { overflow: hidden; }
   font-size: var(--type-small);
 }
 
-.clear-hero .lead,
 .intro .explainer,
-.deliverables p,
+.deliverables p {
+  font-size: var(--type-body);
+}
 
 h1,
 h2,
