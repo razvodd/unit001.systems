@@ -35,35 +35,22 @@
   >
 
 
-  <!-- ONLY HEADER OVERRIDES -->
+  <!-- ONLY NEW HEADER STYLES -->
 
   <style>
 
-    /* HEADER:
-       local page navigation + global menu button
-    */
-
-    .header {
-      display: grid;
-
-      grid-template-columns:
-        minmax(0, 1fr)
-        30px;
-
-      align-items: center;
-    }
-
+    /* LOCAL NAVIGATION INSIDE GLASS HEADER */
 
     .page-nav {
       grid-column: 1;
       grid-row: 1;
 
-      min-width: 0;
-
       display: flex;
       align-items: center;
 
-      gap: clamp(18px, 2.2vw, 42px);
+      gap: clamp(18px, 2.5vw, 42px);
+
+      min-width: 0;
 
       overflow-x: auto;
       overflow-y: hidden;
@@ -72,11 +59,9 @@
       -ms-overflow-style: none;
     }
 
-
     .page-nav::-webkit-scrollbar {
       display: none;
     }
-
 
     .page-nav a,
     .page-nav a:link,
@@ -99,46 +84,27 @@
       white-space: nowrap;
     }
 
-
     .page-nav a {
       transition: opacity .16s ease;
     }
 
-
     .page-nav:hover a {
       opacity: .35;
     }
-
 
     .page-nav a:hover {
       opacity: 1;
     }
 
 
-    .menu {
-      grid-column: 2;
-      grid-row: 1;
-    }
+    /* NEVER UNDERLINE LINKS */
 
-
-    /*
-      GLOBAL OVERLAY MENU
-
-      Existing overlay styles from styles.css
-      remain responsible for the fullscreen
-      black menu.
-
-      These rules only make sure READY / EVENTS
-      keep the expected typography and no underline.
-    */
-
-    .overlay a,
-    .overlay a:link,
-    .overlay a:visited,
-    .overlay a:hover,
-    .overlay a:focus,
-    .overlay a:active {
-      color: inherit;
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
       text-decoration: none;
     }
 
@@ -146,10 +112,9 @@
     @media (max-width: 700px) {
 
       .page-nav {
-        gap: 18px;
+        gap: 16px;
         padding-right: 10px;
       }
-
 
       .page-nav a,
       .page-nav a:link,
@@ -167,7 +132,6 @@
 </head>
 
 
-
 <body>
 
 
@@ -176,9 +140,6 @@
        ====================================================== -->
 
   <header class="header">
-
-
-    <!-- LOCAL NAVIGATION INSIDE READY -->
 
     <nav
       class="page-nav"
@@ -192,7 +153,6 @@
         Что получите
       </a>
 
-
       <a
         href="#method"
         data-i18n="nav.method"
@@ -200,14 +160,12 @@
         Как проходит
       </a>
 
-
       <a
         href="#session"
         data-i18n="nav.pricing"
       >
         Стоимость
       </a>
-
 
       <a
         href="#contact"
@@ -218,9 +176,6 @@
 
     </nav>
 
-
-
-    <!-- GLOBAL MENU -->
 
     <button
       class="menu"
@@ -235,7 +190,7 @@
 
 
   <!-- ======================================================
-       GLOBAL SYSTEM MENU
+       GLOBAL MENU
        ====================================================== -->
 
   <nav
@@ -256,7 +211,7 @@
 
 
   <!-- ======================================================
-       READY CONTENT
+       MAIN
        ====================================================== -->
 
   <main id="top">
@@ -309,15 +264,12 @@
           Примеры и цены
         </span>
 
-
         <svg
           class="icon icon-down"
           viewBox="0 0 16 16"
           aria-hidden="true"
         >
-
           <path d="M8 2v11M4 9l4 4 4-4"/>
-
         </svg>
 
       </a>
@@ -336,9 +288,7 @@
           RU
         </button>
 
-        <span aria-hidden="true">
-          /
-        </span>
+        <span aria-hidden="true">/</span>
 
         <button
           type="button"
@@ -416,80 +366,63 @@
         data-i18n-aria-label="journey.aria"
       >
 
-
         <p>
           <span>01</span>
-          <b data-i18n="journey.brief">
-            Задача
-          </b>
+          <b data-i18n="journey.brief">Задача</b>
         </p>
 
         <i aria-hidden="true">
-
           <svg
             class="icon icon-forward"
             viewBox="0 0 16 16"
           >
             <path d="M2 8h12M10 4l4 4-4 4"/>
           </svg>
-
         </i>
 
 
         <p>
           <span>02</span>
-          <b data-i18n="journey.looks">
-            Образы
-          </b>
+          <b data-i18n="journey.looks">Образы</b>
         </p>
 
         <i aria-hidden="true">
-
           <svg
             class="icon icon-forward"
             viewBox="0 0 16 16"
           >
             <path d="M2 8h12M10 4l4 4-4 4"/>
           </svg>
-
         </i>
 
 
         <p>
           <span>03</span>
-          <b data-i18n="journey.shoot">
-            Съёмка
-          </b>
+          <b data-i18n="journey.shoot">Съёмка</b>
         </p>
 
         <i aria-hidden="true">
-
           <svg
             class="icon icon-forward"
             viewBox="0 0 16 16"
           >
             <path d="M2 8h12M10 4l4 4-4 4"/>
           </svg>
-
         </i>
 
 
         <p>
           <span>04</span>
-          <b data-i18n="journey.materials">
-            Материалы
-          </b>
+          <b data-i18n="journey.materials">Материалы</b>
         </p>
 
         <i aria-hidden="true">
-
           <svg
             class="icon icon-forward"
             viewBox="0 0 16 16"
           >
             <path d="M2 8h12M10 4l4 4-4 4"/>
           </svg>
-
         </i>
 
 
@@ -507,9 +440,7 @@
         class="timing"
         data-i18n="journey.timing"
       >
-        Подготовка 2–3 дня ·
-        Съёмка до 3 часов ·
-        Готовность до 5 дней
+        Подготовка 2–3 дня · Съёмка до 3 часов · Готовность до 5 дней
       </p>
 
     </section>
@@ -523,7 +454,6 @@
       id="session"
     >
 
-
       <div class="pricing-head">
 
         <p
@@ -533,7 +463,6 @@
           Стоимость
         </p>
 
-
         <h2 data-i18n-html="pricing.title">
           Соберите<br>
           свою съёмку.
@@ -542,18 +471,14 @@
       </div>
 
 
-
       <div class="builder">
 
-
-        <!-- 01 -->
 
         <article class="builder-item">
 
           <p class="builder-number">
             01
           </p>
-
 
           <div>
 
@@ -564,7 +489,6 @@
               Снепы
             </p>
 
-
             <p
               class="builder-copy"
               data-i18n="pricing.snapsCopy"
@@ -572,7 +496,6 @@
               Нейтральные портреты, полный рост и профиль
               для агентств и кастингов.
             </p>
-
 
             <button
               class="example-link"
@@ -584,21 +507,17 @@
                 Посмотреть пример
               </span>
 
-
               <svg
                 class="icon icon-external"
                 viewBox="0 0 16 16"
                 aria-hidden="true"
               >
-
                 <path d="M3 13 13 3M6 3h7v7"/>
-
               </svg>
 
             </button>
 
           </div>
-
 
           <p class="builder-price">
             5 000 ₽
@@ -608,14 +527,11 @@
 
 
 
-        <!-- 02 -->
-
         <article class="builder-item">
 
           <p class="builder-number">
             02
           </p>
-
 
           <div>
 
@@ -626,7 +542,6 @@
               Серия для портфолио
             </p>
 
-
             <p
               class="builder-copy"
               data-i18n="pricing.portfolioCopy"
@@ -634,7 +549,6 @@
               2–3 образа, индивидуальный свет
               и 7 фотографий в ретуши.
             </p>
-
 
             <button
               class="example-link"
@@ -646,21 +560,17 @@
                 Посмотреть пример
               </span>
 
-
               <svg
                 class="icon icon-external"
                 viewBox="0 0 16 16"
                 aria-hidden="true"
               >
-
                 <path d="M3 13 13 3M6 3h7v7"/>
-
               </svg>
 
             </button>
 
           </div>
-
 
           <p class="builder-price">
             7 000 ₽
@@ -670,14 +580,11 @@
 
 
 
-        <!-- 03 -->
-
         <article class="builder-item">
 
           <p class="builder-number">
             03
           </p>
-
 
           <div>
 
@@ -688,7 +595,6 @@
               Видеовизитка
             </p>
 
-
             <p
               class="builder-copy"
               data-i18n="pricing.videoCopy"
@@ -696,7 +602,6 @@
               Короткое представление, движение и эмоции.
               Формат для кастингов.
             </p>
-
 
             <button
               class="example-link"
@@ -708,21 +613,17 @@
                 Посмотреть пример
               </span>
 
-
               <svg
                 class="icon icon-external"
                 viewBox="0 0 16 16"
                 aria-hidden="true"
               >
-
                 <path d="M3 13 13 3M6 3h7v7"/>
-
               </svg>
 
             </button>
 
           </div>
-
 
           <p class="builder-price">
             5 000 ₽
@@ -732,14 +633,11 @@
 
 
 
-        <!-- 04 -->
-
         <article class="builder-item">
 
           <p class="builder-number">
             04
           </p>
-
 
           <div>
 
@@ -750,7 +648,6 @@
               Композитка и PDF
             </p>
 
-
             <p
               class="builder-copy"
               data-i18n="pricing.compCopy"
@@ -758,7 +655,6 @@
               Готовый документ с выбранными
               фотографиями и данными модели.
             </p>
-
 
             <button
               class="example-link"
@@ -770,21 +666,17 @@
                 Посмотреть пример
               </span>
 
-
               <svg
                 class="icon icon-external"
                 viewBox="0 0 16 16"
                 aria-hidden="true"
               >
-
                 <path d="M3 13 13 3M6 3h7v7"/>
-
               </svg>
 
             </button>
 
           </div>
-
 
           <p class="builder-price">
             3 000 ₽
@@ -794,14 +686,11 @@
 
 
 
-        <!-- BUNDLE -->
-
         <div class="bundle">
 
           <p class="bundle-label">
             Ready.
           </p>
-
 
           <p
             class="bundle-kicker"
@@ -810,11 +699,9 @@
             Стартовая цена · первые 10 человек
           </p>
 
-
           <p class="bundle-price">
             7 500 ₽
           </p>
-
 
           <p
             class="bundle-regular"
@@ -842,7 +729,6 @@
 
             </p>
 
-
             <div
               class="launch-progress"
               aria-hidden="true"
@@ -850,20 +736,11 @@
               <span></span>
             </div>
 
-
             <p class="launch-breakdown">
 
-              <span>
-                Model 4
-              </span>
-
-              <span>
-                Actor 1
-              </span>
-
-              <span>
-                Cast 1
-              </span>
+              <span>Model 4</span>
+              <span>Actor 1</span>
+              <span>Cast 1</span>
 
             </p>
 
@@ -879,7 +756,6 @@
               Всё вместе: снепы, серия для портфолио,
               видеовизитка, композитка и PDF.
             </p>
-
 
             <p
               class="bundle-saving"
@@ -923,7 +799,6 @@
       id="ready-system"
     >
 
-
       <div class="ready-system-head">
 
         <p
@@ -932,7 +807,6 @@
         >
           Ready System
         </p>
-
 
         <p
           class="ready-system-intro"
@@ -944,7 +818,6 @@
         </p>
 
       </div>
-
 
 
       <div class="ready-products">
@@ -1044,15 +917,12 @@
           Написать в Telegram
         </span>
 
-
         <svg
           class="icon icon-external icon-cta"
           viewBox="0 0 16 16"
           aria-hidden="true"
         >
-
           <path d="M3 13 13 3M6 3h7v7"/>
-
         </svg>
 
       </a>
@@ -1075,13 +945,11 @@
         Сергей Антонов
       </p>
 
-
       <a href="tel:+79808007001">
         7.980.800.7.001
       </a>
 
     </div>
-
 
 
     <div class="footer-right">
@@ -1091,7 +959,6 @@
       </p>
 
     </div>
-
 
 
     <div
@@ -1107,11 +974,7 @@
         RU
       </button>
 
-
-      <span aria-hidden="true">
-        /
-      </span>
-
+      <span aria-hidden="true">/</span>
 
       <button
         type="button"
@@ -1128,7 +991,7 @@
 
 
   <!-- ======================================================
-       EXAMPLES MODAL
+       EXAMPLES
        ====================================================== -->
 
   <dialog
@@ -1148,7 +1011,6 @@
           </span>
         </p>
 
-
         <button
           class="examples-close"
           type="button"
@@ -1165,8 +1027,6 @@
       <div class="examples-content">
 
 
-        <!-- SNAPS -->
-
         <section
           class="example-panel snaps-grid"
           data-example-panel="snaps"
@@ -1176,11 +1036,7 @@
           <img src="assets/digitals-egor-v2/02.jpg" alt="Снепы модели">
           <img src="assets/digitals-egor-v2/03.jpg" alt="Снепы модели">
           <img src="assets/digitals-egor-v2/04.jpg" alt="Снепы модели">
-
-          <img
-            src="assets/digitals-egor-v2/06.jpg"
-            alt="Снепы модели"
-          >
+          <img src="assets/digitals-egor-v2/06.jpg" alt="Снепы модели">
 
           <img
             src="assets/digitals-egor-v2/07.jpg"
@@ -1264,8 +1120,6 @@
 
 
 
-        <!-- PORTFOLIO -->
-
         <section
           class="example-panel portfolio-grid"
           data-example-panel="portfolio"
@@ -1284,8 +1138,6 @@
         </section>
 
 
-
-        <!-- VIDEO -->
 
         <section
           class="example-panel video-grid"
@@ -1308,7 +1160,6 @@
 
             </video>
 
-
             <figcaption>
 
               <span data-i18n="examples.introduction">
@@ -1322,7 +1173,6 @@
             </figcaption>
 
           </figure>
-
 
 
           <figure>
@@ -1339,7 +1189,6 @@
               >
 
             </video>
-
 
             <figcaption>
 
@@ -1366,10 +1215,7 @@
 
 
 
-  <!-- EXISTING READY SCRIPT -->
-
   <script src="script.js?v=50"></script>
 
 </body>
-
 </html>
