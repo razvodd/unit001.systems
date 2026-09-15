@@ -15,14 +15,11 @@
 
   <style>
     :root {
-      --page-x: 8px;
-      --page-y: 8px;
-
-      --header-height: 36px;
-      --header-bg: rgba(220, 220, 220, 0.76);
-
       --black: #000;
       --white: #fff;
+
+      --pad-x: 24px;
+      --pad-y: 24px;
 
       --ease: cubic-bezier(.22,.75,.18,1);
     }
@@ -44,8 +41,8 @@
 
       overflow: hidden;
 
-      background: #fff;
-      color: #000;
+      background: var(--white);
+      color: var(--black);
 
       font-family:
         Inter,
@@ -70,69 +67,54 @@
       font: inherit;
     }
 
-
     /* =====================================================
-       HEADER
+       HOME
        ===================================================== */
 
-    .header {
-      position: fixed;
+    .home {
+      position: relative;
 
-      z-index: 100;
+      width: 100%;
+      height: 100dvh;
 
-      top: var(--page-y);
-      left: var(--page-x);
-      right: var(--page-x);
-
-      height: var(--header-height);
-
-      border-radius: 18px;
-
-      background: var(--header-bg);
-
-      -webkit-backdrop-filter: blur(18px);
-      backdrop-filter: blur(18px);
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      overflow: hidden;
-
-      transition:
-        background 240ms var(--ease);
+      background: #fff;
     }
-
-
-    /* ПУСТАЯ ЗОНА ВМЕСТО READY */
-
-    .home-zone {
-      display: block;
-
-      height: 100%;
-      flex: 1;
-
-      cursor: pointer;
-    }
-
 
     /* =====================================================
-       MENU BUTTON
+       INVISIBLE HOME LINK AREA
+       ===================================================== */
+
+    .home-link {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 120px;
+      height: 72px;
+
+      z-index: 20;
+    }
+
+    /* =====================================================
+       MENU TRIGGER
        ===================================================== */
 
     .menu-button {
-      position: relative;
+      position: fixed;
 
-      flex: 0 0 44px;
+      top: var(--pad-y);
+      right: var(--pad-x);
 
-      width: 44px;
-      height: 100%;
+      z-index: 100;
+
+      width: 40px;
+      height: 32px;
 
       padding: 0;
       margin: 0;
 
       border: 0;
-
       background: transparent;
 
       cursor: pointer;
@@ -143,84 +125,70 @@
     .menu-button span {
       position: absolute;
 
-      left: 50%;
       top: 50%;
+      right: 0;
 
-      display: block;
-
-      width: 14px;
+      width: 28px;
       height: 1px;
 
       background: #000;
 
       transform:
-        translate(-50%, -50%)
+        translateY(-50%)
         rotate(0deg);
 
       transform-origin: center;
 
       transition:
-        transform 280ms var(--ease),
-        background 220ms var(--ease);
+        transform 260ms var(--ease),
+        background 200ms ease;
     }
 
-
-    /* ОТКРЫТО — ГОРИЗОНТАЛЬНАЯ СТАНОВИТСЯ ВЕРТИКАЛЬНОЙ */
-
     body.menu-open .menu-button span {
+      background: #fff;
+
       transform:
-        translate(-50%, -50%)
+        translateY(-50%)
         rotate(90deg);
     }
 
-
     /* =====================================================
-       CLOSED HOME
+       PHONE
        ===================================================== */
-
-    .home {
-      position: relative;
-
-      width: 100%;
-      height: 100dvh;
-    }
 
     .phone {
       position: fixed;
 
-      z-index: 20;
+      left: var(--pad-x);
+      bottom: var(--pad-y);
 
-      left: 24px;
-      bottom: 22px;
+      z-index: 20;
 
       font-size: 22px;
       line-height: 1;
 
       font-weight: 400;
+
       letter-spacing: -0.02em;
 
       white-space: nowrap;
-
-      transition:
-        opacity 180ms ease;
     }
 
+    body.menu-open .phone {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     /* =====================================================
-       OVERLAY
+       OVERLAY MENU
        ===================================================== */
 
     .overlay {
       position: fixed;
 
-      z-index: 50;
-
       inset: 0;
 
-      padding:
-        0
-        36px
-        38px;
+      z-index: 80;
 
       background: #000;
       color: #fff;
@@ -228,14 +196,19 @@
       display: flex;
       align-items: flex-end;
 
+      padding:
+        0
+        40px
+        32px;
+
       opacity: 0;
       visibility: hidden;
 
       pointer-events: none;
 
       transition:
-        opacity 240ms var(--ease),
-        visibility 240ms var(--ease);
+        opacity 220ms var(--ease),
+        visibility 220ms var(--ease);
     }
 
     body.menu-open .overlay {
@@ -245,46 +218,28 @@
       pointer-events: auto;
     }
 
-
-    /*
-      Header остаётся поверх overlay.
-    */
-
-    body.menu-open .header {
-      background: rgba(190, 190, 190, 0.86);
-    }
-
-    body.menu-open .phone {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-
     /* =====================================================
        GIANT NAV
        ===================================================== */
 
     .overlay-nav {
+      width: 100%;
+
       display: flex;
       flex-direction: column;
 
       align-items: flex-start;
-
-      width: 100%;
-
-      padding-bottom: 0;
     }
 
     .overlay-nav a {
       display: block;
 
       margin: 0;
-
       padding: 0;
 
       color: #fff;
 
-      font-size: clamp(72px, 7.5vw, 150px);
+      font-size: clamp(76px, 7.4vw, 150px);
       line-height: 0.92;
 
       font-weight: 400;
@@ -293,19 +248,17 @@
 
       transition:
         opacity 160ms ease,
-        transform 200ms var(--ease);
+        transform 180ms var(--ease);
     }
 
     .overlay-nav:hover a {
-      opacity: 0.35;
+      opacity: 0.28;
     }
 
     .overlay-nav a:hover {
       opacity: 1;
-
       transform: translateX(10px);
     }
-
 
     /* =====================================================
        MOBILE
@@ -314,31 +267,32 @@
     @media (max-width: 700px) {
 
       :root {
-        --page-x: 6px;
-        --page-y: 6px;
-        --header-height: 34px;
-      }
-
-      .header {
-        border-radius: 17px;
+        --pad-x: 16px;
+        --pad-y: 16px;
       }
 
       .phone {
-        left: 16px;
-        bottom: 16px;
-
         font-size: 22px;
+      }
+
+      .menu-button {
+        width: 36px;
+        height: 28px;
+      }
+
+      .menu-button span {
+        width: 24px;
       }
 
       .overlay {
         padding:
           0
           16px
-          22px;
+          20px;
       }
 
       .overlay-nav a {
-        font-size: clamp(52px, 15vw, 90px);
+        font-size: clamp(54px, 15vw, 92px);
         line-height: 0.94;
       }
 
@@ -347,7 +301,6 @@
       }
     }
 
-
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -355,35 +308,21 @@
         transition: none !important;
       }
     }
-
   </style>
 </head>
 
-
 <body>
 
+  <main class="home">
 
-  <!-- HEADER -->
-
-  <header class="header">
-
-    <!--
-      Здесь раньше было Ready.
-      Теперь визуально здесь НИЧЕГО.
-
-      Но вся пустая левая зона — ссылка на главную.
-    -->
+    <!-- Пустая зона слева сверху ведёт на главную -->
     <a
-      class="home-zone"
+      class="home-link"
       href="/"
       aria-label="Главная"
     ></a>
 
-
-    <!--
-      Горизонтальная палочка.
-      При открытии становится вертикальной.
-    -->
+    <!-- Только полоска -->
     <button
       class="menu-button"
       id="menuButton"
@@ -395,14 +334,7 @@
       <span></span>
     </button>
 
-  </header>
-
-
-
-  <!-- ГЛАВНАЯ -->
-
-  <main class="home">
-
+    <!-- Телефон -->
     <a
       class="phone"
       href="tel:+79808007001"
@@ -412,16 +344,12 @@
 
   </main>
 
-
-
-  <!-- БОЛЬШОЕ МЕНЮ -->
-
+  <!-- Большое чёрное меню -->
   <nav
     class="overlay"
     id="overlay"
     aria-hidden="true"
   >
-
     <div class="overlay-nav">
 
       <a href="/ready">
@@ -437,19 +365,14 @@
       </a>
 
     </div>
-
   </nav>
-
-
 
   <script>
     const body = document.body;
     const button = document.getElementById("menuButton");
     const overlay = document.getElementById("overlay");
 
-
     function setMenu(open) {
-
       body.classList.toggle("menu-open", open);
 
       button.setAttribute(
@@ -459,46 +382,31 @@
 
       button.setAttribute(
         "aria-label",
-        open
-          ? "Закрыть меню"
-          : "Открыть меню"
+        open ? "Закрыть меню" : "Открыть меню"
       );
 
       overlay.setAttribute(
         "aria-hidden",
         String(!open)
       );
-
     }
 
-
     button.addEventListener("click", () => {
-
-      const open =
-        !body.classList.contains("menu-open");
-
+      const open = !body.classList.contains("menu-open");
       setMenu(open);
-
     });
 
-
     document.addEventListener("keydown", (event) => {
-
       if (event.key === "Escape") {
         setMenu(false);
       }
-
     });
 
-
     overlay.addEventListener("click", (event) => {
-
       if (event.target.closest("a")) {
         setMenu(false);
       }
-
     });
-
   </script>
 
 </body>
