@@ -119,7 +119,7 @@ a { color: inherit; text-decoration: none; }
 .footer-right { justify-self: center; }
 .footer .contact-meta {
   gap: 14px;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   letter-spacing: .055em;
 }
