@@ -2,138 +2,492 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta
-    name="description"
-    content="Events — multi-layer documentation of people, movement, space, sound and sequence."
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>Events</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    :root {
+      --black: #000;
+      --white: #fff;
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
-    rel="stylesheet"
-  >
+      --pad-x: 24px;
+      --pad-y: 24px;
 
-  <!-- use the same styles as Ready -->
-  <link rel="stylesheet" href="../r/styles.css?v=66">
+      --small: clamp(12px, .8vw, 14px);
+      --body: clamp(18px, 1.45vw, 26px);
+      --display: clamp(72px, 10vw, 170px);
+
+      --ease: cubic-bezier(.22,.75,.18,1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+
+      background: var(--white);
+      color: var(--black);
+
+      font-family:
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+
+    /* --------------------------------
+       PAGE
+       -------------------------------- */
+
+    .page {
+      position: relative;
+
+      width: 100vw;
+      height: 100dvh;
+
+      padding:
+        var(--pad-y)
+        var(--pad-x);
+
+      overflow: hidden;
+    }
+
+
+    /* --------------------------------
+       MENU BUTTON
+       -------------------------------- */
+
+    .menu {
+      position: fixed;
+
+      top: var(--pad-y);
+      right: var(--pad-x);
+
+      z-index: 100;
+
+      width: 34px;
+      height: 24px;
+
+      padding: 0;
+      margin: 0;
+
+      border: 0;
+      background: transparent;
+
+      cursor: pointer;
+    }
+
+    .menu span {
+      position: absolute;
+
+      top: 50%;
+      right: 0;
+
+      width: 26px;
+      height: 1px;
+
+      background: #000;
+
+      transform:
+        translateY(-50%)
+        rotate(0deg);
+
+      transform-origin: center;
+
+      transition:
+        transform 260ms var(--ease),
+        background 180ms ease;
+    }
+
+    body.menu-open .menu span {
+      background: #fff;
+
+      transform:
+        translateY(-50%)
+        rotate(90deg);
+    }
+
+
+    /* --------------------------------
+       EVENTS CONTENT
+       -------------------------------- */
+
+    .content {
+      position: absolute;
+
+      left: var(--pad-x);
+      top: 16vh;
+
+      width: min(760px, calc(100vw - 48px));
+    }
+
+    .label {
+      margin: 0 0 42px;
+
+      font-size: var(--small);
+      line-height: 1;
+
+      letter-spacing: .02em;
+    }
+
+    h1 {
+      margin: 0 0 46px;
+
+      font-size: var(--display);
+      line-height: .82;
+
+      font-weight: 400;
+
+      letter-spacing: -.075em;
+    }
+
+    .intro {
+      margin: 0 0 42px;
+
+      font-size: var(--body);
+      line-height: 1.2;
+    }
+
+    .layers {
+      margin: 0 0 42px;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 2px;
+
+      font-size: var(--body);
+      line-height: 1.04;
+    }
+
+    .statement {
+      margin: 0 0 42px;
+
+      font-size: var(--body);
+      line-height: 1.1;
+    }
+
+    .copy {
+      max-width: 620px;
+
+      margin: 0;
+
+      font-size: var(--body);
+      line-height: 1.25;
+    }
+
+
+    /* --------------------------------
+       PHONE
+       -------------------------------- */
+
+    .phone {
+      position: fixed;
+
+      left: var(--pad-x);
+      bottom: var(--pad-y);
+
+      z-index: 20;
+
+      font-size: 22px;
+      line-height: 1;
+
+      letter-spacing: -.025em;
+
+      white-space: nowrap;
+    }
+
+    body.menu-open .phone {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+
+    /* --------------------------------
+       OVERLAY MENU
+       -------------------------------- */
+
+    .overlay {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 80;
+
+      background: #000;
+      color: #fff;
+
+      display: flex;
+      align-items: flex-end;
+
+      padding:
+        0
+        var(--pad-x)
+        var(--pad-y);
+
+      opacity: 0;
+      visibility: hidden;
+
+      pointer-events: none;
+
+      transition:
+        opacity 220ms var(--ease),
+        visibility 220ms var(--ease);
+    }
+
+    body.menu-open .overlay {
+      opacity: 1;
+      visibility: visible;
+
+      pointer-events: auto;
+    }
+
+    .overlay-nav {
+      display: flex;
+      flex-direction: column;
+
+      align-items: flex-start;
+    }
+
+    .overlay-nav a {
+      display: block;
+
+      margin: 0;
+      padding: 0;
+
+      font-size: clamp(90px, 12vw, 210px);
+      line-height: .82;
+
+      font-weight: 400;
+
+      letter-spacing: -.075em;
+
+      transition:
+        opacity 150ms ease,
+        transform 180ms var(--ease);
+    }
+
+    .overlay-nav:hover a {
+      opacity: .25;
+    }
+
+    .overlay-nav a:hover {
+      opacity: 1;
+      transform: translateX(8px);
+    }
+
+
+    /* --------------------------------
+       MOBILE
+       -------------------------------- */
+
+    @media (max-width: 700px) {
+
+      :root {
+        --pad-x: 16px;
+        --pad-y: 16px;
+
+        --body: 16px;
+      }
+
+      .content {
+        top: 12vh;
+
+        width: calc(100vw - 32px);
+      }
+
+      .label {
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        margin-bottom: 32px;
+
+        font-size: 21vw;
+      }
+
+      .intro,
+      .layers,
+      .statement {
+        margin-bottom: 28px;
+      }
+
+      .copy {
+        max-width: 100%;
+      }
+
+      .phone {
+        font-size: 22px;
+      }
+
+      .overlay-nav a {
+        font-size: 24vw;
+      }
+
+      .overlay-nav a:hover {
+        transform: none;
+      }
+    }
+
+  </style>
 </head>
+
 
 <body>
 
-  <header class="header">
 
-    <a
-      class="wordmark"
-      href="/"
-      aria-label="Home"
-    ></a>
+  <!-- ONE-SCREEN EVENTS PAGE -->
+
+  <main class="page">
 
     <button
       class="menu"
+      id="menuButton"
+      type="button"
       aria-label="Open menu"
       aria-expanded="false"
     >
       <span></span>
     </button>
 
-  </header>
 
+    <section class="content">
 
-  <nav
-    class="overlay"
-    aria-hidden="true"
-  >
-    <a href="/r/">READY</a>
-    <a href="/e/">EVENT</a>
-  </nav>
-
-
-  <main id="top">
-
-    <section class="page hero clear-hero">
-
-      <h1>Events.</h1>
-
-      <p class="lead">
-
-        <span class="lead-list">
-          <span>PHOTO</span>
-          <span>VIDEO</span>
-          <span>AUDIO</span>
-          <span>SPACE</span>
-          <span>DATA</span>
-          <span>TRACE</span>
-        </span>
-
-        <span class="lead-summary">
-          <span>ONE EVENT.</span>
-          <span>MULTIPLE LAYERS.</span>
-        </span>
-
+      <p class="label">
+        E
       </p>
 
-    </section>
-
-
-    <section class="page intro">
-
-      <p class="intro-label">
+      <h1>
         EVENTS
-      </p>
+      </h1>
 
-      <p class="intro-title">
+      <p class="intro">
         An event happens once.
       </p>
 
-      <p class="intro-title">
-        I document an event as a single system:
-        people, movement, space, sound and sequence.
-      </p>
+      <div class="layers">
+        <span>PHOTO</span>
+        <span>VIDEO</span>
+        <span>AUDIO</span>
+        <span>SPACE</span>
+        <span>DATA</span>
+        <span>TRACE</span>
+      </div>
 
-    </section>
-
-
-    <section class="page final">
-
-      <p class="eyebrow">
+      <p class="statement">
         ONE EVENT.<br>
         MULTIPLE LAYERS.
       </p>
 
+      <p class="copy">
+        I document an event as a single system:
+        people, movement, space, sound, and sequence.
+      </p>
+
     </section>
+
+
+    <a
+      class="phone"
+      href="tel:+79808007001"
+    >
+      7.980.800.7.001
+    </a>
 
   </main>
 
 
-  <footer class="footer">
+  <!-- FULL SCREEN MENU -->
 
-    <div class="contact-meta">
-      <a href="tel:+79808007001">
-        7.980.800.7.001
+  <nav
+    class="overlay"
+    id="overlay"
+    aria-hidden="true"
+  >
+
+    <div class="overlay-nav">
+
+      <a href="/r/">
+        R
       </a>
+
+      <a href="/e/">
+        E
+      </a>
+
     </div>
 
-  </footer>
+  </nav>
 
 
   <script>
-  const menu = document.querySelector('.menu');
-  const overlay = document.querySelector('.overlay');
+    const button = document.getElementById("menuButton");
+    const overlay = document.getElementById("overlay");
 
-  menu.addEventListener('click', () => {
-    const open = menu.getAttribute('aria-expanded') === 'true';
+    function setMenu(open) {
+      document.body.classList.toggle("menu-open", open);
 
-    menu.setAttribute('aria-expanded', String(!open));
-    overlay.setAttribute('aria-hidden', String(open));
+      button.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
 
-    document.body.classList.toggle('menu-open', !open);
-  });
-</script>
+      button.setAttribute(
+        "aria-label",
+        open ? "Close menu" : "Open menu"
+      );
+
+      overlay.setAttribute(
+        "aria-hidden",
+        String(!open)
+      );
+    }
+
+    button.addEventListener("click", () => {
+      setMenu(
+        !document.body.classList.contains("menu-open")
+      );
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setMenu(false);
+      }
+    });
+
+    overlay.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        setMenu(false);
+      }
+    });
+  </script>
+
 
 </body>
 </html>

@@ -1,17 +1,13 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-  <title>U</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
-    rel="stylesheet"
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
+
+  <title>UNIT001.SYSTEMS</title>
 
   <style>
     :root {
@@ -45,7 +41,6 @@
       color: var(--black);
 
       font-family:
-        Inter,
         Helvetica,
         Arial,
         sans-serif;
@@ -67,40 +62,28 @@
       font: inherit;
     }
 
-    /* =====================================================
-       HOME
-       ===================================================== */
 
-    .home {
+    /* --------------------------------
+       PAGE
+       -------------------------------- */
+
+    .page {
       position: relative;
 
-      width: 100%;
+      width: 100vw;
       height: 100dvh;
+
+      overflow: hidden;
 
       background: #fff;
     }
 
-    /* =====================================================
-       INVISIBLE HOME LINK AREA
-       ===================================================== */
 
-    .home-link {
-      position: fixed;
+    /* --------------------------------
+       MENU BUTTON
+       -------------------------------- */
 
-      top: 0;
-      left: 0;
-
-      width: 120px;
-      height: 72px;
-
-      z-index: 20;
-    }
-
-    /* =====================================================
-       MENU TRIGGER
-       ===================================================== */
-
-    .menu-button {
+    .menu {
       position: fixed;
 
       top: var(--pad-y);
@@ -108,8 +91,8 @@
 
       z-index: 100;
 
-      width: 40px;
-      height: 32px;
+      width: 34px;
+      height: 24px;
 
       padding: 0;
       margin: 0;
@@ -122,13 +105,13 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .menu-button span {
+    .menu span {
       position: absolute;
 
       top: 50%;
       right: 0;
 
-      width: 28px;
+      width: 26px;
       height: 1px;
 
       background: #000;
@@ -141,10 +124,10 @@
 
       transition:
         transform 260ms var(--ease),
-        background 200ms ease;
+        background 180ms ease;
     }
 
-    body.menu-open .menu-button span {
+    body.menu-open .menu span {
       background: #fff;
 
       transform:
@@ -152,9 +135,10 @@
         rotate(90deg);
     }
 
-    /* =====================================================
+
+    /* --------------------------------
        PHONE
-       ===================================================== */
+       -------------------------------- */
 
     .phone {
       position: fixed;
@@ -169,9 +153,12 @@
 
       font-weight: 400;
 
-      letter-spacing: -0.02em;
+      letter-spacing: -.025em;
 
       white-space: nowrap;
+
+      transition:
+        opacity 160ms ease;
     }
 
     body.menu-open .phone {
@@ -179,9 +166,10 @@
       pointer-events: none;
     }
 
-    /* =====================================================
-       OVERLAY MENU
-       ===================================================== */
+
+    /* --------------------------------
+       FULL SCREEN MENU
+       -------------------------------- */
 
     .overlay {
       position: fixed;
@@ -198,8 +186,8 @@
 
       padding:
         0
-        40px
-        32px;
+        var(--pad-x)
+        var(--pad-y);
 
       opacity: 0;
       visibility: hidden;
@@ -218,13 +206,12 @@
       pointer-events: auto;
     }
 
-    /* =====================================================
-       GIANT NAV
-       ===================================================== */
+
+    /* --------------------------------
+       NAV
+       -------------------------------- */
 
     .overlay-nav {
-      width: 100%;
-
       display: flex;
       flex-direction: column;
 
@@ -237,32 +224,32 @@
       margin: 0;
       padding: 0;
 
-      color: #fff;
-
-      font-size: clamp(76px, 7.4vw, 150px);
-      line-height: 0.92;
+      font-size: clamp(90px, 12vw, 210px);
+      line-height: .82;
 
       font-weight: 400;
 
-      letter-spacing: -0.055em;
+      letter-spacing: -.075em;
 
       transition:
-        opacity 160ms ease,
+        opacity 150ms ease,
         transform 180ms var(--ease);
     }
 
     .overlay-nav:hover a {
-      opacity: 0.28;
+      opacity: .25;
     }
 
     .overlay-nav a:hover {
       opacity: 1;
-      transform: translateX(10px);
+
+      transform: translateX(8px);
     }
 
-    /* =====================================================
+
+    /* --------------------------------
        MOBILE
-       ===================================================== */
+       -------------------------------- */
 
     @media (max-width: 700px) {
 
@@ -275,25 +262,8 @@
         font-size: 22px;
       }
 
-      .menu-button {
-        width: 36px;
-        height: 28px;
-      }
-
-      .menu-button span {
-        width: 24px;
-      }
-
-      .overlay {
-        padding:
-          0
-          16px
-          20px;
-      }
-
       .overlay-nav a {
-        font-size: clamp(54px, 15vw, 92px);
-        line-height: 0.94;
+        font-size: 24vw;
       }
 
       .overlay-nav a:hover {
@@ -301,40 +271,41 @@
       }
     }
 
+
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
         transition: none !important;
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <main class="home">
 
-    <!-- Пустая зона слева сверху ведёт на главную -->
-    <a
-      class="home-link"
-      href="/"
-      aria-label="Главная"
-    ></a>
+  <main class="page">
 
-    <!-- Только полоска -->
+    <!-- TOP RIGHT DASH -->
+
     <button
-      class="menu-button"
+      class="menu"
       id="menuButton"
       type="button"
-      aria-label="Открыть меню"
+      aria-label="Open menu"
       aria-expanded="false"
-      aria-controls="overlay"
     >
       <span></span>
     </button>
 
-    <!-- Телефон -->
+
+    <!-- BOTTOM LEFT PHONE -->
+
     <a
       class="phone"
       href="tel:+79808007001"
@@ -344,36 +315,45 @@
 
   </main>
 
-  <!-- Большое чёрное меню -->
+
+  <!-- FULL SCREEN MENU -->
+
   <nav
     class="overlay"
     id="overlay"
     aria-hidden="true"
   >
+
     <div class="overlay-nav">
 
-      <a href="/r">
-        READY
+      <a href="/r/">
+        R
       </a>
 
-      <a href="/e">
-        EVENTS
-      </a>
-
-      <a href="mailto:hello@unit001.systems">
-        CONTACT
+      <a href="/e/">
+        E
       </a>
 
     </div>
+
   </nav>
 
+
   <script>
-    const body = document.body;
-    const button = document.getElementById("menuButton");
-    const overlay = document.getElementById("overlay");
+
+    const button =
+      document.getElementById("menuButton");
+
+    const overlay =
+      document.getElementById("overlay");
+
 
     function setMenu(open) {
-      body.classList.toggle("menu-open", open);
+
+      document.body.classList.toggle(
+        "menu-open",
+        open
+      );
 
       button.setAttribute(
         "aria-expanded",
@@ -382,32 +362,58 @@
 
       button.setAttribute(
         "aria-label",
-        open ? "Закрыть меню" : "Открыть меню"
+        open
+          ? "Close menu"
+          : "Open menu"
       );
 
       overlay.setAttribute(
         "aria-hidden",
         String(!open)
       );
+
     }
 
-    button.addEventListener("click", () => {
-      const open = !body.classList.contains("menu-open");
-      setMenu(open);
-    });
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        setMenu(false);
-      }
-    });
+    button.addEventListener(
+      "click",
+      () => {
 
-    overlay.addEventListener("click", (event) => {
-      if (event.target.closest("a")) {
-        setMenu(false);
+        setMenu(
+          !document.body.classList.contains(
+            "menu-open"
+          )
+        );
+
       }
-    });
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key === "Escape") {
+          setMenu(false);
+        }
+
+      }
+    );
+
+
+    overlay.addEventListener(
+      "click",
+      (event) => {
+
+        if (event.target.closest("a")) {
+          setMenu(false);
+        }
+
+      }
+    );
+
   </script>
+
 
 </body>
 </html>
