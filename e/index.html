@@ -121,8 +121,19 @@
   </footer>
 
 
-  <!-- use the same interaction script as Ready -->
-  <!-- <script src="../r/script.js?v=50"></script> -->
+  <script>
+  const menu = document.querySelector('.menu');
+  const overlay = document.querySelector('.overlay');
+
+  menu.addEventListener('click', () => {
+    const open = menu.getAttribute('aria-expanded') === 'true';
+
+    menu.setAttribute('aria-expanded', String(!open));
+    overlay.setAttribute('aria-hidden', String(open));
+
+    document.body.classList.toggle('menu-open', !open);
+  });
+</script>
 
 </body>
 </html>
