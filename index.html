@@ -1,344 +1,590 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-<title>UNIT</title>
-
-<style>
-  :root {
-    --black: #000;
-    --white: #fff;
-
-    --x: clamp(18px, 2.2vw, 32px);
-    --y: clamp(18px, 2.2vw, 28px);
-
-    --font:
-      "SFMono-Regular",
-      Consolas,
-      "Liberation Mono",
-      Menlo,
-      monospace;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-
-  body {
-    overflow: hidden;
-    background: var(--white);
-    color: var(--black);
-    font-family: var(--font);
-  }
-
-  a,
-  a:link,
-  a:visited,
-  a:hover,
-  a:focus,
-  a:active {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  button {
-    font: inherit;
-  }
-
-  /* PAGE */
-
-  .page {
-    position: relative;
-    width: 100vw;
-    height: 100dvh;
-    overflow: hidden;
-    background: #fff;
-  }
-
-  /* MENU TRIGGER */
-
-  .menu-trigger {
-    position: fixed;
-    z-index: 100;
-
-    top: var(--y);
-    right: var(--x);
-
-    width: 42px;
-    height: 24px;
-
-    padding: 0;
-    margin: 0;
-
-    border: 0;
-    background: transparent;
-
-    cursor: pointer;
-  }
-
-  .menu-trigger::before {
-    content: "";
-
-    position: absolute;
-
-    right: 0;
-    top: 50%;
-
-    width: 28px;
-    height: 1px;
-
-    background: #000;
-
-    transform: translateY(-50%);
-    transform-origin: right center;
-
-    transition:
-      width 180ms ease,
-      transform 220ms ease;
-  }
-
-  .menu-trigger:hover::before {
-    width: 38px;
-  }
-
-  body.menu-open .menu-trigger::before {
-    width: 28px;
-    transform:
-      translateY(-50%)
-      rotate(-45deg);
-  }
-
-  /* PHONE */
-
-  .phone {
-    position: fixed;
-    z-index: 20;
-
-    left: var(--x);
-    bottom: var(--y);
-
-    font-size: clamp(11px, 0.9vw, 13px);
-    line-height: 1;
-    letter-spacing: 0.025em;
-
-    white-space: nowrap;
-  }
-
-  /* TRANSPARENT MENU */
-
-  .menu {
-    position: fixed;
-    z-index: 50;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition:
-      opacity 240ms ease,
-      visibility 240ms ease;
-  }
-
-  .menu-surface {
-    position: absolute;
-    inset: 0;
-
-    background: rgba(255, 255, 255, 0.72);
-
-    -webkit-backdrop-filter: blur(22px);
-    backdrop-filter: blur(22px);
-
-    transform: translateY(-8px);
-
-    transition:
-      transform 280ms cubic-bezier(.2,.8,.2,1);
-  }
-
-  body.menu-open .menu {
-    pointer-events: auto;
-
-    opacity: 1;
-    visibility: visible;
-  }
-
-  body.menu-open .menu-surface {
-    transform: translateY(0);
-  }
-
-  /* MENU CONTENT */
-
-  .menu-content {
-    position: absolute;
-
-    top: calc(var(--y) + 58px);
-    right: var(--x);
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    gap: 10px;
-
-    text-align: right;
-
-    font-size: clamp(11px, 0.9vw, 13px);
-    line-height: 1.2;
-    letter-spacing: 0.02em;
-  }
-
-  .menu-content a {
-    position: relative;
-
-    display: inline-block;
-
-    transition:
-      transform 160ms ease;
-  }
-
-  .menu-content a:hover {
-    transform: translateX(-6px);
-  }
-
-  /* OPTIONAL SMALL INDEX */
-
-  .menu-content .index {
-    display: inline-block;
-
-    min-width: 34px;
-
-    margin-right: 12px;
-
-    text-align: left;
-  }
-
-  /* MOBILE */
-
-  @media (max-width: 600px) {
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="UNIT">
+  <title>UNIT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
     :root {
-      --x: 16px;
-      --y: 16px;
+      --bg: #ffffff;
+      --fg: #000000;
+
+      --overlay-bg: rgba(0, 0, 0, 0.94);
+      --overlay-fg: #ffffff;
+
+      --pad-x: 24px;
+      --pad-y: 24px;
+
+      --ease:
+        cubic-bezier(.22, .72, .18, 1);
     }
 
-    .phone {
-      font-size: 11px;
+    * {
+      box-sizing: border-box;
     }
 
-    .menu-content {
-      top: 64px;
-      font-size: 11px;
-      gap: 12px;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
     }
 
-    .menu-trigger {
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      position: relative;
+
+      width: 100%;
+      height: 100dvh;
+
+      overflow: hidden;
+
+      background: var(--bg);
+      color: var(--fg);
+
+      font-family:
+        Inter,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      font-weight: 400;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      color: inherit;
+    }
+
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
+
+    .header {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      z-index: 100;
+
+      width: 100%;
+
+      padding:
+        max(var(--pad-y), env(safe-area-inset-top))
+        max(var(--pad-x), env(safe-area-inset-right))
+        0
+        max(var(--pad-x), env(safe-area-inset-left));
+
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      pointer-events: none;
+    }
+
+
+    /*
+      Здесь намеренно пусто.
+      На Ready на этом месте находится wordmark.
+    */
+
+    .wordmark-empty {
+      width: 1px;
+      height: 1px;
+    }
+
+
+    /* =========================================================
+       MENU BUTTON
+       ========================================================= */
+
+    .menu {
+      position: relative;
+
+      width: 48px;
+      height: 32px;
+
+      margin: 0;
+      padding: 0;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      cursor: pointer;
+
+      pointer-events: auto;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu span {
+      position: absolute;
+
+      top: 50%;
+      right: 0;
+
+      display: block;
+
+      width: 30px;
+      height: 1px;
+
+      background: #000;
+
+      transform:
+        translateY(-50%)
+        rotate(0deg);
+
+      transform-origin: center;
+
+      transition:
+        width 220ms var(--ease),
+        background 220ms var(--ease),
+        transform 320ms var(--ease);
+    }
+
+    .menu:hover span {
+      width: 40px;
+    }
+
+
+    /* MENU OPEN STATE */
+
+    body.menu-open .menu span {
+      width: 30px;
+
+      background: #fff;
+
+      transform:
+        translateY(-50%)
+        rotate(-45deg);
+    }
+
+    body.menu-open .menu:hover span {
       width: 38px;
     }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      transition: none !important;
+
+    /* =========================================================
+       MAIN
+       ========================================================= */
+
+    .home {
+      position: relative;
+
+      width: 100%;
+      height: 100dvh;
+
+      background: #fff;
     }
-  }
-</style>
+
+
+    /* =========================================================
+       PHONE
+       ========================================================= */
+
+    .phone {
+      position: fixed;
+
+      left: max(var(--pad-x), env(safe-area-inset-left));
+      bottom: max(var(--pad-y), env(safe-area-inset-bottom));
+
+      z-index: 20;
+
+      display: inline-block;
+
+      font-size: 14px;
+      line-height: 1;
+
+      font-weight: 400;
+
+      letter-spacing: 0;
+
+      white-space: nowrap;
+
+      transition:
+        transform 200ms var(--ease),
+        opacity 200ms var(--ease);
+    }
+
+    .phone:hover {
+      transform: translateX(4px);
+    }
+
+
+    /* =========================================================
+       OVERLAY
+       ========================================================= */
+
+    .overlay {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 80;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+
+      padding:
+        max(var(--pad-y), env(safe-area-inset-top))
+        max(var(--pad-x), env(safe-area-inset-right))
+        max(var(--pad-y), env(safe-area-inset-bottom))
+        max(var(--pad-x), env(safe-area-inset-left));
+
+      background: var(--overlay-bg);
+      color: var(--overlay-fg);
+
+      opacity: 0;
+      visibility: hidden;
+
+      pointer-events: none;
+
+      transform: translateY(-8px);
+
+      transition:
+        opacity 260ms var(--ease),
+        visibility 260ms var(--ease),
+        transform 360ms var(--ease);
+
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+    }
+
+    body.menu-open .overlay {
+      opacity: 1;
+      visibility: visible;
+
+      pointer-events: auto;
+
+      transform: translateY(0);
+    }
+
+
+    /* =========================================================
+       OVERLAY NAVIGATION
+       ========================================================= */
+
+    .overlay-nav {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      gap: 0;
+    }
+
+    .overlay-nav a {
+      position: relative;
+
+      display: inline-flex;
+      align-items: baseline;
+
+      width: auto;
+
+      padding: 3px 0;
+
+      font-size: clamp(34px, 5.5vw, 92px);
+      line-height: 0.98;
+
+      font-weight: 400;
+
+      letter-spacing: -0.045em;
+
+      color: #fff;
+
+      opacity: 1;
+
+      transition:
+        transform 220ms var(--ease),
+        opacity 220ms var(--ease);
+    }
+
+    .overlay-nav:hover a {
+      opacity: 0.28;
+    }
+
+    .overlay-nav a:hover {
+      opacity: 1;
+
+      transform: translateX(10px);
+    }
+
+
+    /* =========================================================
+       MENU META
+       ========================================================= */
+
+    .overlay-meta {
+      position: absolute;
+
+      left: max(var(--pad-x), env(safe-area-inset-left));
+      top: max(var(--pad-y), env(safe-area-inset-top));
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 4px;
+
+      font-size: 11px;
+      line-height: 1.25;
+
+      letter-spacing: 0.01em;
+
+      color: #fff;
+    }
+
+
+    /* =========================================================
+       BODY STATE
+       ========================================================= */
+
+    body.menu-open .phone {
+      opacity: 0;
+
+      pointer-events: none;
+    }
+
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      :root {
+        --pad-x: 16px;
+        --pad-y: 16px;
+      }
+
+      .menu {
+        width: 42px;
+        height: 28px;
+      }
+
+      .menu span {
+        width: 26px;
+      }
+
+      .menu:hover span,
+      body.menu-open .menu span,
+      body.menu-open .menu:hover span {
+        width: 26px;
+      }
+
+      .phone {
+        font-size: 13px;
+      }
+
+      .overlay-nav a {
+        padding: 2px 0;
+
+        font-size: clamp(34px, 12vw, 58px);
+
+        letter-spacing: -0.045em;
+      }
+
+      .overlay-nav a:hover {
+        transform: none;
+      }
+
+      .overlay-meta {
+        font-size: 10px;
+      }
+    }
+
+
+    /* =========================================================
+       REDUCED MOTION
+       ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+      }
+    }
+  </style>
 </head>
+
 
 <body>
 
-<div class="page">
+  <!-- =======================================================
+       HEADER
+       ======================================================= -->
 
-  <!-- MENU BUTTON -->
-  <button
-    class="menu-trigger"
-    id="menuTrigger"
-    aria-label="Open menu"
-    aria-expanded="false">
-  </button>
+  <header class="header">
 
-
-  <!-- ONLY OBJECT ON BOTTOM LEFT -->
-  <a
-    class="phone"
-    href="tel:+7XXXXXXXXXX">
-    +7.XXX.XXX.XX.XX
-  </a>
+    <!--
+      Слева намеренно пусто.
+      Никакого логотипа и никакого Ready.
+    -->
+    <span class="wordmark-empty" aria-hidden="true"></span>
 
 
-  <!-- TRANSPARENT MENU -->
-  <div class="menu" id="menu" aria-hidden="true">
+    <!--
+      Единственный элемент сверху:
+      короткая горизонтальная полоска.
+    -->
+    <button
+      class="menu"
+      id="menuButton"
+      type="button"
+      aria-label="Открыть меню"
+      aria-expanded="false"
+      aria-controls="mainMenu"
+    >
+      <span></span>
+    </button>
 
-    <div class="menu-surface"></div>
+  </header>
 
-    <nav class="menu-content">
+
+  <!-- =======================================================
+       CLOSED HOMEPAGE
+       ======================================================= -->
+
+  <main class="home">
+
+    <a
+      class="phone"
+      href="tel:+79808007001"
+      aria-label="Позвонить: 7 980 800 7 001"
+    >
+      7.980.800.7.001
+    </a>
+
+  </main>
+
+
+  <!-- =======================================================
+       LARGE DARK MENU
+       ======================================================= -->
+
+  <nav
+    class="overlay"
+    id="mainMenu"
+    aria-hidden="true"
+  >
+
+    <div class="overlay-meta">
+      <span>UNIT001.SYSTEMS</span>
+      <span>MOSCOW / 2026</span>
+    </div>
+
+
+    <div class="overlay-nav">
 
       <a href="/ready">
-        <span class="index">01</span>READY
+        Ready.
       </a>
 
       <a href="/events">
-        <span class="index">02</span>EVENTS
+        Events
       </a>
 
       <a href="mailto:hello@unit001.systems">
-        <span class="index">03</span>CONTACT
+        Contact
       </a>
 
-    </nav>
+    </div>
 
-  </div>
-
-</div>
+  </nav>
 
 
-<script>
-  const trigger = document.getElementById("menuTrigger");
-  const menu = document.getElementById("menu");
+  <!-- =======================================================
+       SCRIPT
+       ======================================================= -->
 
-  function setMenu(open) {
-    document.body.classList.toggle("menu-open", open);
+  <script>
+    const body = document.body;
+    const menuButton = document.getElementById("menuButton");
+    const mainMenu = document.getElementById("mainMenu");
 
-    trigger.setAttribute("aria-expanded", String(open));
-    trigger.setAttribute(
-      "aria-label",
-      open ? "Close menu" : "Open menu"
-    );
+    function setMenuState(open) {
+      body.classList.toggle("menu-open", open);
 
-    menu.setAttribute("aria-hidden", String(!open));
-  }
+      menuButton.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
 
-  trigger.addEventListener("click", () => {
-    const open = !document.body.classList.contains("menu-open");
-    setMenu(open);
-  });
+      menuButton.setAttribute(
+        "aria-label",
+        open ? "Закрыть меню" : "Открыть меню"
+      );
 
-  menu.addEventListener("click", (event) => {
-    if (
-      event.target === menu ||
-      event.target.classList.contains("menu-surface")
-    ) {
-      setMenu(false);
+      mainMenu.setAttribute(
+        "aria-hidden",
+        String(!open)
+      );
     }
-  });
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      setMenu(false);
-    }
-  });
-</script>
+
+    menuButton.addEventListener("click", () => {
+      const isOpen =
+        body.classList.contains("menu-open");
+
+      setMenuState(!isOpen);
+    });
+
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setMenuState(false);
+      }
+    });
+
+
+    mainMenu.addEventListener("click", (event) => {
+
+      const link = event.target.closest("a");
+
+      if (link) {
+        setMenuState(false);
+      }
+
+    });
+  </script>
 
 </body>
 </html>
