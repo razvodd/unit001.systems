@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="UNIT">
+
   <title>UNIT</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,17 +15,16 @@
 
   <style>
     :root {
-      --bg: #ffffff;
-      --fg: #000000;
+      --page-x: 8px;
+      --page-y: 8px;
 
-      --overlay-bg: rgba(0, 0, 0, 0.94);
-      --overlay-fg: #ffffff;
+      --header-height: 36px;
+      --header-bg: rgba(220, 220, 220, 0.76);
 
-      --pad-x: 24px;
-      --pad-y: 24px;
+      --black: #000;
+      --white: #fff;
 
-      --ease:
-        cubic-bezier(.22, .72, .18, 1);
+      --ease: cubic-bezier(.22,.75,.18,1);
     }
 
     * {
@@ -39,20 +38,14 @@
       margin: 0;
     }
 
-    html {
-      background: var(--bg);
-    }
-
     body {
-      position: relative;
-
       width: 100%;
       height: 100dvh;
 
       overflow: hidden;
 
-      background: var(--bg);
-      color: var(--fg);
+      background: #fff;
+      color: #000;
 
       font-family:
         Inter,
@@ -60,15 +53,7 @@
         Arial,
         sans-serif;
 
-      font-weight: 400;
-
       -webkit-font-smoothing: antialiased;
-      text-rendering: geometricPrecision;
-    }
-
-    button,
-    a {
-      font: inherit;
     }
 
     a,
@@ -82,207 +67,175 @@
     }
 
     button {
-      color: inherit;
+      font: inherit;
     }
 
 
-    /* =========================================================
+    /* =====================================================
        HEADER
-       ========================================================= */
+       ===================================================== */
 
     .header {
       position: fixed;
 
-      top: 0;
-      left: 0;
-
       z-index: 100;
 
-      width: 100%;
+      top: var(--page-y);
+      left: var(--page-x);
+      right: var(--page-x);
 
-      padding:
-        max(var(--pad-y), env(safe-area-inset-top))
-        max(var(--pad-x), env(safe-area-inset-right))
-        0
-        max(var(--pad-x), env(safe-area-inset-left));
+      height: var(--header-height);
+
+      border-radius: 18px;
+
+      background: var(--header-bg);
+
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
 
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: flex-start;
 
-      pointer-events: none;
+      overflow: hidden;
+
+      transition:
+        background 240ms var(--ease);
     }
 
 
-    /*
-      Здесь намеренно пусто.
-      На Ready на этом месте находится wordmark.
-    */
+    /* ПУСТАЯ ЗОНА ВМЕСТО READY */
 
-    .wordmark-empty {
-      width: 1px;
-      height: 1px;
+    .home-zone {
+      display: block;
+
+      height: 100%;
+      flex: 1;
+
+      cursor: pointer;
     }
 
 
-    /* =========================================================
+    /* =====================================================
        MENU BUTTON
-       ========================================================= */
+       ===================================================== */
 
-    .menu {
+    .menu-button {
       position: relative;
 
-      width: 48px;
-      height: 32px;
+      flex: 0 0 44px;
 
-      margin: 0;
+      width: 44px;
+      height: 100%;
+
       padding: 0;
+      margin: 0;
 
       border: 0;
-      outline: 0;
 
       background: transparent;
 
       cursor: pointer;
 
-      pointer-events: auto;
-
       -webkit-tap-highlight-color: transparent;
     }
 
-    .menu span {
+    .menu-button span {
       position: absolute;
 
+      left: 50%;
       top: 50%;
-      right: 0;
 
       display: block;
 
-      width: 30px;
+      width: 14px;
       height: 1px;
 
       background: #000;
 
       transform:
-        translateY(-50%)
+        translate(-50%, -50%)
         rotate(0deg);
 
       transform-origin: center;
 
       transition:
-        width 220ms var(--ease),
-        background 220ms var(--ease),
-        transform 320ms var(--ease);
-    }
-
-    .menu:hover span {
-      width: 40px;
+        transform 280ms var(--ease),
+        background 220ms var(--ease);
     }
 
 
-    /* MENU OPEN STATE */
+    /* ОТКРЫТО — ГОРИЗОНТАЛЬНАЯ СТАНОВИТСЯ ВЕРТИКАЛЬНОЙ */
 
-    body.menu-open .menu span {
-      width: 30px;
-
-      background: #fff;
-
+    body.menu-open .menu-button span {
       transform:
-        translateY(-50%)
-        rotate(-45deg);
-    }
-
-    body.menu-open .menu:hover span {
-      width: 38px;
+        translate(-50%, -50%)
+        rotate(90deg);
     }
 
 
-    /* =========================================================
-       MAIN
-       ========================================================= */
+    /* =====================================================
+       CLOSED HOME
+       ===================================================== */
 
     .home {
       position: relative;
 
       width: 100%;
       height: 100dvh;
-
-      background: #fff;
     }
-
-
-    /* =========================================================
-       PHONE
-       ========================================================= */
 
     .phone {
       position: fixed;
 
-      left: max(var(--pad-x), env(safe-area-inset-left));
-      bottom: max(var(--pad-y), env(safe-area-inset-bottom));
-
       z-index: 20;
 
-      display: inline-block;
+      left: 24px;
+      bottom: 22px;
 
-      font-size: 14px;
+      font-size: 22px;
       line-height: 1;
 
       font-weight: 400;
-
-      letter-spacing: 0;
+      letter-spacing: -0.02em;
 
       white-space: nowrap;
 
       transition:
-        transform 200ms var(--ease),
-        opacity 200ms var(--ease);
-    }
-
-    .phone:hover {
-      transform: translateX(4px);
+        opacity 180ms ease;
     }
 
 
-    /* =========================================================
+    /* =====================================================
        OVERLAY
-       ========================================================= */
+       ===================================================== */
 
     .overlay {
       position: fixed;
 
+      z-index: 50;
+
       inset: 0;
 
-      z-index: 80;
+      padding:
+        0
+        36px
+        38px;
+
+      background: #000;
+      color: #fff;
 
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-end;
-
-      padding:
-        max(var(--pad-y), env(safe-area-inset-top))
-        max(var(--pad-x), env(safe-area-inset-right))
-        max(var(--pad-y), env(safe-area-inset-bottom))
-        max(var(--pad-x), env(safe-area-inset-left));
-
-      background: var(--overlay-bg);
-      color: var(--overlay-fg);
+      align-items: flex-end;
 
       opacity: 0;
       visibility: hidden;
 
       pointer-events: none;
 
-      transform: translateY(-8px);
-
       transition:
-        opacity 260ms var(--ease),
-        visibility 260ms var(--ease),
-        transform 360ms var(--ease);
-
-      -webkit-backdrop-filter: blur(18px);
-      backdrop-filter: blur(18px);
+        opacity 240ms var(--ease),
+        visibility 240ms var(--ease);
     }
 
     body.menu-open .overlay {
@@ -290,53 +243,61 @@
       visibility: visible;
 
       pointer-events: auto;
-
-      transform: translateY(0);
     }
 
 
-    /* =========================================================
-       OVERLAY NAVIGATION
-       ========================================================= */
+    /*
+      Header остаётся поверх overlay.
+    */
+
+    body.menu-open .header {
+      background: rgba(190, 190, 190, 0.86);
+    }
+
+    body.menu-open .phone {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+
+    /* =====================================================
+       GIANT NAV
+       ===================================================== */
 
     .overlay-nav {
-      width: 100%;
-
       display: flex;
       flex-direction: column;
+
       align-items: flex-start;
 
-      gap: 0;
+      width: 100%;
+
+      padding-bottom: 0;
     }
 
     .overlay-nav a {
-      position: relative;
+      display: block;
 
-      display: inline-flex;
-      align-items: baseline;
+      margin: 0;
 
-      width: auto;
-
-      padding: 3px 0;
-
-      font-size: clamp(34px, 5.5vw, 92px);
-      line-height: 0.98;
-
-      font-weight: 400;
-
-      letter-spacing: -0.045em;
+      padding: 0;
 
       color: #fff;
 
-      opacity: 1;
+      font-size: clamp(72px, 7.5vw, 150px);
+      line-height: 0.92;
+
+      font-weight: 400;
+
+      letter-spacing: -0.055em;
 
       transition:
-        transform 220ms var(--ease),
-        opacity 220ms var(--ease);
+        opacity 160ms ease,
+        transform 200ms var(--ease);
     }
 
     .overlay-nav:hover a {
-      opacity: 0.28;
+      opacity: 0.35;
     }
 
     .overlay-nav a:hover {
@@ -346,132 +307,90 @@
     }
 
 
-    /* =========================================================
-       MENU META
-       ========================================================= */
-
-    .overlay-meta {
-      position: absolute;
-
-      left: max(var(--pad-x), env(safe-area-inset-left));
-      top: max(var(--pad-y), env(safe-area-inset-top));
-
-      display: flex;
-      flex-direction: column;
-
-      gap: 4px;
-
-      font-size: 11px;
-      line-height: 1.25;
-
-      letter-spacing: 0.01em;
-
-      color: #fff;
-    }
-
-
-    /* =========================================================
-       BODY STATE
-       ========================================================= */
-
-    body.menu-open .phone {
-      opacity: 0;
-
-      pointer-events: none;
-    }
-
-
-    /* =========================================================
+    /* =====================================================
        MOBILE
-       ========================================================= */
+       ===================================================== */
 
     @media (max-width: 700px) {
 
       :root {
-        --pad-x: 16px;
-        --pad-y: 16px;
+        --page-x: 6px;
+        --page-y: 6px;
+        --header-height: 34px;
       }
 
-      .menu {
-        width: 42px;
-        height: 28px;
-      }
-
-      .menu span {
-        width: 26px;
-      }
-
-      .menu:hover span,
-      body.menu-open .menu span,
-      body.menu-open .menu:hover span {
-        width: 26px;
+      .header {
+        border-radius: 17px;
       }
 
       .phone {
-        font-size: 13px;
+        left: 16px;
+        bottom: 16px;
+
+        font-size: 22px;
+      }
+
+      .overlay {
+        padding:
+          0
+          16px
+          22px;
       }
 
       .overlay-nav a {
-        padding: 2px 0;
-
-        font-size: clamp(34px, 12vw, 58px);
-
-        letter-spacing: -0.045em;
+        font-size: clamp(52px, 15vw, 90px);
+        line-height: 0.94;
       }
 
       .overlay-nav a:hover {
         transform: none;
       }
-
-      .overlay-meta {
-        font-size: 10px;
-      }
     }
 
 
-    /* =========================================================
-       REDUCED MOTION
-       ========================================================= */
-
     @media (prefers-reduced-motion: reduce) {
-
       *,
       *::before,
       *::after {
-        transition-duration: 0.001ms !important;
-        animation-duration: 0.001ms !important;
+        transition: none !important;
       }
     }
+
   </style>
 </head>
 
 
 <body>
 
-  <!-- =======================================================
-       HEADER
-       ======================================================= -->
+
+  <!-- HEADER -->
 
   <header class="header">
 
     <!--
-      Слева намеренно пусто.
-      Никакого логотипа и никакого Ready.
+      Здесь раньше было Ready.
+      Теперь визуально здесь НИЧЕГО.
+
+      Но вся пустая левая зона — ссылка на главную.
     -->
-    <span class="wordmark-empty" aria-hidden="true"></span>
+    <a
+      class="home-zone"
+      href="/"
+      aria-label="Главная"
+    ></a>
 
 
     <!--
-      Единственный элемент сверху:
-      короткая горизонтальная полоска.
+      Горизонтальная палочка.
+      При открытии становится вертикальной.
     -->
     <button
-      class="menu"
+      class="menu-button"
       id="menuButton"
       type="button"
       aria-label="Открыть меню"
       aria-expanded="false"
-      aria-controls="mainMenu"
+      aria-controls="overlay"
     >
       <span></span>
     </button>
@@ -479,16 +398,14 @@
   </header>
 
 
-  <!-- =======================================================
-       CLOSED HOMEPAGE
-       ======================================================= -->
+
+  <!-- ГЛАВНАЯ -->
 
   <main class="home">
 
     <a
       class="phone"
       href="tel:+79808007001"
-      aria-label="Позвонить: 7 980 800 7 001"
     >
       7.980.800.7.001
     </a>
@@ -496,34 +413,27 @@
   </main>
 
 
-  <!-- =======================================================
-       LARGE DARK MENU
-       ======================================================= -->
+
+  <!-- БОЛЬШОЕ МЕНЮ -->
 
   <nav
     class="overlay"
-    id="mainMenu"
+    id="overlay"
     aria-hidden="true"
   >
-
-    <div class="overlay-meta">
-      <span>UNIT001.SYSTEMS</span>
-      <span>MOSCOW / 2026</span>
-    </div>
-
 
     <div class="overlay-nav">
 
       <a href="/ready">
-        Ready.
+        READY
       </a>
 
       <a href="/events">
-        Events
+        EVENTS
       </a>
 
       <a href="mailto:hello@unit001.systems">
-        Contact
+        CONTACT
       </a>
 
     </div>
@@ -531,59 +441,64 @@
   </nav>
 
 
-  <!-- =======================================================
-       SCRIPT
-       ======================================================= -->
 
   <script>
     const body = document.body;
-    const menuButton = document.getElementById("menuButton");
-    const mainMenu = document.getElementById("mainMenu");
+    const button = document.getElementById("menuButton");
+    const overlay = document.getElementById("overlay");
 
-    function setMenuState(open) {
+
+    function setMenu(open) {
+
       body.classList.toggle("menu-open", open);
 
-      menuButton.setAttribute(
+      button.setAttribute(
         "aria-expanded",
         String(open)
       );
 
-      menuButton.setAttribute(
+      button.setAttribute(
         "aria-label",
-        open ? "Закрыть меню" : "Открыть меню"
+        open
+          ? "Закрыть меню"
+          : "Открыть меню"
       );
 
-      mainMenu.setAttribute(
+      overlay.setAttribute(
         "aria-hidden",
         String(!open)
       );
+
     }
 
 
-    menuButton.addEventListener("click", () => {
-      const isOpen =
-        body.classList.contains("menu-open");
+    button.addEventListener("click", () => {
 
-      setMenuState(!isOpen);
+      const open =
+        !body.classList.contains("menu-open");
+
+      setMenu(open);
+
     });
 
 
     document.addEventListener("keydown", (event) => {
+
       if (event.key === "Escape") {
-        setMenuState(false);
-      }
-    });
-
-
-    mainMenu.addEventListener("click", (event) => {
-
-      const link = event.target.closest("a");
-
-      if (link) {
-        setMenuState(false);
+        setMenu(false);
       }
 
     });
+
+
+    overlay.addEventListener("click", (event) => {
+
+      if (event.target.closest("a")) {
+        setMenu(false);
+      }
+
+    });
+
   </script>
 
 </body>
