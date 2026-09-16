@@ -9,11 +9,12 @@
 :root {
   --x: 24px;
   --y: 24px;
-  --nav-size: clamp(52px, 7vw, 118px);
-  --phone-size: 22px;
 
-  --title: clamp(64px, 9vw, 150px);
-  --text: clamp(16px, 1.25vw, 22px);
+  --title-size: clamp(72px, 10vw, 170px);
+  --menu-size: clamp(90px, 12vw, 210px);
+
+  --text-size: clamp(16px, 1.25vw, 22px);
+  --phone-size: 22px;
 }
 
 * {
@@ -29,11 +30,11 @@ body {
 
 body {
   overflow: hidden;
+
   background: #fff;
   color: #000;
 
   font-family: Helvetica, Arial, sans-serif;
-
   -webkit-font-smoothing: antialiased;
 }
 
@@ -47,6 +48,9 @@ a:active {
   text-decoration: none;
 }
 
+
+/* EMPTY HOME LINK */
+
 .home-link {
   position: fixed;
 
@@ -56,8 +60,11 @@ a:active {
   width: 140px;
   height: 72px;
 
-  z-index: 200;
+  z-index: 300;
 }
+
+
+/* MENU */
 
 .menu {
   position: fixed;
@@ -84,12 +91,12 @@ a:active {
   top: 50%;
   right: 0;
 
-  width: 34px;
+  width: 36px;
   height: 2px;
 
   background: #000;
 
-  transform: translateY(-50%) rotate(0);
+  transform: translateY(-50%) rotate(0deg);
   transform-origin: center;
 
   transition:
@@ -105,46 +112,44 @@ body.menu-open .menu span {
     rotate(90deg);
 }
 
+
 /* CONTENT */
 
 .content {
   position: fixed;
 
-  left: var(--x);
   top: 15vh;
+  left: var(--x);
 
   width: min(680px, calc(100vw - 48px));
 }
 
 h1 {
-  margin: 0 0 38px;
+  margin: 0 0 42px;
 
-  font-size: var(--title);
+  font-size: var(--title-size);
   line-height: .82;
 
   font-weight: 400;
 
-  letter-spacing: -.07em;
+  letter-spacing: -.075em;
 }
 
-.text {
+.text,
+.layers {
   margin: 0 0 30px;
 
   max-width: 600px;
 
-  font-size: var(--text);
+  font-size: var(--text-size);
   line-height: 1.25;
 }
 
 .layers {
-  margin: 0 0 30px;
-
   display: flex;
   flex-direction: column;
-
-  font-size: var(--text);
-  line-height: 1.25;
 }
+
 
 /* BOTTOM */
 
@@ -163,16 +168,24 @@ h1 {
 
   align-items: flex-start;
 
-  margin-bottom: 22px;
+  gap: 12px;
+
+  margin-bottom: 30px;
+
+  transform: translateX(-4px);
 }
 
 .site-nav a {
   display: block;
 
-  font-size: var(--nav-size);
-  line-height: .82;
+  margin: 0;
 
-  letter-spacing: -.07em;
+  font-size: var(--menu-size);
+  line-height: .76;
+
+  font-weight: 400;
+
+  letter-spacing: -.075em;
 }
 
 .phone {
@@ -183,6 +196,7 @@ h1 {
 
   letter-spacing: -.025em;
 }
+
 
 /* OVERLAY */
 
@@ -220,19 +234,19 @@ body.menu-open .overlay {
   bottom: var(--y);
 }
 
-.overlay .site-nav {
-  margin-bottom: 22px;
-}
+
+/* MOBILE */
 
 @media (max-width: 700px) {
   :root {
     --x: 16px;
     --y: 16px;
 
-    --nav-size: 17vw;
-    --phone-size: 22px;
+    --title-size: 20vw;
+    --menu-size: 24vw;
 
-    --text: 15px;
+    --text-size: 15px;
+    --phone-size: 22px;
   }
 
   .content {
@@ -242,13 +256,16 @@ body.menu-open .overlay {
   }
 
   h1 {
-    margin-bottom: 28px;
+    margin-bottom: 30px;
+  }
 
-    font-size: 20vw;
+  .site-nav {
+    gap: 8px;
+    margin-bottom: 26px;
   }
 
   .menu span {
-    width: 30px;
+    width: 34px;
   }
 }
 </style>
@@ -277,14 +294,11 @@ body.menu-open .overlay {
 
 <main class="content">
 
-  <h1>
-    EVENTS
-  </h1>
+  <h1>EVENTS</h1>
 
   <p class="text">
     An event happens once.
   </p>
-
 
   <div class="layers">
     <span>PHOTO</span>
@@ -295,12 +309,10 @@ body.menu-open .overlay {
     <span>TRACE</span>
   </div>
 
-
   <p class="text">
     One event.<br>
     Multiple layers.
   </p>
-
 
   <p class="text">
     I document what happened:<br>
@@ -313,17 +325,9 @@ body.menu-open .overlay {
 <div class="bottom">
 
   <nav class="site-nav">
-
-    <a href="/r/">
-      READY
-    </a>
-
-    <a href="/e/">
-      EVENT
-    </a>
-
+    <a href="/r/">READY</a>
+    <a href="/e/">EVENT</a>
   </nav>
-
 
   <a
     class="phone"
@@ -335,25 +339,14 @@ body.menu-open .overlay {
 </div>
 
 
-<div
-  class="overlay"
-  id="overlay"
->
+<div class="overlay">
 
   <div class="overlay-bottom">
 
     <nav class="site-nav">
-
-      <a href="/r/">
-        READY
-      </a>
-
-      <a href="/e/">
-        EVENT
-      </a>
-
+      <a href="/r/">READY</a>
+      <a href="/e/">EVENT</a>
     </nav>
-
 
     <a
       class="phone"
@@ -371,7 +364,6 @@ body.menu-open .overlay {
 const menu = document.getElementById('menu');
 
 menu.addEventListener('click', () => {
-
   const open =
     document.body.classList.toggle('menu-open');
 
@@ -379,38 +371,15 @@ menu.addEventListener('click', () => {
     'aria-expanded',
     String(open)
   );
-
-  menu.setAttribute(
-    'aria-label',
-    open
-      ? 'Close menu'
-      : 'Open menu'
-  );
-
 });
 
-
-document.addEventListener(
-  'keydown',
-  event => {
-
-    if (event.key === 'Escape') {
-
-      document.body
-        .classList
-        .remove('menu-open');
-
-      menu.setAttribute(
-        'aria-expanded',
-        'false'
-      );
-
-    }
-
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    document.body.classList.remove('menu-open');
+    menu.setAttribute('aria-expanded', 'false');
   }
-);
+});
 </script>
-
 
 </body>
 </html>

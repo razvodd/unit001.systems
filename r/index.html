@@ -9,11 +9,12 @@
 :root {
   --x: 24px;
   --y: 24px;
-  --nav-size: clamp(52px, 7vw, 118px);
-  --phone-size: 22px;
 
-  --title: clamp(64px, 9vw, 150px);
-  --text: clamp(16px, 1.25vw, 22px);
+  --title-size: clamp(72px, 10vw, 170px);
+  --menu-size: clamp(90px, 12vw, 210px);
+
+  --text-size: clamp(16px, 1.25vw, 22px);
+  --phone-size: 22px;
 }
 
 * {
@@ -29,8 +30,10 @@ body {
 
 body {
   overflow: hidden;
+
   background: #fff;
   color: #000;
+
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -45,27 +48,37 @@ a:active {
   text-decoration: none;
 }
 
+
+/* EMPTY HOME LINK */
+
 .home-link {
   position: fixed;
+
   top: 0;
   left: 0;
 
   width: 140px;
   height: 72px;
 
-  z-index: 200;
+  z-index: 300;
 }
+
+
+/* MENU */
 
 .menu {
   position: fixed;
+
   top: var(--y);
   right: var(--x);
+
   z-index: 300;
 
   width: 44px;
   height: 32px;
 
   padding: 0;
+
   border: 0;
   background: transparent;
 
@@ -74,15 +87,16 @@ a:active {
 
 .menu span {
   position: absolute;
+
   top: 50%;
   right: 0;
 
-  width: 34px;
+  width: 36px;
   height: 2px;
 
   background: #000;
 
-  transform: translateY(-50%) rotate(0);
+  transform: translateY(-50%) rotate(0deg);
   transform-origin: center;
 
   transition:
@@ -92,72 +106,86 @@ a:active {
 
 body.menu-open .menu span {
   background: #fff;
-  transform: translateY(-50%) rotate(90deg);
+
+  transform:
+    translateY(-50%)
+    rotate(90deg);
 }
 
-/* PAGE CONTENT */
+
+/* CONTENT */
 
 .content {
   position: fixed;
-  left: var(--x);
+
   top: 15vh;
+  left: var(--x);
 
   width: min(680px, calc(100vw - 48px));
 }
 
 h1 {
-  margin: 0 0 38px;
+  margin: 0 0 42px;
 
-  font-size: var(--title);
+  font-size: var(--title-size);
   line-height: .82;
 
   font-weight: 400;
-  letter-spacing: -.07em;
+
+  letter-spacing: -.075em;
 }
 
-.text {
+.text,
+.ready-list {
   margin: 0 0 30px;
 
-  max-width: 580px;
+  max-width: 600px;
 
-  font-size: var(--text);
+  font-size: var(--text-size);
   line-height: 1.25;
 }
 
 .ready-list {
-  margin: 0 0 30px;
-
   display: flex;
   flex-direction: column;
-
-  font-size: var(--text);
-  line-height: 1.25;
 }
+
 
 /* BOTTOM */
 
 .bottom {
   position: fixed;
+
   left: var(--x);
   bottom: var(--y);
+
   z-index: 20;
 }
 
 .site-nav {
   display: flex;
   flex-direction: column;
+
   align-items: flex-start;
 
-  margin-bottom: 22px;
+  gap: 12px;
+
+  margin-bottom: 30px;
+
+  transform: translateX(-4px);
 }
 
 .site-nav a {
   display: block;
 
-  font-size: var(--nav-size);
-  line-height: .82;
+  margin: 0;
 
-  letter-spacing: -.07em;
+  font-size: var(--menu-size);
+  line-height: .76;
+
+  font-weight: 400;
+
+  letter-spacing: -.075em;
 }
 
 .phone {
@@ -169,11 +197,14 @@ h1 {
   letter-spacing: -.025em;
 }
 
+
 /* OVERLAY */
 
 .overlay {
   position: fixed;
+
   inset: 0;
+
   z-index: 100;
 
   background: #000;
@@ -181,6 +212,7 @@ h1 {
 
   opacity: 0;
   visibility: hidden;
+
   pointer-events: none;
 
   transition:
@@ -191,48 +223,63 @@ h1 {
 body.menu-open .overlay {
   opacity: 1;
   visibility: visible;
+
   pointer-events: auto;
 }
 
 .overlay-bottom {
   position: absolute;
+
   left: var(--x);
   bottom: var(--y);
 }
 
-.overlay .site-nav {
-  margin-bottom: 22px;
-}
+
+/* MOBILE */
 
 @media (max-width: 700px) {
   :root {
     --x: 16px;
     --y: 16px;
-    --nav-size: 17vw;
+
+    --title-size: 20vw;
+    --menu-size: 24vw;
+
+    --text-size: 15px;
     --phone-size: 22px;
-    --text: 15px;
   }
 
   .content {
     top: 12vh;
+
     width: calc(100vw - 32px);
   }
 
   h1 {
-    margin-bottom: 28px;
-    font-size: 20vw;
+    margin-bottom: 30px;
+  }
+
+  .site-nav {
+    gap: 8px;
+    margin-bottom: 26px;
   }
 
   .menu span {
-    width: 30px;
+    width: 34px;
   }
 }
 </style>
 </head>
 
+
 <body>
 
-<a class="home-link" href="/" aria-label="Home"></a>
+<a
+  class="home-link"
+  href="/"
+  aria-label="Home"
+></a>
+
 
 <button
   class="menu"
@@ -276,14 +323,17 @@ body.menu-open .overlay {
     <a href="/e/">EVENT</a>
   </nav>
 
-  <a class="phone" href="tel:+79808007001">
+  <a
+    class="phone"
+    href="tel:+79808007001"
+  >
     7.980.800.7.001
   </a>
 
 </div>
 
 
-<div class="overlay" id="overlay">
+<div class="overlay">
 
   <div class="overlay-bottom">
 
@@ -292,7 +342,10 @@ body.menu-open .overlay {
       <a href="/e/">EVENT</a>
     </nav>
 
-    <a class="phone" href="tel:+79808007001">
+    <a
+      class="phone"
+      href="tel:+79808007001"
+    >
       7.980.800.7.001
     </a>
 
@@ -305,12 +358,12 @@ body.menu-open .overlay {
 const menu = document.getElementById('menu');
 
 menu.addEventListener('click', () => {
-  const open = document.body.classList.toggle('menu-open');
+  const open =
+    document.body.classList.toggle('menu-open');
 
-  menu.setAttribute('aria-expanded', String(open));
   menu.setAttribute(
-    'aria-label',
-    open ? 'Close menu' : 'Open menu'
+    'aria-expanded',
+    String(open)
   );
 });
 
