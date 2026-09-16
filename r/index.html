@@ -1,103 +1,50 @@
 <!doctype html>
-<html lang="ru">
-
+<html lang="en">
 <head>
   <meta charset="utf-8">
-
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <meta
-    name="description"
-    content="Ready. — фото и видео для моделей, актёров и кастингов."
-  >
-
-  <title>Ready.</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
-    rel="stylesheet"
-  >
-
-  <link
-    rel="stylesheet"
-    href="styles.css?v=66"
-  >
-
-
-  <!-- ONLY NEW HEADER STYLES -->
+  <title>Ready</title>
 
   <style>
+    :root {
+      --black: #000;
+      --white: #fff;
 
-    /* LOCAL NAVIGATION INSIDE GLASS HEADER */
+      --pad-x: 24px;
+      --pad-y: 24px;
 
-    .page-nav {
-      grid-column: 1;
-      grid-row: 1;
-
-      display: flex;
-      align-items: center;
-
-      gap: clamp(18px, 2.5vw, 42px);
-
-      min-width: 0;
-
-      overflow-x: auto;
-      overflow-y: hidden;
-
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      --text: clamp(16px, 1.25vw, 22px);
+      --title: clamp(64px, 9vw, 150px);
     }
 
-    .page-nav::-webkit-scrollbar {
-      display: none;
+    * {
+      box-sizing: border-box;
     }
 
-    .page-nav a,
-    .page-nav a:link,
-    .page-nav a:visited,
-    .page-nav a:hover,
-    .page-nav a:focus,
-    .page-nav a:active {
-      flex: 0 0 auto;
-
-      color: inherit;
-      text-decoration: none;
-
-      font-size: 13px;
-      line-height: 1;
-
-      font-weight: 500;
-
-      letter-spacing: -.035em;
-
-      white-space: nowrap;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
     }
 
-    .page-nav a {
-      transition: opacity .16s ease;
+    body {
+      overflow: hidden;
+
+      background: var(--white);
+      color: var(--black);
+
+      font-family:
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
     }
-
-    .page-nav:hover a {
-      opacity: .35;
-    }
-
-    .page-nav a:hover {
-      opacity: 1;
-    }
-
-
-    /* NEVER UNDERLINE LINKS */
 
     a,
     a:link,
@@ -105,1117 +52,214 @@
     a:hover,
     a:focus,
     a:active {
+      color: inherit;
       text-decoration: none;
     }
 
+    .page {
+      position: relative;
+
+      width: 100vw;
+      height: 100dvh;
+
+      overflow: hidden;
+
+      padding:
+        max(var(--pad-y), env(safe-area-inset-top))
+        max(var(--pad-x), env(safe-area-inset-right))
+        max(var(--pad-y), env(safe-area-inset-bottom))
+        max(var(--pad-x), env(safe-area-inset-left));
+    }
+
+    /* HEADER */
+
+    .header {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+      right: 0;
+
+      z-index: 10;
+
+      height: 72px;
+    }
+
+    /* EMPTY LOGO AREA */
+
+    .home-link {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 140px;
+      height: 72px;
+    }
+
+    /* DASH */
+
+    .menu-mark {
+      position: absolute;
+
+      top: var(--pad-y);
+      right: var(--pad-x);
+
+      width: 28px;
+      height: 1px;
+
+      background: #000;
+    }
+
+    /* CONTENT */
+
+    .content {
+      position: absolute;
+
+      left: var(--pad-x);
+      top: 15vh;
+
+      width: min(760px, calc(100vw - 48px));
+    }
+
+    h1 {
+      margin: 0 0 42px;
+
+      font-size: var(--title);
+      line-height: .82;
+
+      font-weight: 400;
+
+      letter-spacing: -.07em;
+    }
+
+    .intro,
+    .copy,
+    .list {
+      max-width: 620px;
+
+      margin: 0 0 32px;
+
+      font-size: var(--text);
+      line-height: 1.25;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+
+      gap: 5px;
+    }
+
+    /* PHONE */
+
+    .phone {
+      position: fixed;
+
+      left: var(--pad-x);
+      bottom: var(--pad-y);
+
+      z-index: 10;
+
+      font-size: 22px;
+      line-height: 1;
+
+      letter-spacing: -.025em;
+
+      white-space: nowrap;
+    }
+
+    /* MOBILE */
 
     @media (max-width: 700px) {
 
-      .page-nav {
-        gap: 16px;
-        padding-right: 10px;
+      :root {
+        --pad-x: 16px;
+        --pad-y: 16px;
+
+        --text: 15px;
       }
 
-      .page-nav a,
-      .page-nav a:link,
-      .page-nav a:visited,
-      .page-nav a:hover,
-      .page-nav a:focus,
-      .page-nav a:active {
-        font-size: 11px;
+      .content {
+        top: 12vh;
+
+        width: calc(100vw - 32px);
       }
 
+      h1 {
+        margin-bottom: 30px;
+
+        font-size: 20vw;
+      }
+
+      .intro,
+      .copy,
+      .list {
+        margin-bottom: 24px;
+      }
+
+      .phone {
+        font-size: 22px;
+      }
     }
-
   </style>
-
 </head>
 
 
 <body>
 
-
-  <!-- ======================================================
-       HEADER
-       ====================================================== -->
-
   <header class="header">
 
-    <nav
-      class="page-nav"
-      aria-label="Навигация по странице"
-    >
+    <a
+      class="home-link"
+      href="/"
+      aria-label="Home"
+    ></a>
 
-      <a
-        href="#session"
-        data-i18n="nav.result"
-      >
-        Что получите
-      </a>
-
-      <a
-        href="#method"
-        data-i18n="nav.method"
-      >
-        Как проходит
-      </a>
-
-      <a
-        href="#session"
-        data-i18n="nav.pricing"
-      >
-        Стоимость
-      </a>
-
-      <a
-        href="#contact"
-        data-i18n="nav.contact"
-      >
-        Контакты
-      </a>
-
-    </nav>
-
-
-    <button
-      class="menu"
-      aria-label="Открыть меню"
-      aria-expanded="false"
-    >
-      <span></span>
-    </button>
+    <div
+      class="menu-mark"
+      aria-hidden="true"
+    ></div>
 
   </header>
 
 
+  <main class="page">
 
-  <!-- ======================================================
-       GLOBAL MENU
-       ====================================================== -->
-
-  <nav
-    class="overlay"
-    aria-hidden="true"
-  >
-
-    <a href="/r/">
-      READY
-    </a>
-
-    <a href="/e/">
-      EVENTS
-    </a>
-
-  </nav>
-
-
-
-  <!-- ======================================================
-       MAIN
-       ====================================================== -->
-
-  <main id="top">
-
-
-    <!-- HERO -->
-
-    <section class="page hero clear-hero">
+    <section class="content">
 
       <h1>
-        Ready.
+        READY
       </h1>
 
-
-      <p
-        class="lead"
-        data-i18n-html="hero.lead"
-      >
-
-        <span class="lead-list">
-
-          <span>Снепы</span>
-
-          <span>Портфолио</span>
-
-          <span>Видеовизитка</span>
-
-          <span>PDF</span>
-
-        </span>
-
-
-        <span class="lead-summary">
-
-          <span>За одну съёмку</span>
-
-          <span>Готовность до 5 дней</span>
-
-        </span>
-
+      <p class="intro">
+        For models, actors and casting.
       </p>
 
-
-      <a
-        class="hero-link"
-        href="#session"
-      >
-
-        <span data-i18n="hero.link">
-          Примеры и цены
-        </span>
-
-        <svg
-          class="icon icon-down"
-          viewBox="0 0 16 16"
-          aria-hidden="true"
-        >
-          <path d="M8 2v11M4 9l4 4 4-4"/>
-        </svg>
-
-      </a>
-
-
-      <div
-        class="footer-languages bottom-right hero-languages"
-        aria-label="Язык сайта"
-      >
-
-        <button
-          type="button"
-          data-language="ru"
-          aria-pressed="true"
-        >
-          RU
-        </button>
-
-        <span aria-hidden="true">/</span>
-
-        <button
-          type="button"
-          data-language="en"
-          aria-pressed="false"
-        >
-          EN
-        </button>
-
+      <div class="list">
+        <span>MODEL READY</span>
+        <span>ACTOR READY</span>
+        <span>CAST READY</span>
       </div>
+
+      <p class="copy">
+        Strong photos.<br>
+        Clear video.<br>
+        Useful feedback.<br>
+        A better next step.
+      </p>
 
     </section>
 
 
-
-    <!-- PHILOSOPHY -->
-
-    <section
-      class="approach philosophy"
-      id="approach"
+    <a
+      class="phone"
+      href="tel:+79808007001"
     >
-
-      <p
-        class="approach-label"
-        data-i18n="philosophy.label"
-      >
-        Философия бренда
-      </p>
-
-
-      <p class="philosophy-copy">
-
-        <span data-i18n="philosophy.line1">
-          Не разовая съёмка.
-        </span>
-
-        <span data-i18n="philosophy.line2">
-          Портфолио как процесс.
-        </span>
-
-        <span data-i18n="philosophy.line3">
-          Обратная связь. Следующий шаг.
-        </span>
-
-      </p>
-
-    </section>
-
-
-
-    <!-- METHOD -->
-
-    <section class="page intro">
-
-      <p
-        class="intro-label"
-        data-i18n="intro.label"
-      >
-        Что такое Ready.
-      </p>
-
-
-      <p
-        class="intro-title"
-        data-i18n="intro.title"
-      >
-        Готовый набор материалов для работы.
-      </p>
-
-
-      <div
-        class="journey"
-        id="method"
-        aria-label="Путь работы"
-        data-i18n-aria-label="journey.aria"
-      >
-
-        <p>
-          <span>01</span>
-          <b data-i18n="journey.brief">Задача</b>
-        </p>
-
-        <i aria-hidden="true">
-          <svg
-            class="icon icon-forward"
-            viewBox="0 0 16 16"
-          >
-            <path d="M2 8h12M10 4l4 4-4 4"/>
-          </svg>
-        </i>
-
-
-        <p>
-          <span>02</span>
-          <b data-i18n="journey.looks">Образы</b>
-        </p>
-
-        <i aria-hidden="true">
-          <svg
-            class="icon icon-forward"
-            viewBox="0 0 16 16"
-          >
-            <path d="M2 8h12M10 4l4 4-4 4"/>
-          </svg>
-        </i>
-
-
-        <p>
-          <span>03</span>
-          <b data-i18n="journey.shoot">Съёмка</b>
-        </p>
-
-        <i aria-hidden="true">
-          <svg
-            class="icon icon-forward"
-            viewBox="0 0 16 16"
-          >
-            <path d="M2 8h12M10 4l4 4-4 4"/>
-          </svg>
-        </i>
-
-
-        <p>
-          <span>04</span>
-          <b data-i18n="journey.materials">Материалы</b>
-        </p>
-
-        <i aria-hidden="true">
-          <svg
-            class="icon icon-forward"
-            viewBox="0 0 16 16"
-          >
-            <path d="M2 8h12M10 4l4 4-4 4"/>
-          </svg>
-        </i>
-
-
-        <p>
-          <span>05</span>
-          <b data-i18n="journey.feedback">
-            Обратная связь
-          </b>
-        </p>
-
-      </div>
-
-
-      <p
-        class="timing"
-        data-i18n="journey.timing"
-      >
-        Подготовка 2–3 дня · Съёмка до 3 часов · Готовность до 5 дней
-      </p>
-
-    </section>
-
-
-
-    <!-- PRICING -->
-
-    <section
-      class="page offer"
-      id="session"
-    >
-
-      <div class="pricing-head">
-
-        <p
-          class="eyebrow"
-          data-i18n="pricing.label"
-        >
-          Стоимость
-        </p>
-
-        <h2 data-i18n-html="pricing.title">
-          Соберите<br>
-          свою съёмку.
-        </h2>
-
-      </div>
-
-
-      <div class="builder">
-
-
-        <article class="builder-item">
-
-          <p class="builder-number">
-            01
-          </p>
-
-          <div>
-
-            <p
-              class="builder-name"
-              data-i18n="pricing.snaps"
-            >
-              Снепы
-            </p>
-
-            <p
-              class="builder-copy"
-              data-i18n="pricing.snapsCopy"
-            >
-              Нейтральные портреты, полный рост и профиль
-              для агентств и кастингов.
-            </p>
-
-            <button
-              class="example-link"
-              type="button"
-              data-example="snaps"
-            >
-
-              <span data-i18n="examples.open">
-                Посмотреть пример
-              </span>
-
-              <svg
-                class="icon icon-external"
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-              >
-                <path d="M3 13 13 3M6 3h7v7"/>
-              </svg>
-
-            </button>
-
-          </div>
-
-          <p class="builder-price">
-            5 000 ₽
-          </p>
-
-        </article>
-
-
-
-        <article class="builder-item">
-
-          <p class="builder-number">
-            02
-          </p>
-
-          <div>
-
-            <p
-              class="builder-name"
-              data-i18n="pricing.portfolio"
-            >
-              Серия для портфолио
-            </p>
-
-            <p
-              class="builder-copy"
-              data-i18n="pricing.portfolioCopy"
-            >
-              2–3 образа, индивидуальный свет
-              и 7 фотографий в ретуши.
-            </p>
-
-            <button
-              class="example-link"
-              type="button"
-              data-example="portfolio"
-            >
-
-              <span data-i18n="examples.open">
-                Посмотреть пример
-              </span>
-
-              <svg
-                class="icon icon-external"
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-              >
-                <path d="M3 13 13 3M6 3h7v7"/>
-              </svg>
-
-            </button>
-
-          </div>
-
-          <p class="builder-price">
-            7 000 ₽
-          </p>
-
-        </article>
-
-
-
-        <article class="builder-item">
-
-          <p class="builder-number">
-            03
-          </p>
-
-          <div>
-
-            <p
-              class="builder-name"
-              data-i18n="pricing.video"
-            >
-              Видеовизитка
-            </p>
-
-            <p
-              class="builder-copy"
-              data-i18n="pricing.videoCopy"
-            >
-              Короткое представление, движение и эмоции.
-              Формат для кастингов.
-            </p>
-
-            <button
-              class="example-link"
-              type="button"
-              data-example="video"
-            >
-
-              <span data-i18n="examples.open">
-                Посмотреть пример
-              </span>
-
-              <svg
-                class="icon icon-external"
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-              >
-                <path d="M3 13 13 3M6 3h7v7"/>
-              </svg>
-
-            </button>
-
-          </div>
-
-          <p class="builder-price">
-            5 000 ₽
-          </p>
-
-        </article>
-
-
-
-        <article class="builder-item">
-
-          <p class="builder-number">
-            04
-          </p>
-
-          <div>
-
-            <p
-              class="builder-name"
-              data-i18n="pricing.comp"
-            >
-              Композитка и PDF
-            </p>
-
-            <p
-              class="builder-copy"
-              data-i18n="pricing.compCopy"
-            >
-              Готовый документ с выбранными
-              фотографиями и данными модели.
-            </p>
-
-            <button
-              class="example-link"
-              type="button"
-              data-example="pdf"
-            >
-
-              <span data-i18n="examples.open">
-                Посмотреть пример
-              </span>
-
-              <svg
-                class="icon icon-external"
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-              >
-                <path d="M3 13 13 3M6 3h7v7"/>
-              </svg>
-
-            </button>
-
-          </div>
-
-          <p class="builder-price">
-            3 000 ₽
-          </p>
-
-        </article>
-
-
-
-        <div class="bundle">
-
-          <p class="bundle-label">
-            Ready.
-          </p>
-
-          <p
-            class="bundle-kicker"
-            data-i18n="pricing.launch"
-          >
-            Стартовая цена · первые 10 человек
-          </p>
-
-          <p class="bundle-price">
-            7 500 ₽
-          </p>
-
-          <p
-            class="bundle-regular"
-            data-i18n="pricing.regular"
-          >
-            После первых 10 — 15 000 ₽
-          </p>
-
-
-          <div
-            class="launch-counter"
-            aria-label="Готово 6 из 10"
-            data-i18n-aria-label="pricing.counterAria"
-          >
-
-            <p>
-
-              <span data-i18n="pricing.counterLabel">
-                Готово
-              </span>
-
-              <strong>
-                6 / 10
-              </strong>
-
-            </p>
-
-            <div
-              class="launch-progress"
-              aria-hidden="true"
-            >
-              <span></span>
-            </div>
-
-            <p class="launch-breakdown">
-
-              <span>Model 4</span>
-              <span>Actor 1</span>
-              <span>Cast 1</span>
-
-            </p>
-
-          </div>
-
-
-          <div>
-
-            <p
-              class="bundle-copy"
-              data-i18n="pricing.bundleCopy"
-            >
-              Всё вместе: снепы, серия для портфолио,
-              видеовизитка, композитка и PDF.
-            </p>
-
-            <p
-              class="bundle-saving"
-              data-i18n="pricing.separate"
-            >
-              По отдельности — 20 000 ₽
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <p
-        class="builder-hint"
-        data-i18n="pricing.hint"
-      >
-        Можно начать с одного материала
-        или забронировать полный комплект
-        по стартовой цене.
-      </p>
-
-
-      <p
-        class="note"
-        data-i18n="pricing.note"
-      >
-        Студия и визажист оплачиваются отдельно.
-      </p>
-
-    </section>
-
-
-
-    <!-- READY SYSTEM -->
-
-    <section
-      class="page ready-system"
-      id="ready-system"
-    >
-
-      <div class="ready-system-head">
-
-        <p
-          class="eyebrow"
-          data-i18n="system.label"
-        >
-          Ready System
-        </p>
-
-        <p
-          class="ready-system-intro"
-          data-i18n="system.intro"
-        >
-          Одна система. Три задачи.
-          Выберите формат под профессию
-          или конкретный кастинг.
-        </p>
-
-      </div>
-
-
-      <div class="ready-products">
-
-
-        <article class="ready-product">
-
-          <span class="ready-number">
-            01
-          </span>
-
-          <h2>
-            Model Ready.
-          </h2>
-
-          <p data-i18n="system.model">
-            Для моделей. Снепы, портфолио,
-            видеовизитка и композитка —
-            материалы для агентств и кастингов.
-          </p>
-
-        </article>
-
-
-
-        <article class="ready-product">
-
-          <span class="ready-number">
-            02
-          </span>
-
-          <h2>
-            Actor Ready.
-          </h2>
-
-          <p data-i18n="system.actor">
-            Для актёров. Портреты, типажи,
-            эмоциональный диапазон и видео —
-            готовая база для проб.
-          </p>
-
-        </article>
-
-
-
-        <article class="ready-product">
-
-          <span class="ready-number">
-            03
-          </span>
-
-          <h2>
-            Cast Ready.
-          </h2>
-
-          <p data-i18n="system.cast">
-            Под конкретный кастинг.
-            Фото, видеопроба и подготовка материалов
-            в короткий срок.
-          </p>
-
-        </article>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- CONTACT -->
-
-    <section
-      class="page final"
-      id="contact"
-    >
-
-      <p
-        class="eyebrow"
-        data-i18n="contact.eyebrow"
-      >
-        Расскажите, для чего вам нужны фотографии.
-      </p>
-
-
-      <a
-        class="cta"
-        href="https://t.me/unit001systems"
-        target="_blank"
-        rel="noreferrer"
-      >
-
-        <span
-          class="cta-copy"
-          data-i18n="contact.cta"
-        >
-          Написать в Telegram
-        </span>
-
-        <svg
-          class="icon icon-external icon-cta"
-          viewBox="0 0 16 16"
-          aria-hidden="true"
-        >
-          <path d="M3 13 13 3M6 3h7v7"/>
-        </svg>
-
-      </a>
-
-    </section>
+      7.980.800.7.001
+    </a>
 
   </main>
-
-
-
-  <!-- ======================================================
-       FOOTER
-       ====================================================== -->
-
-  <footer class="footer">
-
-    <div class="contact-meta">
-
-      <p>
-        Сергей Антонов
-      </p>
-
-      <a href="tel:+79808007001">
-        7.980.800.7.001
-      </a>
-
-    </div>
-
-
-    <div class="footer-right">
-
-      <p data-i18n="footer.location">
-        Москва · 2026
-      </p>
-
-    </div>
-
-
-    <div
-      class="footer-languages"
-      aria-label="Язык сайта"
-    >
-
-      <button
-        type="button"
-        data-language="ru"
-        aria-pressed="true"
-      >
-        RU
-      </button>
-
-      <span aria-hidden="true">/</span>
-
-      <button
-        type="button"
-        data-language="en"
-        aria-pressed="false"
-      >
-        EN
-      </button>
-
-    </div>
-
-  </footer>
-
-
-
-  <!-- ======================================================
-       EXAMPLES
-       ====================================================== -->
-
-  <dialog
-    class="examples-modal"
-    aria-labelledby="examples-title"
-  >
-
-    <div class="examples-shell">
-
-
-      <header class="examples-header">
-
-        <p id="examples-title">
-          Model Ready. /
-          <span class="examples-current-title">
-            Снепы
-          </span>
-        </p>
-
-        <button
-          class="examples-close"
-          type="button"
-          aria-label="Закрыть"
-          data-i18n-aria-label="examples.close"
-        >
-          ×
-        </button>
-
-      </header>
-
-
-
-      <div class="examples-content">
-
-
-        <section
-          class="example-panel snaps-grid"
-          data-example-panel="snaps"
-        >
-
-          <img src="assets/digitals-egor-v2/01.jpg" alt="Снепы модели">
-          <img src="assets/digitals-egor-v2/02.jpg" alt="Снепы модели">
-          <img src="assets/digitals-egor-v2/03.jpg" alt="Снепы модели">
-          <img src="assets/digitals-egor-v2/04.jpg" alt="Снепы модели">
-          <img src="assets/digitals-egor-v2/06.jpg" alt="Снепы модели">
-
-          <img
-            src="assets/digitals-egor-v2/07.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/09.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/12.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/13.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/15.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/17.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/18.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/19.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/20.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/21.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/22.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/27.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-          <img
-            src="assets/digitals-egor-v2/30.jpg"
-            alt="Снепы модели"
-            loading="lazy"
-          >
-
-        </section>
-
-
-
-        <section
-          class="example-panel portfolio-grid"
-          data-example-panel="portfolio"
-          hidden
-        >
-
-          <img src="assets/portfolio-boy/01.jpg" alt="Portfolio" loading="lazy">
-          <img src="assets/portfolio-boy/02.jpg" alt="Portfolio" loading="lazy">
-          <img src="assets/portfolio-boy/03.jpg" alt="Portfolio" loading="lazy">
-          <img src="assets/portfolio-boy/04.jpg" alt="Portfolio" loading="lazy">
-          <img src="assets/portfolio-boy/05.jpg" alt="Portfolio" loading="lazy">
-          <img src="assets/portfolio-boy/06.jpg" alt="Portfolio" loading="lazy">
-          <img src="assets/portfolio-boy/07.jpg" alt="Portfolio" loading="lazy">
-          <img src="assets/portfolio-boy/08.jpg" alt="Portfolio" loading="lazy">
-
-        </section>
-
-
-
-        <section
-          class="example-panel video-grid"
-          data-example-panel="video"
-          hidden
-        >
-
-          <figure>
-
-            <video
-              controls
-              playsinline
-              preload="auto"
-            >
-
-              <source
-                src="assets/video/egor-introduction.mp4"
-                type="video/mp4"
-              >
-
-            </video>
-
-            <figcaption>
-
-              <span data-i18n="examples.introduction">
-                Визитка
-              </span>
-
-              <span>
-                00:13
-              </span>
-
-            </figcaption>
-
-          </figure>
-
-
-          <figure>
-
-            <video
-              controls
-              playsinline
-              preload="auto"
-            >
-
-              <source
-                src="assets/video/egor-close-up.mp4"
-                type="video/mp4"
-              >
-
-            </video>
-
-            <figcaption>
-
-              <span data-i18n="examples.closeUp">
-                Крупный план
-              </span>
-
-              <span>
-                00:09
-              </span>
-
-            </figcaption>
-
-          </figure>
-
-        </section>
-
-
-      </div>
-
-    </div>
-
-  </dialog>
-
-
-
-  <script src="script.js?v=50"></script>
 
 </body>
 </html>

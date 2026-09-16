@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
   <title>Events</title>
 
@@ -14,11 +17,8 @@
       --pad-x: 24px;
       --pad-y: 24px;
 
-      --small: clamp(12px, .8vw, 14px);
-      --body: clamp(18px, 1.45vw, 26px);
-      --display: clamp(72px, 10vw, 170px);
-
-      --ease: cubic-bezier(.22,.75,.18,1);
+      --text: clamp(16px, 1.25vw, 22px);
+      --title: clamp(64px, 9vw, 150px);
     }
 
     * {
@@ -56,156 +56,102 @@
       text-decoration: none;
     }
 
-    button {
-      font: inherit;
-    }
-
-
-    /* --------------------------------
-       PAGE
-       -------------------------------- */
-
     .page {
       position: relative;
 
       width: 100vw;
       height: 100dvh;
 
-      padding:
-        var(--pad-y)
-        var(--pad-x);
-
       overflow: hidden;
+
+      padding:
+        max(var(--pad-y), env(safe-area-inset-top))
+        max(var(--pad-x), env(safe-area-inset-right))
+        max(var(--pad-y), env(safe-area-inset-bottom))
+        max(var(--pad-x), env(safe-area-inset-left));
     }
 
+    /* HEADER */
 
-    /* --------------------------------
-       MENU BUTTON
-       -------------------------------- */
-
-    .menu {
+    .header {
       position: fixed;
+
+      top: 0;
+      left: 0;
+      right: 0;
+
+      z-index: 10;
+
+      height: 72px;
+    }
+
+    /* EMPTY LOGO AREA */
+
+    .home-link {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 140px;
+      height: 72px;
+    }
+
+    /* DASH */
+
+    .menu-mark {
+      position: absolute;
 
       top: var(--pad-y);
       right: var(--pad-x);
 
-      z-index: 100;
-
-      width: 34px;
-      height: 24px;
-
-      padding: 0;
-      margin: 0;
-
-      border: 0;
-      background: transparent;
-
-      cursor: pointer;
-    }
-
-    .menu span {
-      position: absolute;
-
-      top: 50%;
-      right: 0;
-
-      width: 26px;
+      width: 28px;
       height: 1px;
 
       background: #000;
-
-      transform:
-        translateY(-50%)
-        rotate(0deg);
-
-      transform-origin: center;
-
-      transition:
-        transform 260ms var(--ease),
-        background 180ms ease;
     }
 
-    body.menu-open .menu span {
-      background: #fff;
-
-      transform:
-        translateY(-50%)
-        rotate(90deg);
-    }
-
-
-    /* --------------------------------
-       EVENTS CONTENT
-       -------------------------------- */
+    /* CONTENT */
 
     .content {
       position: absolute;
 
       left: var(--pad-x);
-      top: 16vh;
+      top: 15vh;
 
       width: min(760px, calc(100vw - 48px));
     }
 
-    .label {
+    h1 {
       margin: 0 0 42px;
 
-      font-size: var(--small);
-      line-height: 1;
-
-      letter-spacing: .02em;
-    }
-
-    h1 {
-      margin: 0 0 46px;
-
-      font-size: var(--display);
+      font-size: var(--title);
       line-height: .82;
 
       font-weight: 400;
 
-      letter-spacing: -.075em;
+      letter-spacing: -.07em;
     }
 
-    .intro {
-      margin: 0 0 42px;
-
-      font-size: var(--body);
-      line-height: 1.2;
-    }
-
-    .layers {
-      margin: 0 0 42px;
-
-      display: flex;
-      flex-direction: column;
-
-      gap: 2px;
-
-      font-size: var(--body);
-      line-height: 1.04;
-    }
-
-    .statement {
-      margin: 0 0 42px;
-
-      font-size: var(--body);
-      line-height: 1.1;
-    }
-
-    .copy {
+    .intro,
+    .copy,
+    .list {
       max-width: 620px;
 
-      margin: 0;
+      margin: 0 0 32px;
 
-      font-size: var(--body);
+      font-size: var(--text);
       line-height: 1.25;
     }
 
+    .list {
+      display: flex;
+      flex-direction: column;
 
-    /* --------------------------------
-       PHONE
-       -------------------------------- */
+      gap: 5px;
+    }
+
+    /* PHONE */
 
     .phone {
       position: fixed;
@@ -213,7 +159,7 @@
       left: var(--pad-x);
       bottom: var(--pad-y);
 
-      z-index: 20;
+      z-index: 10;
 
       font-size: 22px;
       line-height: 1;
@@ -223,89 +169,7 @@
       white-space: nowrap;
     }
 
-    body.menu-open .phone {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-
-    /* --------------------------------
-       OVERLAY MENU
-       -------------------------------- */
-
-    .overlay {
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 80;
-
-      background: #000;
-      color: #fff;
-
-      display: flex;
-      align-items: flex-end;
-
-      padding:
-        0
-        var(--pad-x)
-        var(--pad-y);
-
-      opacity: 0;
-      visibility: hidden;
-
-      pointer-events: none;
-
-      transition:
-        opacity 220ms var(--ease),
-        visibility 220ms var(--ease);
-    }
-
-    body.menu-open .overlay {
-      opacity: 1;
-      visibility: visible;
-
-      pointer-events: auto;
-    }
-
-    .overlay-nav {
-      display: flex;
-      flex-direction: column;
-
-      align-items: flex-start;
-    }
-
-    .overlay-nav a {
-      display: block;
-
-      margin: 0;
-      padding: 0;
-
-      font-size: clamp(90px, 12vw, 210px);
-      line-height: .82;
-
-      font-weight: 400;
-
-      letter-spacing: -.075em;
-
-      transition:
-        opacity 150ms ease,
-        transform 180ms var(--ease);
-    }
-
-    .overlay-nav:hover a {
-      opacity: .25;
-    }
-
-    .overlay-nav a:hover {
-      opacity: 1;
-      transform: translateX(8px);
-    }
-
-
-    /* --------------------------------
-       MOBILE
-       -------------------------------- */
+    /* MOBILE */
 
     @media (max-width: 700px) {
 
@@ -313,7 +177,7 @@
         --pad-x: 16px;
         --pad-y: 16px;
 
-        --body: 16px;
+        --text: 15px;
       }
 
       .content {
@@ -322,66 +186,47 @@
         width: calc(100vw - 32px);
       }
 
-      .label {
-        margin-bottom: 28px;
-      }
-
       h1 {
-        margin-bottom: 32px;
+        margin-bottom: 30px;
 
-        font-size: 21vw;
+        font-size: 20vw;
       }
 
       .intro,
-      .layers,
-      .statement {
-        margin-bottom: 28px;
-      }
-
-      .copy {
-        max-width: 100%;
+      .copy,
+      .list {
+        margin-bottom: 24px;
       }
 
       .phone {
         font-size: 22px;
       }
-
-      .overlay-nav a {
-        font-size: 24vw;
-      }
-
-      .overlay-nav a:hover {
-        transform: none;
-      }
     }
-
   </style>
 </head>
 
 
 <body>
 
+  <header class="header">
 
-  <!-- ONE-SCREEN EVENTS PAGE -->
+    <a
+      class="home-link"
+      href="/"
+      aria-label="Home"
+    ></a>
+
+    <div
+      class="menu-mark"
+      aria-hidden="true"
+    ></div>
+
+  </header>
+
 
   <main class="page">
 
-    <button
-      class="menu"
-      id="menuButton"
-      type="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-    >
-      <span></span>
-    </button>
-
-
     <section class="content">
-
-      <p class="label">
-        
-      </p>
 
       <h1>
         EVENTS
@@ -391,7 +236,7 @@
         An event happens once.
       </p>
 
-      <div class="layers">
+      <div class="list">
         <span>PHOTO</span>
         <span>VIDEO</span>
         <span>AUDIO</span>
@@ -400,14 +245,14 @@
         <span>TRACE</span>
       </div>
 
-      <p class="statement">
-        ONE EVENT.<br>
-        MULTIPLE LAYERS.
+      <p class="copy">
+        One event.<br>
+        Multiple layers.
       </p>
 
       <p class="copy">
-        I document an event as a single system:
-        people, movement, space, sound, and sequence.
+        I document what happened:<br>
+        people, movement, space, sound and sequence.
       </p>
 
     </section>
@@ -421,73 +266,6 @@
     </a>
 
   </main>
-
-
-  <!-- FULL SCREEN MENU -->
-
-  <nav
-    class="overlay"
-    id="overlay"
-    aria-hidden="true"
-  >
-
-    <div class="overlay-nav">
-
-      <a href="/r/">
-        READY
-      </a>
-
-      <a href="/e/">
-        EVENT
-      </a>
-
-    </div>
-
-  </nav>
-
-
-  <script>
-    const button = document.getElementById("menuButton");
-    const overlay = document.getElementById("overlay");
-
-    function setMenu(open) {
-      document.body.classList.toggle("menu-open", open);
-
-      button.setAttribute(
-        "aria-expanded",
-        String(open)
-      );
-
-      button.setAttribute(
-        "aria-label",
-        open ? "Close menu" : "Open menu"
-      );
-
-      overlay.setAttribute(
-        "aria-hidden",
-        String(!open)
-      );
-    }
-
-    button.addEventListener("click", () => {
-      setMenu(
-        !document.body.classList.contains("menu-open")
-      );
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        setMenu(false);
-      }
-    });
-
-    overlay.addEventListener("click", (event) => {
-      if (event.target.closest("a")) {
-        setMenu(false);
-      }
-    });
-  </script>
-
 
 </body>
 </html>
