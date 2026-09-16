@@ -19,8 +19,6 @@
       --display-size: clamp(90px, 12vw, 210px);
       --text-size: clamp(18px, 1.4vw, 24px);
       --phone-size: 22px;
-
-      --display-shift: -4px;
     }
 
     * {
@@ -56,7 +54,7 @@
     }
 
 
-    /* EMPTY HOME AREA */
+    /* HOME */
 
     .home-link {
       position: fixed;
@@ -71,7 +69,7 @@
     }
 
 
-    /* MENU */
+    /* MENU BUTTON */
 
     .menu {
       position: fixed;
@@ -128,24 +126,26 @@
     .content {
       position: fixed;
 
-      top: 12vh;
       left: var(--x);
+      top: 55%;
 
       width: min(
         720px,
         calc(100vw - 48px)
       );
+
+      transform: translateY(-50%);
     }
 
 
-    /* SAME DISPLAY TYPE */
+    /* DISPLAY TITLE */
 
     h1 {
       margin:
         0
         0
         52px
-        var(--display-shift);
+        0;
 
       font-size: var(--display-size);
       line-height: .72;
@@ -153,8 +153,12 @@
       font-weight: 400;
 
       letter-spacing: -.075em;
+
+      transform: translateX(-0.055em);
     }
 
+
+    /* TEXT */
 
     .text {
       max-width: 620px;
@@ -164,7 +168,6 @@
       font-size: var(--text-size);
       line-height: 1.25;
     }
-
 
     .layers {
       display: flex;
@@ -179,7 +182,7 @@
     }
 
 
-    /* PHONE ONLY */
+    /* PHONE */
 
     .page-phone {
       position: fixed;
@@ -206,7 +209,6 @@
 
       gap: 14px;
 
-      margin-left: var(--display-shift);
       margin-bottom: 32px;
     }
 
@@ -221,6 +223,8 @@
       font-weight: 400;
 
       letter-spacing: -.075em;
+
+      transform: translateX(-0.055em);
     }
 
 
@@ -270,7 +274,10 @@
     }
 
 
+    /* MOBILE */
+
     @media (max-width: 700px) {
+
       :root {
         --x: 18px;
         --y: 18px;
@@ -278,15 +285,15 @@
         --display-size: 24vw;
         --text-size: 18px;
         --phone-size: 22px;
-
-        --display-shift: -4px;
       }
 
       .content {
-        top: 11vh;
+        left: var(--x);
+        top: 53%;
 
-        width:
-          calc(100vw - 36px);
+        width: calc(100vw - 36px);
+
+        transform: translateY(-50%);
       }
 
       h1 {
@@ -345,12 +352,14 @@
 
 
     <div class="layers">
+
       <span>PHOTO</span>
       <span>VIDEO</span>
       <span>AUDIO</span>
       <span>SPACE</span>
       <span>DATA</span>
       <span>TRACE</span>
+
     </div>
 
 
@@ -368,8 +377,6 @@
   </main>
 
 
-  <!-- INTERNAL PAGE = PHONE ONLY -->
-
   <a
     class="page-phone"
     href="tel:+79808007001"
@@ -377,8 +384,6 @@
     7.980.800.7.001
   </a>
 
-
-  <!-- MENU -->
 
   <div class="overlay">
 

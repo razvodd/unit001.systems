@@ -19,8 +19,6 @@
       --display-size: clamp(90px, 12vw, 210px);
       --text-size: clamp(18px, 1.4vw, 24px);
       --phone-size: 22px;
-
-      --display-shift: -4px;
     }
 
     * {
@@ -55,9 +53,6 @@
       text-decoration: none;
     }
 
-
-    /* EMPTY HOME AREA */
-
     .home-link {
       position: fixed;
 
@@ -69,9 +64,6 @@
 
       z-index: 300;
     }
-
-
-    /* MENU */
 
     .menu {
       position: fixed;
@@ -122,30 +114,26 @@
         rotate(90deg);
     }
 
-
-    /* CONTENT */
-
     .content {
       position: fixed;
 
-      top: 12vh;
       left: var(--x);
+      top: 55%;
 
       width: min(
         720px,
         calc(100vw - 48px)
       );
+
+      transform: translateY(-50%);
     }
-
-
-    /* SAME DISPLAY TYPE AS MENU */
 
     h1 {
       margin:
         0
         0
         52px
-        var(--display-shift);
+        0;
 
       font-size: var(--display-size);
       line-height: .72;
@@ -153,8 +141,9 @@
       font-weight: 400;
 
       letter-spacing: -.075em;
-    }
 
+      transform: translateX(-0.055em);
+    }
 
     .text {
       max-width: 620px;
@@ -164,7 +153,6 @@
       font-size: var(--text-size);
       line-height: 1.25;
     }
-
 
     .ready-list {
       display: flex;
@@ -177,9 +165,6 @@
       font-size: var(--text-size);
       line-height: 1.25;
     }
-
-
-    /* PHONE ONLY */
 
     .page-phone {
       position: fixed;
@@ -195,9 +180,6 @@
       letter-spacing: -.025em;
     }
 
-
-    /* MENU DISPLAY NAV */
-
     .display-nav {
       display: flex;
       flex-direction: column;
@@ -206,7 +188,6 @@
 
       gap: 14px;
 
-      margin-left: var(--display-shift);
       margin-bottom: 32px;
     }
 
@@ -221,10 +202,9 @@
       font-weight: 400;
 
       letter-spacing: -.075em;
+
+      transform: translateX(-0.055em);
     }
-
-
-    /* OVERLAY */
 
     .overlay {
       position: fixed;
@@ -269,8 +249,8 @@
       letter-spacing: -.025em;
     }
 
-
     @media (max-width: 700px) {
+
       :root {
         --x: 18px;
         --y: 18px;
@@ -278,15 +258,15 @@
         --display-size: 24vw;
         --text-size: 18px;
         --phone-size: 22px;
-
-        --display-shift: -4px;
       }
 
       .content {
-        top: 11vh;
+        left: var(--x);
+        top: 53%;
 
-        width:
-          calc(100vw - 36px);
+        width: calc(100vw - 36px);
+
+        transform: translateY(-50%);
       }
 
       h1 {
@@ -346,17 +326,9 @@
 
     <div class="ready-list">
 
-      <span>
-        MODEL READY
-      </span>
-
-      <span>
-        ACTOR READY
-      </span>
-
-      <span>
-        CAST READY
-      </span>
+      <span>MODEL READY</span>
+      <span>ACTOR READY</span>
+      <span>CAST READY</span>
 
     </div>
 
@@ -371,8 +343,6 @@
   </main>
 
 
-  <!-- INTERNAL PAGE = PHONE ONLY -->
-
   <a
     class="page-phone"
     href="tel:+79808007001"
@@ -380,8 +350,6 @@
     7.980.800.7.001
   </a>
 
-
-  <!-- MENU -->
 
   <div class="overlay">
 
