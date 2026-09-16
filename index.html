@@ -9,7 +9,7 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <title>Ready</title>
+  <title>UNIT</title>
 
   <style>
     :root {
@@ -17,7 +17,6 @@
       --y: 24px;
 
       --display-size: clamp(90px, 12vw, 210px);
-      --text-size: clamp(18px, 1.4vw, 24px);
       --phone-size: 22px;
     }
 
@@ -54,7 +53,7 @@
     }
 
 
-    /* HOME */
+    /* EMPTY HOME AREA */
 
     .home-link {
       position: fixed;
@@ -121,85 +120,19 @@
     }
 
 
-    /* CONTENT */
+    /* BOTTOM BLOCK */
 
-    .content {
-      position: fixed;
-
-      left: var(--x);
-      top: 55%;
-
-      width: min(
-        720px,
-        calc(100vw - 48px)
-      );
-
-      transform: translateY(-50%);
-    }
-
-
-    /* DISPLAY TITLE */
-
-    h1 {
-      margin:
-        0
-        0
-        52px
-        0;
-
-      font-size: var(--display-size);
-      line-height: .72;
-
-      font-weight: 400;
-
-      letter-spacing: -.075em;
-
-      transform: translateX(-0.055em);
-    }
-
-
-    /* TEXT */
-
-    .text {
-      max-width: 620px;
-
-      margin: 0 0 36px;
-
-      font-size: var(--text-size);
-      line-height: 1.25;
-    }
-
-    .ready-list {
-      display: flex;
-      flex-direction: column;
-
-      max-width: 620px;
-
-      margin: 0 0 36px;
-
-      font-size: var(--text-size);
-      line-height: 1.25;
-    }
-
-
-    /* PHONE */
-
-    .page-phone {
+    .bottom {
       position: fixed;
 
       left: var(--x);
       bottom: var(--y);
 
       z-index: 20;
-
-      font-size: var(--phone-size);
-      line-height: 1;
-
-      letter-spacing: -.025em;
     }
 
 
-    /* MENU NAV */
+    /* DISPLAY NAV */
 
     .display-nav {
       display: flex;
@@ -225,6 +158,18 @@
       letter-spacing: -.075em;
 
       transform: translateX(-0.055em);
+    }
+
+
+    /* PHONE */
+
+    .phone {
+      display: block;
+
+      font-size: var(--phone-size);
+      line-height: 1;
+
+      letter-spacing: -.025em;
     }
 
 
@@ -264,15 +209,6 @@
       bottom: var(--y);
     }
 
-    .overlay .phone {
-      display: block;
-
-      font-size: var(--phone-size);
-      line-height: 1;
-
-      letter-spacing: -.025em;
-    }
-
 
     /* MOBILE */
 
@@ -283,26 +219,7 @@
         --y: 18px;
 
         --display-size: 24vw;
-        --text-size: 18px;
         --phone-size: 22px;
-      }
-
-      .content {
-        left: var(--x);
-        top: 53%;
-
-        width: calc(100vw - 36px);
-
-        transform: translateY(-50%);
-      }
-
-      h1 {
-        margin-bottom: 38px;
-      }
-
-      .text,
-      .ready-list {
-        margin-bottom: 30px;
       }
 
       .display-nav {
@@ -339,44 +256,34 @@
   </button>
 
 
-  <main class="content">
+  <!-- MAIN PAGE -->
 
-    <h1>
-      READY
-    </h1>
+  <div class="bottom">
 
+    <nav class="display-nav">
 
-    <p class="text">
-      For models, actors and casting.
-    </p>
+      <a href="/r/">
+        READY
+      </a>
 
+      <a href="/e/">
+        EVENT
+      </a>
 
-    <div class="ready-list">
-
-      <span>MODEL READY</span>
-      <span>ACTOR READY</span>
-      <span>CAST READY</span>
-
-    </div>
+    </nav>
 
 
-    <p class="text">
-      Strong photos.<br>
-      Clear video.<br>
-      Useful feedback.<br>
-      A better next step.
-    </p>
+    <a
+      class="phone"
+      href="tel:+79808007001"
+    >
+      7.980.800.7.001
+    </a>
 
-  </main>
+  </div>
 
 
-  <a
-    class="page-phone"
-    href="tel:+79808007001"
-  >
-    7.980.800.7.001
-  </a>
-
+  <!-- MENU -->
 
   <div class="overlay">
 
