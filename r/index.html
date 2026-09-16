@@ -1,379 +1,457 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ready</title>
+  <meta charset="utf-8">
 
-<style>
-:root {
-  --x: 24px;
-  --y: 24px;
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-  --title-size: clamp(72px, 10vw, 170px);
-  --menu-size: clamp(90px, 12vw, 210px);
+  <title>Ready</title>
 
-  --text-size: clamp(16px, 1.25vw, 22px);
-  --phone-size: 22px;
-}
+  <style>
+    :root {
+      --x: 24px;
+      --y: 24px;
 
-* {
-  box-sizing: border-box;
-}
+      --display-size: clamp(90px, 12vw, 210px);
+      --text-size: clamp(18px, 1.4vw, 24px);
+      --phone-size: 22px;
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
+      --display-shift: -4px;
+    }
 
-body {
-  overflow: hidden;
+    * {
+      box-sizing: border-box;
+    }
 
-  background: #fff;
-  color: #000;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
 
-  font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+    body {
+      overflow: hidden;
 
-a,
-a:link,
-a:visited,
-a:hover,
-a:focus,
-a:active {
-  color: inherit;
-  text-decoration: none;
-}
+      background: #fff;
+      color: #000;
 
+      font-family: Helvetica, Arial, sans-serif;
 
-/* EMPTY HOME LINK */
+      -webkit-font-smoothing: antialiased;
+    }
 
-.home-link {
-  position: fixed;
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  top: 0;
-  left: 0;
 
-  width: 140px;
-  height: 72px;
+    /* EMPTY HOME AREA */
 
-  z-index: 300;
-}
+    .home-link {
+      position: fixed;
 
+      top: 0;
+      left: 0;
 
-/* MENU */
+      width: 140px;
+      height: 72px;
 
-.menu {
-  position: fixed;
+      z-index: 300;
+    }
 
-  top: var(--y);
-  right: var(--x);
 
-  z-index: 300;
+    /* MENU */
 
-  width: 44px;
-  height: 32px;
+    .menu {
+      position: fixed;
 
-  padding: 0;
+      top: var(--y);
+      right: var(--x);
 
-  border: 0;
-  background: transparent;
+      z-index: 300;
 
-  cursor: pointer;
-}
+      width: 46px;
+      height: 34px;
 
-.menu span {
-  position: absolute;
+      padding: 0;
 
-  top: 50%;
-  right: 0;
+      border: 0;
+      background: transparent;
 
-  width: 36px;
-  height: 2px;
+      cursor: pointer;
+    }
 
-  background: #000;
+    .menu span {
+      position: absolute;
 
-  transform: translateY(-50%) rotate(0deg);
-  transform-origin: center;
+      top: 50%;
+      right: 0;
 
-  transition:
-    transform .25s ease,
-    background .2s ease;
-}
+      width: 38px;
+      height: 2px;
 
-body.menu-open .menu span {
-  background: #fff;
+      background: #000;
 
-  transform:
-    translateY(-50%)
-    rotate(90deg);
-}
+      transform:
+        translateY(-50%)
+        rotate(0deg);
 
+      transform-origin: center;
 
-/* CONTENT */
+      transition:
+        transform .25s ease,
+        background .2s ease;
+    }
 
-.content {
-  position: fixed;
+    body.menu-open .menu span {
+      background: #fff;
 
-  top: 15vh;
-  left: var(--x);
+      transform:
+        translateY(-50%)
+        rotate(90deg);
+    }
 
-  width: min(680px, calc(100vw - 48px));
-}
 
-h1 {
-  margin: 0 0 42px;
+    /* CONTENT */
 
-  font-size: var(--title-size);
-  line-height: .82;
+    .content {
+      position: fixed;
 
-  font-weight: 400;
+      top: 12vh;
+      left: var(--x);
 
-  letter-spacing: -.075em;
-}
+      width: min(
+        720px,
+        calc(100vw - 48px)
+      );
+    }
 
-.text,
-.ready-list {
-  margin: 0 0 30px;
 
-  max-width: 600px;
+    /* SAME DISPLAY TYPE AS MENU */
 
-  font-size: var(--text-size);
-  line-height: 1.25;
-}
+    h1 {
+      margin:
+        0
+        0
+        52px
+        var(--display-shift);
 
-.ready-list {
-  display: flex;
-  flex-direction: column;
-}
+      font-size: var(--display-size);
+      line-height: .72;
 
+      font-weight: 400;
 
-/* BOTTOM */
+      letter-spacing: -.075em;
+    }
 
-.bottom {
-  position: fixed;
 
-  left: var(--x);
-  bottom: var(--y);
+    .text {
+      max-width: 620px;
 
-  z-index: 20;
-}
+      margin: 0 0 36px;
 
-.site-nav {
-  display: flex;
-  flex-direction: column;
+      font-size: var(--text-size);
+      line-height: 1.25;
+    }
 
-  align-items: flex-start;
 
-  gap: 12px;
+    .ready-list {
+      display: flex;
+      flex-direction: column;
 
-  margin-bottom: 30px;
+      max-width: 620px;
 
-  transform: translateX(-4px);
-}
+      margin: 0 0 36px;
 
-.site-nav a {
-  display: block;
+      font-size: var(--text-size);
+      line-height: 1.25;
+    }
 
-  margin: 0;
 
-  font-size: var(--menu-size);
-  line-height: .76;
+    /* PHONE ONLY */
 
-  font-weight: 400;
+    .page-phone {
+      position: fixed;
 
-  letter-spacing: -.075em;
-}
+      left: var(--x);
+      bottom: var(--y);
 
-.phone {
-  display: block;
+      z-index: 20;
 
-  font-size: var(--phone-size);
-  line-height: 1;
+      font-size: var(--phone-size);
+      line-height: 1;
 
-  letter-spacing: -.025em;
-}
+      letter-spacing: -.025em;
+    }
 
 
-/* OVERLAY */
+    /* MENU DISPLAY NAV */
 
-.overlay {
-  position: fixed;
+    .display-nav {
+      display: flex;
+      flex-direction: column;
 
-  inset: 0;
+      align-items: flex-start;
 
-  z-index: 100;
+      gap: 14px;
 
-  background: #000;
-  color: #fff;
+      margin-left: var(--display-shift);
+      margin-bottom: 32px;
+    }
 
-  opacity: 0;
-  visibility: hidden;
+    .display-nav a {
+      display: block;
 
-  pointer-events: none;
+      margin: 0;
 
-  transition:
-    opacity .2s ease,
-    visibility .2s ease;
-}
+      font-size: var(--display-size);
+      line-height: .72;
 
-body.menu-open .overlay {
-  opacity: 1;
-  visibility: visible;
+      font-weight: 400;
 
-  pointer-events: auto;
-}
+      letter-spacing: -.075em;
+    }
 
-.overlay-bottom {
-  position: absolute;
 
-  left: var(--x);
-  bottom: var(--y);
-}
+    /* OVERLAY */
 
+    .overlay {
+      position: fixed;
 
-/* MOBILE */
+      inset: 0;
 
-@media (max-width: 700px) {
-  :root {
-    --x: 16px;
-    --y: 16px;
+      z-index: 100;
 
-    --title-size: 20vw;
-    --menu-size: 24vw;
+      background: #000;
+      color: #fff;
 
-    --text-size: 15px;
-    --phone-size: 22px;
-  }
+      opacity: 0;
+      visibility: hidden;
 
-  .content {
-    top: 12vh;
+      pointer-events: none;
 
-    width: calc(100vw - 32px);
-  }
+      transition:
+        opacity .2s ease,
+        visibility .2s ease;
+    }
 
-  h1 {
-    margin-bottom: 30px;
-  }
+    body.menu-open .overlay {
+      opacity: 1;
+      visibility: visible;
 
-  .site-nav {
-    gap: 8px;
-    margin-bottom: 26px;
-  }
+      pointer-events: auto;
+    }
 
-  .menu span {
-    width: 34px;
-  }
-}
-</style>
+    .overlay-bottom {
+      position: absolute;
+
+      left: var(--x);
+      bottom: var(--y);
+    }
+
+    .overlay .phone {
+      display: block;
+
+      font-size: var(--phone-size);
+      line-height: 1;
+
+      letter-spacing: -.025em;
+    }
+
+
+    @media (max-width: 700px) {
+      :root {
+        --x: 18px;
+        --y: 18px;
+
+        --display-size: 24vw;
+        --text-size: 18px;
+        --phone-size: 22px;
+
+        --display-shift: -4px;
+      }
+
+      .content {
+        top: 11vh;
+
+        width:
+          calc(100vw - 36px);
+      }
+
+      h1 {
+        margin-bottom: 38px;
+      }
+
+      .text,
+      .ready-list {
+        margin-bottom: 30px;
+      }
+
+      .display-nav {
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
+      .menu span {
+        width: 36px;
+      }
+    }
+  </style>
 </head>
 
 
 <body>
 
-<a
-  class="home-link"
-  href="/"
-  aria-label="Home"
-></a>
-
-
-<button
-  class="menu"
-  id="menu"
-  type="button"
-  aria-label="Open menu"
-  aria-expanded="false"
->
-  <span></span>
-</button>
-
-
-<main class="content">
-
-  <h1>READY</h1>
-
-  <p class="text">
-    For models, actors and casting.
-  </p>
-
-  <div class="ready-list">
-    <span>MODEL READY</span>
-    <span>ACTOR READY</span>
-    <span>CAST READY</span>
-  </div>
-
-  <p class="text">
-    Strong photos.<br>
-    Clear video.<br>
-    Useful feedback.<br>
-    A better next step.
-  </p>
-
-</main>
-
-
-<div class="bottom">
-
-  <nav class="site-nav">
-    <a href="/r/">READY</a>
-    <a href="/e/">EVENT</a>
-  </nav>
 
   <a
-    class="phone"
+    class="home-link"
+    href="/"
+    aria-label="Home"
+  ></a>
+
+
+  <button
+    class="menu"
+    id="menu"
+    type="button"
+    aria-label="Open menu"
+    aria-expanded="false"
+  >
+    <span></span>
+  </button>
+
+
+  <main class="content">
+
+    <h1>
+      READY
+    </h1>
+
+
+    <p class="text">
+      For models, actors and casting.
+    </p>
+
+
+    <div class="ready-list">
+
+      <span>
+        MODEL READY
+      </span>
+
+      <span>
+        ACTOR READY
+      </span>
+
+      <span>
+        CAST READY
+      </span>
+
+    </div>
+
+
+    <p class="text">
+      Strong photos.<br>
+      Clear video.<br>
+      Useful feedback.<br>
+      A better next step.
+    </p>
+
+  </main>
+
+
+  <!-- INTERNAL PAGE = PHONE ONLY -->
+
+  <a
+    class="page-phone"
     href="tel:+79808007001"
   >
     7.980.800.7.001
   </a>
 
-</div>
+
+  <!-- MENU -->
+
+  <div class="overlay">
+
+    <div class="overlay-bottom">
+
+      <nav class="display-nav">
+
+        <a href="/r/">
+          READY
+        </a>
+
+        <a href="/e/">
+          EVENT
+        </a>
+
+      </nav>
 
 
-<div class="overlay">
+      <a
+        class="phone"
+        href="tel:+79808007001"
+      >
+        7.980.800.7.001
+      </a>
 
-  <div class="overlay-bottom">
-
-    <nav class="site-nav">
-      <a href="/r/">READY</a>
-      <a href="/e/">EVENT</a>
-    </nav>
-
-    <a
-      class="phone"
-      href="tel:+79808007001"
-    >
-      7.980.800.7.001
-    </a>
+    </div>
 
   </div>
 
-</div>
+
+  <script>
+    const menu =
+      document.getElementById("menu");
+
+    menu.addEventListener("click", () => {
+
+      const open =
+        document.body.classList.toggle(
+          "menu-open"
+        );
+
+      menu.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
+
+    });
 
 
-<script>
-const menu = document.getElementById('menu');
+    document.addEventListener(
+      "keydown",
+      event => {
 
-menu.addEventListener('click', () => {
-  const open =
-    document.body.classList.toggle('menu-open');
+        if (event.key === "Escape") {
 
-  menu.setAttribute(
-    'aria-expanded',
-    String(open)
-  );
-});
+          document.body.classList.remove(
+            "menu-open"
+          );
 
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape') {
-    document.body.classList.remove('menu-open');
-    menu.setAttribute('aria-expanded', 'false');
-  }
-});
-</script>
+          menu.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+
+      }
+    );
+  </script>
+
 
 </body>
 </html>

@@ -1,268 +1,279 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>UNIT</title>
+  <meta charset="utf-8">
 
-<style>
-:root {
-  --x: 24px;
-  --y: 24px;
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-  --title-size: clamp(72px, 10vw, 170px);
-  --menu-size: clamp(90px, 12vw, 210px);
-  --phone-size: 22px;
-}
+  <title>UNIT</title>
 
-* {
-  box-sizing: border-box;
-}
+  <style>
+    :root {
+      --x: 24px;
+      --y: 24px;
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
+      --display-size: clamp(90px, 12vw, 210px);
+      --phone-size: 22px;
 
-body {
-  overflow: hidden;
-  background: #fff;
-  color: #000;
+      --display-shift: -4px;
+    }
 
-  font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-a,
-a:link,
-a:visited,
-a:hover,
-a:focus,
-a:active {
-  color: inherit;
-  text-decoration: none;
-}
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
 
+    body {
+      overflow: hidden;
 
-/* EMPTY HOME LINK */
+      background: #fff;
+      color: #000;
 
-.home-link {
-  position: fixed;
+      font-family: Helvetica, Arial, sans-serif;
 
-  top: 0;
-  left: 0;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  width: 140px;
-  height: 72px;
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  z-index: 300;
-}
 
+    /* EMPTY HOME AREA */
 
-/* MENU BUTTON */
+    .home-link {
+      position: fixed;
 
-.menu {
-  position: fixed;
+      top: 0;
+      left: 0;
 
-  top: var(--y);
-  right: var(--x);
+      width: 140px;
+      height: 72px;
 
-  z-index: 300;
+      z-index: 300;
+    }
 
-  width: 44px;
-  height: 32px;
 
-  padding: 0;
+    /* MENU BUTTON */
 
-  border: 0;
-  background: transparent;
+    .menu {
+      position: fixed;
 
-  cursor: pointer;
-}
+      top: var(--y);
+      right: var(--x);
 
-.menu span {
-  position: absolute;
+      z-index: 300;
 
-  top: 50%;
-  right: 0;
+      width: 46px;
+      height: 34px;
 
-  width: 36px;
-  height: 2px;
+      padding: 0;
 
-  background: #000;
+      border: 0;
+      background: transparent;
 
-  transform: translateY(-50%) rotate(0deg);
-  transform-origin: center;
+      cursor: pointer;
+    }
 
-  transition:
-    transform .25s ease,
-    background .2s ease;
-}
+    .menu span {
+      position: absolute;
 
-body.menu-open .menu span {
-  background: #fff;
+      top: 50%;
+      right: 0;
 
-  transform:
-    translateY(-50%)
-    rotate(90deg);
-}
+      width: 38px;
+      height: 2px;
 
+      background: #000;
 
-/* BOTTOM */
+      transform:
+        translateY(-50%)
+        rotate(0deg);
 
-.bottom {
-  position: fixed;
+      transform-origin: center;
 
-  left: var(--x);
-  bottom: var(--y);
+      transition:
+        transform .25s ease,
+        background .2s ease;
+    }
 
-  z-index: 20;
-}
+    body.menu-open .menu span {
+      background: #fff;
 
-.site-nav {
-  display: flex;
-  flex-direction: column;
+      transform:
+        translateY(-50%)
+        rotate(90deg);
+    }
 
-  align-items: flex-start;
 
-  gap: 12px;
+    /* DISPLAY NAV */
 
-  margin-bottom: 30px;
+    .display-nav {
+      display: flex;
+      flex-direction: column;
 
-  transform: translateX(-4px);
-}
+      align-items: flex-start;
 
-.site-nav a {
-  display: block;
+      gap: 14px;
 
-  margin: 0;
+      margin-left: var(--display-shift);
+      margin-bottom: 32px;
+    }
 
-  font-size: var(--menu-size);
-  line-height: .76;
+    .display-nav a {
+      display: block;
 
-  font-weight: 400;
+      margin: 0;
 
-  letter-spacing: -.075em;
-}
+      font-size: var(--display-size);
+      line-height: .72;
 
-.phone {
-  display: block;
+      font-weight: 400;
 
-  font-size: var(--phone-size);
-  line-height: 1;
+      letter-spacing: -.075em;
+    }
 
-  letter-spacing: -.025em;
-}
 
+    /* MAIN BOTTOM */
 
-/* OVERLAY */
+    .bottom {
+      position: fixed;
 
-.overlay {
-  position: fixed;
+      left: var(--x);
+      bottom: var(--y);
 
-  inset: 0;
+      z-index: 20;
+    }
 
-  z-index: 100;
 
-  background: #000;
-  color: #fff;
+    /* PHONE */
 
-  opacity: 0;
-  visibility: hidden;
+    .phone {
+      display: block;
 
-  pointer-events: none;
+      font-size: var(--phone-size);
+      line-height: 1;
 
-  transition:
-    opacity .2s ease,
-    visibility .2s ease;
-}
+      font-weight: 400;
 
-body.menu-open .overlay {
-  opacity: 1;
-  visibility: visible;
+      letter-spacing: -.025em;
+    }
 
-  pointer-events: auto;
-}
 
-.overlay-bottom {
-  position: absolute;
+    /* OVERLAY */
 
-  left: var(--x);
-  bottom: var(--y);
-}
+    .overlay {
+      position: fixed;
 
+      inset: 0;
 
-/* MOBILE */
+      z-index: 100;
 
-@media (max-width: 700px) {
-  :root {
-    --x: 16px;
-    --y: 16px;
+      background: #000;
+      color: #fff;
 
-    --menu-size: 24vw;
-    --phone-size: 22px;
-  }
+      opacity: 0;
+      visibility: hidden;
 
-  .site-nav {
-    gap: 8px;
-    margin-bottom: 26px;
-  }
+      pointer-events: none;
 
-  .menu span {
-    width: 34px;
-  }
-}
-</style>
+      transition:
+        opacity .2s ease,
+        visibility .2s ease;
+    }
+
+    body.menu-open .overlay {
+      opacity: 1;
+      visibility: visible;
+
+      pointer-events: auto;
+    }
+
+    .overlay-bottom {
+      position: absolute;
+
+      left: var(--x);
+      bottom: var(--y);
+    }
+
+
+    @media (max-width: 700px) {
+      :root {
+        --x: 18px;
+        --y: 18px;
+
+        --display-size: 24vw;
+        --phone-size: 22px;
+
+        --display-shift: -4px;
+      }
+
+      .display-nav {
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
+      .menu span {
+        width: 36px;
+      }
+    }
+  </style>
 </head>
 
 
 <body>
 
-<a
-  class="home-link"
-  href="/"
-  aria-label="Home"
-></a>
-
-
-<button
-  class="menu"
-  id="menu"
-  type="button"
-  aria-label="Open menu"
-  aria-expanded="false"
->
-  <span></span>
-</button>
-
-
-<div class="bottom">
-
-  <nav class="site-nav">
-    <a href="/r/">READY</a>
-    <a href="/e/">EVENT</a>
-  </nav>
 
   <a
-    class="phone"
-    href="tel:+79808007001"
+    class="home-link"
+    href="/"
+    aria-label="Home"
+  ></a>
+
+
+  <button
+    class="menu"
+    id="menu"
+    type="button"
+    aria-label="Open menu"
+    aria-expanded="false"
   >
-    7.980.800.7.001
-  </a>
-
-</div>
+    <span></span>
+  </button>
 
 
-<div class="overlay">
+  <!-- MAIN PAGE -->
 
-  <div class="overlay-bottom">
+  <div class="bottom">
 
-    <nav class="site-nav">
-      <a href="/r/">READY</a>
-      <a href="/e/">EVENT</a>
+    <nav class="display-nav">
+
+      <a href="/r/">
+        READY
+      </a>
+
+      <a href="/e/">
+        EVENT
+      </a>
+
     </nav>
+
 
     <a
       class="phone"
@@ -273,29 +284,78 @@ body.menu-open .overlay {
 
   </div>
 
-</div>
+
+  <!-- MENU -->
+
+  <div class="overlay">
+
+    <div class="overlay-bottom">
+
+      <nav class="display-nav">
+
+        <a href="/r/">
+          READY
+        </a>
+
+        <a href="/e/">
+          EVENT
+        </a>
+
+      </nav>
 
 
-<script>
-const menu = document.getElementById('menu');
+      <a
+        class="phone"
+        href="tel:+79808007001"
+      >
+        7.980.800.7.001
+      </a>
 
-menu.addEventListener('click', () => {
-  const open =
-    document.body.classList.toggle('menu-open');
+    </div>
 
-  menu.setAttribute(
-    'aria-expanded',
-    String(open)
-  );
-});
+  </div>
 
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape') {
-    document.body.classList.remove('menu-open');
-    menu.setAttribute('aria-expanded', 'false');
-  }
-});
-</script>
+
+  <script>
+    const menu =
+      document.getElementById("menu");
+
+    menu.addEventListener("click", () => {
+
+      const open =
+        document.body.classList.toggle(
+          "menu-open"
+        );
+
+      menu.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
+
+    });
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Escape") {
+
+          document.body.classList.remove(
+            "menu-open"
+          );
+
+          menu.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+
+      }
+    );
+  </script>
+
 
 </body>
 </html>
