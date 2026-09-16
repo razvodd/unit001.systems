@@ -1,261 +1,358 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Event</title>
 
-  <title>Events</title>
+<style>
+:root {
+  --x: 24px;
+  --y: 24px;
+  --nav-size: clamp(52px, 7vw, 118px);
+  --phone-size: 22px;
 
-  <style>
-    :root {
-      --black: #000;
-      --white: #fff;
+  --title: clamp(64px, 9vw, 150px);
+  --text: clamp(16px, 1.25vw, 22px);
+}
 
-      --pad-x: 24px;
-      --pad-y: 24px;
+* {
+  box-sizing: border-box;
+}
 
-      --text: clamp(16px, 1.25vw, 22px);
-      --title: clamp(64px, 9vw, 150px);
-    }
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+body {
+  overflow: hidden;
+  background: #fff;
+  color: #000;
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
+  font-family: Helvetica, Arial, sans-serif;
 
-    body {
-      overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-      background: var(--white);
-      color: var(--black);
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
 
-      font-family:
-        Helvetica,
-        Arial,
-        sans-serif;
+.home-link {
+  position: fixed;
 
-      -webkit-font-smoothing: antialiased;
-    }
+  top: 0;
+  left: 0;
 
-    a,
-    a:link,
-    a:visited,
-    a:hover,
-    a:focus,
-    a:active {
-      color: inherit;
-      text-decoration: none;
-    }
+  width: 140px;
+  height: 72px;
 
-    .page {
-      position: relative;
+  z-index: 200;
+}
 
-      width: 100vw;
-      height: 100dvh;
+.menu {
+  position: fixed;
 
-      overflow: hidden;
+  top: var(--y);
+  right: var(--x);
 
-      padding:
-        max(var(--pad-y), env(safe-area-inset-top))
-        max(var(--pad-x), env(safe-area-inset-right))
-        max(var(--pad-y), env(safe-area-inset-bottom))
-        max(var(--pad-x), env(safe-area-inset-left));
-    }
+  z-index: 300;
 
-    /* HEADER */
+  width: 44px;
+  height: 32px;
 
-    .header {
-      position: fixed;
+  padding: 0;
 
-      top: 0;
-      left: 0;
-      right: 0;
+  border: 0;
+  background: transparent;
 
-      z-index: 10;
+  cursor: pointer;
+}
 
-      height: 72px;
-    }
+.menu span {
+  position: absolute;
 
-    /* EMPTY LOGO AREA */
+  top: 50%;
+  right: 0;
 
-    .home-link {
-      position: absolute;
+  width: 34px;
+  height: 2px;
 
-      top: 0;
-      left: 0;
+  background: #000;
 
-      width: 140px;
-      height: 72px;
-    }
+  transform: translateY(-50%) rotate(0);
+  transform-origin: center;
 
-    /* DASH */
+  transition:
+    transform .25s ease,
+    background .2s ease;
+}
 
-    .menu-mark {
-      position: absolute;
+body.menu-open .menu span {
+  background: #fff;
 
-      top: var(--pad-y);
-      right: var(--pad-x);
+  transform:
+    translateY(-50%)
+    rotate(90deg);
+}
 
-      width: 28px;
-      height: 1px;
+/* CONTENT */
 
-      background: #000;
-    }
+.content {
+  position: fixed;
 
-    /* CONTENT */
+  left: var(--x);
+  top: 15vh;
 
-    .content {
-      position: absolute;
+  width: min(680px, calc(100vw - 48px));
+}
 
-      left: var(--pad-x);
-      top: 15vh;
+h1 {
+  margin: 0 0 38px;
 
-      width: min(760px, calc(100vw - 48px));
-    }
+  font-size: var(--title);
+  line-height: .82;
 
-    h1 {
-      margin: 0 0 42px;
+  font-weight: 400;
 
-      font-size: var(--title);
-      line-height: .82;
+  letter-spacing: -.07em;
+}
 
-      font-weight: 400;
+.text {
+  margin: 0 0 30px;
 
-      letter-spacing: -.07em;
-    }
+  max-width: 600px;
 
-    .intro,
-    .copy,
-    .list {
-      max-width: 620px;
+  font-size: var(--text);
+  line-height: 1.25;
+}
 
-      margin: 0 0 32px;
+.layers {
+  margin: 0 0 30px;
 
-      font-size: var(--text);
-      line-height: 1.25;
-    }
+  display: flex;
+  flex-direction: column;
 
-    .list {
-      display: flex;
-      flex-direction: column;
+  font-size: var(--text);
+  line-height: 1.25;
+}
 
-      gap: 5px;
-    }
+/* BOTTOM */
 
-    /* PHONE */
+.bottom {
+  position: fixed;
 
-    .phone {
-      position: fixed;
+  left: var(--x);
+  bottom: var(--y);
 
-      left: var(--pad-x);
-      bottom: var(--pad-y);
+  z-index: 20;
+}
 
-      z-index: 10;
+.site-nav {
+  display: flex;
+  flex-direction: column;
 
-      font-size: 22px;
-      line-height: 1;
+  align-items: flex-start;
 
-      letter-spacing: -.025em;
+  margin-bottom: 22px;
+}
 
-      white-space: nowrap;
-    }
+.site-nav a {
+  display: block;
 
-    /* MOBILE */
+  font-size: var(--nav-size);
+  line-height: .82;
 
-    @media (max-width: 700px) {
+  letter-spacing: -.07em;
+}
 
-      :root {
-        --pad-x: 16px;
-        --pad-y: 16px;
+.phone {
+  display: block;
 
-        --text: 15px;
-      }
+  font-size: var(--phone-size);
+  line-height: 1;
 
-      .content {
-        top: 12vh;
+  letter-spacing: -.025em;
+}
 
-        width: calc(100vw - 32px);
-      }
+/* OVERLAY */
 
-      h1 {
-        margin-bottom: 30px;
+.overlay {
+  position: fixed;
 
-        font-size: 20vw;
-      }
+  inset: 0;
 
-      .intro,
-      .copy,
-      .list {
-        margin-bottom: 24px;
-      }
+  z-index: 100;
 
-      .phone {
-        font-size: 22px;
-      }
-    }
-  </style>
+  background: #000;
+  color: #fff;
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease;
+}
+
+body.menu-open .overlay {
+  opacity: 1;
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+.overlay-bottom {
+  position: absolute;
+
+  left: var(--x);
+  bottom: var(--y);
+}
+
+.overlay .site-nav {
+  margin-bottom: 22px;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --x: 16px;
+    --y: 16px;
+
+    --nav-size: 17vw;
+    --phone-size: 22px;
+
+    --text: 15px;
+  }
+
+  .content {
+    top: 12vh;
+
+    width: calc(100vw - 32px);
+  }
+
+  h1 {
+    margin-bottom: 28px;
+
+    font-size: 20vw;
+  }
+
+  .menu span {
+    width: 30px;
+  }
+}
+</style>
 </head>
 
 
 <body>
 
-  <header class="header">
-
-    <a
-      class="home-link"
-      href="/"
-      aria-label="Home"
-    ></a>
-
-    <div
-      class="menu-mark"
-      aria-hidden="true"
-    ></div>
-
-  </header>
+<a
+  class="home-link"
+  href="/"
+  aria-label="Home"
+></a>
 
 
-  <main class="page">
+<button
+  class="menu"
+  id="menu"
+  type="button"
+  aria-label="Open menu"
+  aria-expanded="false"
+>
+  <span></span>
+</button>
 
-    <section class="content">
 
-      <h1>
-        EVENTS
-      </h1>
+<main class="content">
 
-      <p class="intro">
-        An event happens once.
-      </p>
+  <h1>
+    EVENTS
+  </h1>
 
-      <div class="list">
-        <span>PHOTO</span>
-        <span>VIDEO</span>
-        <span>AUDIO</span>
-        <span>SPACE</span>
-        <span>DATA</span>
-        <span>TRACE</span>
-      </div>
+  <p class="text">
+    An event happens once.
+  </p>
 
-      <p class="copy">
-        One event.<br>
-        Multiple layers.
-      </p>
 
-      <p class="copy">
-        I document what happened:<br>
-        people, movement, space, sound and sequence.
-      </p>
+  <div class="layers">
+    <span>PHOTO</span>
+    <span>VIDEO</span>
+    <span>AUDIO</span>
+    <span>SPACE</span>
+    <span>DATA</span>
+    <span>TRACE</span>
+  </div>
 
-    </section>
+
+  <p class="text">
+    One event.<br>
+    Multiple layers.
+  </p>
+
+
+  <p class="text">
+    I document what happened:<br>
+    people, movement, space, sound and sequence.
+  </p>
+
+</main>
+
+
+<div class="bottom">
+
+  <nav class="site-nav">
+
+    <a href="/r/">
+      READY
+    </a>
+
+    <a href="/e/">
+      EVENT
+    </a>
+
+  </nav>
+
+
+  <a
+    class="phone"
+    href="tel:+79808007001"
+  >
+    7.980.800.7.001
+  </a>
+
+</div>
+
+
+<div
+  class="overlay"
+  id="overlay"
+>
+
+  <div class="overlay-bottom">
+
+    <nav class="site-nav">
+
+      <a href="/r/">
+        READY
+      </a>
+
+      <a href="/e/">
+        EVENT
+      </a>
+
+    </nav>
 
 
     <a
@@ -265,7 +362,55 @@
       7.980.800.7.001
     </a>
 
-  </main>
+  </div>
+
+</div>
+
+
+<script>
+const menu = document.getElementById('menu');
+
+menu.addEventListener('click', () => {
+
+  const open =
+    document.body.classList.toggle('menu-open');
+
+  menu.setAttribute(
+    'aria-expanded',
+    String(open)
+  );
+
+  menu.setAttribute(
+    'aria-label',
+    open
+      ? 'Close menu'
+      : 'Open menu'
+  );
+
+});
+
+
+document.addEventListener(
+  'keydown',
+  event => {
+
+    if (event.key === 'Escape') {
+
+      document.body
+        .classList
+        .remove('menu-open');
+
+      menu.setAttribute(
+        'aria-expanded',
+        'false'
+      );
+
+    }
+
+  }
+);
+</script>
+
 
 </body>
 </html>

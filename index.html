@@ -1,419 +1,251 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
-  <title>UNIT001.SYSTEMS</title>
-
-  <style>
-    :root {
-      --black: #000;
-      --white: #fff;
-
-      --pad-x: 24px;
-      --pad-y: 24px;
-
-      --ease: cubic-bezier(.22,.75,.18,1);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-
-    body {
-      width: 100%;
-      height: 100dvh;
-
-      overflow: hidden;
-
-      background: var(--white);
-      color: var(--black);
-
-      font-family:
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a,
-    a:link,
-    a:visited,
-    a:hover,
-    a:focus,
-    a:active {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-
-    /* --------------------------------
-       PAGE
-       -------------------------------- */
-
-    .page {
-      position: relative;
-
-      width: 100vw;
-      height: 100dvh;
-
-      overflow: hidden;
-
-      background: #fff;
-    }
-
-
-    /* --------------------------------
-       MENU BUTTON
-       -------------------------------- */
-
-    .menu {
-      position: fixed;
-
-      top: var(--pad-y);
-      right: var(--pad-x);
-
-      z-index: 100;
-
-      width: 34px;
-      height: 24px;
-
-      padding: 0;
-      margin: 0;
-
-      border: 0;
-      background: transparent;
-
-      cursor: pointer;
-
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .menu span {
-      position: absolute;
-
-      top: 50%;
-      right: 0;
-
-      width: 26px;
-      height: 1px;
-
-      background: #000;
-
-      transform:
-        translateY(-50%)
-        rotate(0deg);
-
-      transform-origin: center;
-
-      transition:
-        transform 260ms var(--ease),
-        background 180ms ease;
-    }
-
-    body.menu-open .menu span {
-      background: #fff;
-
-      transform:
-        translateY(-50%)
-        rotate(90deg);
-    }
-
-
-    /* --------------------------------
-       PHONE
-       -------------------------------- */
-
-    .phone {
-      position: fixed;
-
-      left: var(--pad-x);
-      bottom: var(--pad-y);
-
-      z-index: 20;
-
-      font-size: 22px;
-      line-height: 1;
-
-      font-weight: 400;
-
-      letter-spacing: -.025em;
-
-      white-space: nowrap;
-
-      transition:
-        opacity 160ms ease;
-    }
-
-    body.menu-open .phone {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-
-    /* --------------------------------
-       FULL SCREEN MENU
-       -------------------------------- */
-
-    .overlay {
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 80;
-
-      background: #000;
-      color: #fff;
-
-      display: flex;
-      align-items: flex-end;
-
-      padding:
-        0
-        var(--pad-x)
-        var(--pad-y);
-
-      opacity: 0;
-      visibility: hidden;
-
-      pointer-events: none;
-
-      transition:
-        opacity 220ms var(--ease),
-        visibility 220ms var(--ease);
-    }
-
-    body.menu-open .overlay {
-      opacity: 1;
-      visibility: visible;
-
-      pointer-events: auto;
-    }
-
-
-    /* --------------------------------
-       NAV
-       -------------------------------- */
-
-    .overlay-nav {
-      display: flex;
-      flex-direction: column;
-
-      align-items: flex-start;
-    }
-
-    .overlay-nav a {
-      display: block;
-
-      margin: 0;
-      padding: 0;
-
-      font-size: clamp(90px, 12vw, 210px);
-      line-height: .82;
-
-      font-weight: 400;
-
-      letter-spacing: -.075em;
-
-      transition:
-        opacity 150ms ease,
-        transform 180ms var(--ease);
-    }
-
-    .overlay-nav:hover a {
-      opacity: .25;
-    }
-
-    .overlay-nav a:hover {
-      opacity: 1;
-
-      transform: translateX(8px);
-    }
-
-
-    /* --------------------------------
-       MOBILE
-       -------------------------------- */
-
-    @media (max-width: 700px) {
-
-      :root {
-        --pad-x: 16px;
-        --pad-y: 16px;
-      }
-
-      .phone {
-        font-size: 22px;
-      }
-
-      .overlay-nav a {
-        font-size: 24vw;
-      }
-
-      .overlay-nav a:hover {
-        transform: none;
-      }
-    }
-
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        transition: none !important;
-      }
-
-    }
-
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UNIT</title>
+
+<style>
+:root {
+  --x: 24px;
+  --y: 24px;
+  --nav-size: clamp(52px, 7vw, 118px);
+  --phone-size: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: #fff;
+  color: #000;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* EMPTY LOGO */
+
+.home-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 72px;
+  z-index: 200;
+}
+
+/* MENU MARK */
+
+.menu {
+  position: fixed;
+  top: var(--y);
+  right: var(--x);
+  z-index: 300;
+
+  width: 44px;
+  height: 32px;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.menu span {
+  position: absolute;
+  top: 50%;
+  right: 0;
+
+  width: 34px;
+  height: 2px;
+
+  background: #000;
+
+  transform: translateY(-50%) rotate(0);
+  transform-origin: center;
+
+  transition:
+    transform .25s ease,
+    background .2s ease;
+}
+
+body.menu-open .menu span {
+  background: #fff;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* BOTTOM NAV */
+
+.bottom {
+  position: fixed;
+  left: var(--x);
+  bottom: var(--y);
+  z-index: 20;
+}
+
+.site-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-bottom: 22px;
+}
+
+.site-nav a {
+  display: block;
+
+  font-size: var(--nav-size);
+  line-height: .82;
+  letter-spacing: -.07em;
+}
+
+.phone {
+  display: block;
+
+  font-size: var(--phone-size);
+  line-height: 1;
+  letter-spacing: -.025em;
+}
+
+/* OVERLAY */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  background: #000;
+  color: #fff;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease;
+}
+
+body.menu-open .overlay {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.overlay-bottom {
+  position: absolute;
+  left: var(--x);
+  bottom: var(--y);
+}
+
+.overlay .site-nav {
+  margin-bottom: 22px;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  :root {
+    --x: 16px;
+    --y: 16px;
+    --nav-size: 17vw;
+    --phone-size: 22px;
+  }
+
+  .menu span {
+    width: 30px;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
+<a class="home-link" href="/" aria-label="Home"></a>
 
-  <main class="page">
-
-    <!-- TOP RIGHT DASH -->
-
-    <button
-      class="menu"
-      id="menuButton"
-      type="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-    >
-      <span></span>
-    </button>
+<button
+  class="menu"
+  id="menu"
+  type="button"
+  aria-label="Open menu"
+  aria-expanded="false"
+>
+  <span></span>
+</button>
 
 
-    <!-- BOTTOM LEFT PHONE -->
+<div class="bottom">
 
-    <a
-      class="phone"
-      href="tel:+79808007001"
-    >
+  <nav class="site-nav">
+    <a href="/r/">READY</a>
+    <a href="/e/">EVENT</a>
+  </nav>
+
+  <a class="phone" href="tel:+79808007001">
+    7.980.800.7.001
+  </a>
+
+</div>
+
+
+<div class="overlay" id="overlay">
+
+  <div class="overlay-bottom">
+
+    <nav class="site-nav">
+      <a href="/r/">READY</a>
+      <a href="/e/">EVENT</a>
+    </nav>
+
+    <a class="phone" href="tel:+79808007001">
       7.980.800.7.001
     </a>
 
-  </main>
+  </div>
+
+</div>
 
 
-  <!-- FULL SCREEN MENU -->
+<script>
+const menu = document.getElementById('menu');
 
-  <nav
-    class="overlay"
-    id="overlay"
-    aria-hidden="true"
-  >
+menu.addEventListener('click', () => {
+  const open = document.body.classList.toggle('menu-open');
 
-    <div class="overlay-nav">
+  menu.setAttribute('aria-expanded', String(open));
+  menu.setAttribute(
+    'aria-label',
+    open ? 'Close menu' : 'Open menu'
+  );
+});
 
-      <a href="/r/">
-        READY
-      </a>
-
-      <a href="/e/">
-        EVENT
-      </a>
-
-    </div>
-
-  </nav>
-
-
-  <script>
-
-    const button =
-      document.getElementById("menuButton");
-
-    const overlay =
-      document.getElementById("overlay");
-
-
-    function setMenu(open) {
-
-      document.body.classList.toggle(
-        "menu-open",
-        open
-      );
-
-      button.setAttribute(
-        "aria-expanded",
-        String(open)
-      );
-
-      button.setAttribute(
-        "aria-label",
-        open
-          ? "Close menu"
-          : "Open menu"
-      );
-
-      overlay.setAttribute(
-        "aria-hidden",
-        String(!open)
-      );
-
-    }
-
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        setMenu(
-          !document.body.classList.contains(
-            "menu-open"
-          )
-        );
-
-      }
-    );
-
-
-    document.addEventListener(
-      "keydown",
-      (event) => {
-
-        if (event.key === "Escape") {
-          setMenu(false);
-        }
-
-      }
-    );
-
-
-    overlay.addEventListener(
-      "click",
-      (event) => {
-
-        if (event.target.closest("a")) {
-          setMenu(false);
-        }
-
-      }
-    );
-
-  </script>
-
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    document.body.classList.remove('menu-open');
+    menu.setAttribute('aria-expanded', 'false');
+  }
+});
+</script>
 
 </body>
 </html>
