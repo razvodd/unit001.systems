@@ -35,16 +35,13 @@
       --gap: clamp(12px, 1.5vw, 24px);
     }
 
-
     * {
       box-sizing: border-box;
     }
 
-
     html {
       scroll-behavior: smooth;
     }
-
 
     html,
     body {
@@ -63,11 +60,14 @@
       -webkit-font-smoothing: antialiased;
     }
 
-
     body {
       overflow-x: hidden;
     }
 
+    body.menu-open,
+    body.modal-open {
+      overflow: hidden;
+    }
 
     a,
     a:link,
@@ -78,7 +78,6 @@
       color: inherit;
       text-decoration: none;
     }
-
 
     button {
       padding: 0;
@@ -95,19 +94,149 @@
 
 
     /* --------------------------------
-       HOME
+       HEADER
        -------------------------------- */
 
-    .home-link {
+    .header {
       position: fixed;
 
-      top: 0;
-      left: 0;
+      z-index: 100;
 
-      z-index: 50;
+      top: 12px;
+      left: 12px;
+      right: 12px;
 
-      width: 150px;
-      height: 80px;
+      height: 54px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        30px;
+
+      align-items: center;
+
+      padding: 0 18px;
+
+      background:
+        rgba(255,255,255,.58);
+
+      border:
+        1px solid
+        rgba(255,255,255,.76);
+
+      border-radius: 999px;
+
+      backdrop-filter:
+        blur(20px)
+        saturate(165%);
+
+      -webkit-backdrop-filter:
+        blur(20px)
+        saturate(165%);
+
+      color: #000;
+    }
+
+    .wordmark {
+      justify-self: start;
+
+      font-size: 13px;
+      line-height: 1;
+
+      font-weight: 500;
+
+      letter-spacing: -.03em;
+    }
+
+    .menu {
+      position: relative;
+
+      width: 30px;
+      height: 30px;
+    }
+
+    .menu span {
+      position: absolute;
+
+      top: 50%;
+      right: 0;
+
+      width: 26px;
+      height: 1px;
+
+      background: #000;
+
+      transform:
+        translateY(-50%)
+        rotate(0deg);
+
+      transform-origin: center;
+
+      transition:
+        transform .25s ease,
+        background .2s ease;
+    }
+
+    body.menu-open .menu span {
+      background: #fff;
+
+      transform:
+        translateY(-50%)
+        rotate(90deg);
+    }
+
+
+    /* --------------------------------
+       MENU OVERLAY
+       -------------------------------- */
+
+    .overlay {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 90;
+
+      display: flex;
+      flex-direction: column;
+
+      justify-content: flex-end;
+      align-items: flex-start;
+
+      padding: var(--pad);
+
+      background: #000;
+      color: #fff;
+
+      opacity: 0;
+      visibility: hidden;
+
+      pointer-events: none;
+
+      transition:
+        opacity .2s ease,
+        visibility .2s ease;
+    }
+
+    body.menu-open .overlay {
+      opacity: 1;
+      visibility: visible;
+
+      pointer-events: auto;
+    }
+
+    .overlay a {
+      display: block;
+
+      font-size:
+        clamp(58px, 8vw, 150px);
+
+      line-height: .82;
+
+      font-weight: 400;
+
+      letter-spacing: -.07em;
     }
 
 
@@ -125,7 +254,6 @@
         var(--pad)
         clamp(90px, 12vh, 150px);
     }
-
 
     .eyebrow {
       margin: 0;
@@ -149,14 +277,13 @@
 
       justify-content: space-between;
 
-      padding-top: clamp(100px, 14vh, 170px);
+      padding-top:
+        clamp(100px, 14vh, 170px);
     }
-
 
     .hero-main {
       width: 100%;
     }
-
 
     .hero h1 {
       margin:
@@ -171,9 +298,9 @@
 
       letter-spacing: -.075em;
 
-      transform: translateX(-.055em);
+      transform:
+        translateX(-.055em);
     }
-
 
     .lead {
       display: grid;
@@ -188,7 +315,6 @@
       margin: 0;
     }
 
-
     .lead-list {
       grid-column: 1 / 5;
 
@@ -198,7 +324,6 @@
       font-size: var(--body);
       line-height: 1.08;
     }
-
 
     .lead-summary {
       grid-column: 7 / 13;
@@ -212,7 +337,6 @@
       line-height: 1.2;
     }
 
-
     .hero-bottom {
       display: flex;
 
@@ -223,7 +347,6 @@
 
       padding-top: 60px;
     }
-
 
     .hero-note {
       max-width: 420px;
@@ -236,7 +359,7 @@
 
 
     /* --------------------------------
-       LANGUAGE
+       LANGUAGES
        -------------------------------- */
 
     .languages {
@@ -250,11 +373,9 @@
       line-height: 1;
     }
 
-
     .languages button {
       opacity: .35;
     }
-
 
     .languages button[aria-pressed="true"] {
       opacity: 1;
@@ -276,11 +397,9 @@
       align-items: start;
     }
 
-
     .intro .eyebrow {
       grid-column: 1 / 5;
     }
-
 
     .intro-content {
       grid-column: 6 / 13;
@@ -288,21 +407,21 @@
       max-width: 850px;
     }
 
-
     .intro-title {
       margin:
         0
         0
         clamp(46px, 7vh, 84px);
 
-      font-size: clamp(48px, 6.5vw, 118px);
+      font-size:
+        clamp(48px, 6.5vw, 118px);
+
       line-height: .9;
 
       font-weight: 400;
 
       letter-spacing: -.065em;
     }
-
 
     .intro-copy {
       max-width: 720px;
@@ -325,7 +444,6 @@
       padding-bottom: 14vh;
     }
 
-
     .layers-head {
       display: grid;
 
@@ -337,11 +455,9 @@
       align-items: start;
     }
 
-
     .layers-head .eyebrow {
       grid-column: 1 / 5;
     }
-
 
     .layers-intro {
       grid-column: 7 / 13;
@@ -354,11 +470,9 @@
       line-height: 1.22;
     }
 
-
     .layer-list {
       margin-top: 12vh;
     }
-
 
     .layer {
       display: grid;
@@ -377,25 +491,24 @@
         0;
     }
 
-
     .layer-number {
       padding-top: .55em;
 
       font-size: var(--small);
     }
 
-
     .layer h2 {
       margin: 0;
 
-      font-size: clamp(52px, 7vw, 130px);
+      font-size:
+        clamp(52px, 7vw, 130px);
+
       line-height: .82;
 
       font-weight: 400;
 
       letter-spacing: -.07em;
     }
-
 
     .layer p {
       max-width: 560px;
@@ -418,7 +531,6 @@
       padding-bottom: 14vh;
     }
 
-
     .process-head {
       display: grid;
 
@@ -428,11 +540,9 @@
       column-gap: var(--gap);
     }
 
-
     .process-head .eyebrow {
       grid-column: 1 / 5;
     }
-
 
     .process-title {
       grid-column: 6 / 13;
@@ -441,7 +551,9 @@
 
       margin: 0;
 
-      font-size: clamp(48px, 6vw, 108px);
+      font-size:
+        clamp(48px, 6vw, 108px);
+
       line-height: .92;
 
       font-weight: 400;
@@ -449,11 +561,9 @@
       letter-spacing: -.06em;
     }
 
-
     .steps {
       margin-top: 12vh;
     }
-
 
     .step {
       display: grid;
@@ -472,13 +582,11 @@
         0;
     }
 
-
     .step-number {
       padding-top: .4em;
 
       font-size: var(--small);
     }
-
 
     .step h3 {
       margin: 0;
@@ -488,7 +596,6 @@
 
       font-weight: 400;
     }
-
 
     .step p {
       max-width: 560px;
@@ -501,10 +608,17 @@
 
 
     /* --------------------------------
-       RESULT
+       EXAMPLES
        -------------------------------- */
 
-    .result {
+    .examples {
+      min-height: auto;
+
+      padding-top: 14vh;
+      padding-bottom: 14vh;
+    }
+
+    .examples-head {
       display: grid;
 
       grid-template-columns:
@@ -513,41 +627,39 @@
       column-gap: var(--gap);
     }
 
-
-    .result .eyebrow {
+    .examples-head .eyebrow {
       grid-column: 1 / 5;
     }
 
+    .examples-intro {
+      grid-column: 7 / 13;
 
-    .result-content {
-      grid-column: 6 / 13;
+      max-width: 620px;
 
-      max-width: 850px;
+      margin: 0;
+
+      font-size: var(--body);
+      line-height: 1.22;
     }
 
+    .example-links {
+      display: flex;
+      flex-direction: column;
 
-    .result-title {
-      margin:
-        0
-        0
-        clamp(48px, 7vh, 84px);
+      align-items: flex-start;
 
-      font-size: clamp(48px, 6vw, 112px);
-      line-height: .9;
+      margin-top: 12vh;
+    }
+
+    .example-links button {
+      font-size:
+        clamp(58px, 8vw, 150px);
+
+      line-height: .82;
 
       font-weight: 400;
 
-      letter-spacing: -.065em;
-    }
-
-
-    .result-copy {
-      max-width: 680px;
-
-      margin: 0 0 28px;
-
-      font-size: var(--body);
-      line-height: 1.26;
+      letter-spacing: -.07em;
     }
 
 
@@ -566,11 +678,9 @@
       align-items: start;
     }
 
-
     .price .eyebrow {
       grid-column: 1 / 5;
     }
-
 
     .price-content {
       grid-column: 6 / 13;
@@ -578,14 +688,15 @@
       max-width: 850px;
     }
 
-
     .price-title {
       margin:
         0
         0
         clamp(46px, 6vh, 80px);
 
-      font-size: clamp(54px, 7vw, 130px);
+      font-size:
+        clamp(54px, 7vw, 130px);
+
       line-height: .86;
 
       font-weight: 400;
@@ -593,19 +704,19 @@
       letter-spacing: -.07em;
     }
 
-
     .price-value {
       margin:
         0
         0
         40px;
 
-      font-size: clamp(44px, 5vw, 90px);
+      font-size:
+        clamp(44px, 5vw, 90px);
+
       line-height: .95;
 
       letter-spacing: -.055em;
     }
-
 
     .price-copy {
       max-width: 660px;
@@ -630,20 +741,20 @@
       justify-content: space-between;
     }
 
-
     .final-title {
       max-width: 1100px;
 
       margin: 0;
 
-      font-size: clamp(58px, 8vw, 150px);
+      font-size:
+        clamp(58px, 8vw, 150px);
+
       line-height: .84;
 
       font-weight: 400;
 
       letter-spacing: -.07em;
     }
-
 
     .final-bottom {
       display: flex;
@@ -654,22 +765,98 @@
       gap: 30px;
     }
 
-
     .phone {
       font-size: 22px;
       line-height: 1;
     }
 
 
-    .final-meta {
-      max-width: 420px;
+    /* --------------------------------
+       EXAMPLE MODAL
+       -------------------------------- */
 
+    .example-modal {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 200;
+
+      display: none;
+
+      background: #000;
+      color: #fff;
+    }
+
+    .example-modal.is-open {
+      display: block;
+    }
+
+    .example-modal-inner {
+      width: 100%;
+      height: 100%;
+
+      padding: var(--pad);
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .example-modal-head {
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 40px;
+    }
+
+    .example-modal-title {
       margin: 0;
 
       font-size: var(--small);
-      line-height: 1.35;
+    }
 
-      text-align: right;
+    .example-close {
+      color: #fff;
+
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .example-modal-content {
+      flex: 1;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+    }
+
+    .example-placeholder {
+      width:
+        min(1100px, 100%);
+
+      min-height:
+        min(60vh, 700px);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.3);
+
+      font-size:
+        clamp(42px, 7vw, 120px);
+
+      line-height: 1;
+
+      letter-spacing: -.06em;
+
+      text-align: center;
     }
 
 
@@ -684,56 +871,57 @@
         --body: 18px;
       }
 
+      .header {
+        top: 8px;
+        left: 8px;
+        right: 8px;
+
+        height: 50px;
+
+        padding: 0 14px;
+      }
 
       .page {
         padding-top: 100px;
         padding-bottom: 80px;
       }
 
-
       .hero {
         min-height: 100svh;
       }
-
 
       .lead,
       .intro,
       .layers-head,
       .process-head,
-      .result,
+      .examples-head,
       .price {
         display: block;
       }
-
 
       .lead-list {
         margin-bottom: 34px;
       }
 
-
       .lead-summary {
         max-width: 100%;
       }
-
 
       .hero-bottom {
         align-items: flex-end;
       }
 
-
       .hero-note {
         max-width: 55%;
       }
 
-
       .intro .eyebrow,
       .layers-head .eyebrow,
       .process-head .eyebrow,
-      .result .eyebrow,
+      .examples-head .eyebrow,
       .price .eyebrow {
         margin-bottom: 46px;
       }
-
 
       .layer {
         grid-template-columns:
@@ -743,11 +931,9 @@
         row-gap: 20px;
       }
 
-
       .layer p {
         grid-column: 2;
       }
-
 
       .step {
         grid-template-columns:
@@ -757,21 +943,16 @@
         row-gap: 16px;
       }
 
-
       .step p {
         grid-column: 2;
       }
 
-
-      .final-bottom {
-        display: block;
+      .overlay a {
+        font-size: 17vw;
       }
 
-
-      .final-meta {
-        margin-top: 28px;
-
-        text-align: left;
+      .example-placeholder {
+        min-height: 55vh;
       }
 
     }
@@ -783,11 +964,65 @@
 <body>
 
 
-  <a
-    class="home-link"
-    href="/"
-    aria-label="Home"
-  ></a>
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <a
+      class="wordmark"
+      href="#top"
+      aria-label="Events, top"
+    >
+      Event.
+    </a>
+
+
+    <button
+      class="menu"
+      id="menu"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <span></span>
+    </button>
+
+  </header>
+
+
+  <!-- MENU -->
+
+  <nav
+    class="overlay"
+    id="overlay"
+    aria-hidden="true"
+  >
+
+    <a href="#intro">
+      What is Events
+    </a>
+
+    <a href="#layers">
+      Layers
+    </a>
+
+    <a href="#process">
+      How it works
+    </a>
+
+    <a href="#examples">
+      Examples
+    </a>
+
+    <a href="#price">
+      Price
+    </a>
+
+    <a href="#contact">
+      Contact
+    </a>
+
+  </nav>
 
 
   <main>
@@ -795,7 +1030,10 @@
 
     <!-- HERO -->
 
-    <section class="page hero">
+    <section
+      class="page hero"
+      id="top"
+    >
 
       <div class="hero-main">
 
@@ -882,9 +1120,7 @@
             RU
           </button>
 
-          <span aria-hidden="true">
-            /
-          </span>
+          <span>/</span>
 
           <button
             type="button"
@@ -901,10 +1137,12 @@
     </section>
 
 
-
     <!-- INTRO -->
 
-    <section class="page intro">
+    <section
+      class="page intro"
+      id="intro"
+    >
 
       <p
         class="eyebrow"
@@ -931,8 +1169,10 @@
           data-ru="Events — это способ сохранить событие не только как набор красивых фотографий. Я собираю людей, движение, пространство, звук и последовательность происходящего в одну систему."
           data-en="Events is a way to preserve an event as more than a set of good photographs. I collect people, movement, space, sound and sequence into one system."
         >
-          Events — это способ сохранить событие не только как набор красивых фотографий.
-          Я собираю людей, движение, пространство, звук и последовательность происходящего
+          Events — это способ сохранить событие
+          не только как набор красивых фотографий.
+          Я собираю людей, движение, пространство,
+          звук и последовательность происходящего
           в одну систему.
         </p>
 
@@ -941,10 +1181,12 @@
     </section>
 
 
-
     <!-- LAYERS -->
 
-    <section class="page layers">
+    <section
+      class="page layers"
+      id="layers"
+    >
 
       <div class="layers-head">
 
@@ -962,7 +1204,9 @@
           data-ru="Каждый слой сохраняет то, что невозможно полностью передать другим способом."
           data-en="Each layer keeps something the others cannot fully capture."
         >
-          Каждый слой сохраняет то, что невозможно полностью передать другим способом.
+          Каждый слой сохраняет то,
+          что невозможно полностью передать
+          другим способом.
         </p>
 
       </div>
@@ -988,7 +1232,8 @@
             data-ru="Основной визуальный слой. Люди, детали, ключевые моменты и атмосфера."
             data-en="The main visual layer. People, details, key moments and atmosphere."
           >
-            Основной визуальный слой. Люди, детали, ключевые моменты и атмосфера.
+            Основной визуальный слой.
+            Люди, детали, ключевые моменты и атмосфера.
           </p>
 
         </article>
@@ -1011,8 +1256,8 @@
             data-ru="Короткие фрагменты движения и живых моментов там, где одной фотографии недостаточно."
             data-en="Short fragments of movement and real moments where a still image is not enough."
           >
-            Короткие фрагменты движения и живых моментов там,
-            где одной фотографии недостаточно.
+            Короткие фрагменты движения и живых моментов
+            там, где одной фотографии недостаточно.
           </p>
 
         </article>
@@ -1052,15 +1297,16 @@
             data-ru="ПРОСТРАНСТВО"
             data-en="SPACE"
           >
-            ЛОКАЦИЯ
+            ПРОСТРАНСТВО
           </h2>
 
           <p
             data-ru="Локация и её структура: где находились люди и как событие двигалось внутри пространства."
             data-en="The location and its structure: where people were and how the event moved through the space."
           >
-            Локация и её структура: где находились люди
-            и как событие двигалось внутри пространства.
+            Локация и её структура:
+            где находились люди и как событие
+            двигалось внутри пространства.
           </p>
 
         </article>
@@ -1108,7 +1354,8 @@
             data-en="The final documentation. Not separate files, but one collected trace of the event."
           >
             Итоговая документация.
-            Не отдельные файлы, а один собранный след события.
+            Не отдельные файлы,
+            а один собранный след события.
           </p>
 
         </article>
@@ -1119,10 +1366,12 @@
     </section>
 
 
-
     <!-- PROCESS -->
 
-    <section class="page process">
+    <section
+      class="page process"
+      id="process"
+    >
 
       <div class="process-head">
 
@@ -1167,8 +1416,9 @@
             data-ru="Определяем важные моменты, людей, время и то, что нельзя пропустить."
             data-en="We define the important moments, people, timing and what must not be missed."
           >
-            Определяем важные моменты, людей, время
-            и то, что нельзя пропустить.
+            Определяем важные моменты,
+            людей, время и то,
+            что нельзя пропустить.
           </p>
 
         </article>
@@ -1215,32 +1465,9 @@
             data-ru="Материал отбирается, обрабатывается и собирается в понятную структуру."
             data-en="The material is selected, edited and organized into a clear structure."
           >
-            Материал отбирается, обрабатывается
-            и собирается в понятную структуру.
-          </p>
-
-        </article>
-
-
-        <article class="step">
-
-          <span class="step-number">
-            04
-          </span>
-
-          <h3
-            data-ru="Выдача"
-            data-en="Delivery"
-          >
-            Выдача
-          </h3>
-
-          <p
-            data-ru="Вы получаете готовые фотографии и дополнительные слои, которые мы выбрали для события."
-            data-en="You receive the finished photographs and the additional layers chosen for the event."
-          >
-            Вы получаете готовые фотографии
-            и дополнительные слои, которые мы выбрали для события.
+            Материал отбирается,
+            обрабатывается и собирается
+            в понятную структуру.
           </p>
 
         </article>
@@ -1251,60 +1478,78 @@
     </section>
 
 
+    <!-- EXAMPLES -->
 
-    <!-- RESULT -->
+    <section
+      class="page examples"
+      id="examples"
+    >
 
-    <section class="page result">
-
-      <p
-        class="eyebrow"
-        data-ru="Результат"
-        data-en="Result"
-      >
-        Результат
-      </p>
-
-
-      <div class="result-content">
-
-        <h2
-          class="result-title"
-          data-ru="Не просто фотографии."
-          data-en="More than photographs."
-        >
-          Не просто фотографии.
-        </h2>
-
+      <div class="examples-head">
 
         <p
-          class="result-copy"
-          data-ru="Основой остаётся фотография. К ней могут добавляться видео, звук, пространство и данные — если они действительно помогают сохранить событие."
-          data-en="Photography remains the core. Video, audio, space and data can be added when they genuinely help preserve the event."
+          class="eyebrow"
+          data-ru="Примеры"
+          data-en="Examples"
         >
-          Основой остаётся фотография.
-          К ней могут добавляться видео, звук, пространство и данные —
-          если они действительно помогают сохранить событие.
+          Примеры
         </p>
 
 
         <p
-          class="result-copy"
-          data-ru="Количество слоёв зависит от самого события. Не нужно использовать всё только потому, что это возможно."
-          data-en="The number of layers depends on the event itself. There is no need to use everything simply because it is possible."
+          class="examples-intro"
+          data-ru="Несколько слоёв одного события. Откройте слой, чтобы посмотреть пример."
+          data-en="Several layers of one event. Open a layer to see an example."
         >
-          Количество слоёв зависит от самого события.
-          Не нужно использовать всё только потому, что это возможно.
+          Несколько слоёв одного события.
+          Откройте слой,
+          чтобы посмотреть пример.
         </p>
 
       </div>
 
-    </section>
 
+      <div class="example-links">
+
+        <button
+          type="button"
+          data-example="photo"
+        >
+          PHOTO
+        </button>
+
+        <button
+          type="button"
+          data-example="video"
+        >
+          VIDEO
+        </button>
+
+        <button
+          type="button"
+          data-example="audio"
+        >
+          AUDIO
+        </button>
+
+        <button
+          type="button"
+          data-example="space"
+        >
+          SPACE
+        </button>
+
+      </div>
+
+    </section>
 
 
     <!-- PRICE -->
 
-    <section class="page price">
+    <section
+      class="page price"
+      id="price"
+    >
 
       <p
         class="eyebrow"
@@ -1338,12 +1583,12 @@
 
         <p
           class="price-copy"
-          data-ru="Базовая стоимость съёмки — 5 000 ₽ в час. Перед событием мы определяем, какие дополнительные слои действительно нужны. Итоговый формат зависит от задачи, продолжительности и локации."
-          data-en="The base shooting rate is 5,000 ₽ per hour. Before the event, we decide which additional layers are actually useful. The final format depends on the task, duration and location."
+          data-ru="Базовая стоимость съёмки — 5 000 ₽ в час. Перед событием мы определяем, какие дополнительные слои действительно нужны."
+          data-en="The base shooting rate is 5,000 ₽ per hour. Before the event, we decide which additional layers are actually useful."
         >
           Базовая стоимость съёмки — 5 000 ₽ в час.
-          Перед событием мы определяем, какие дополнительные слои действительно нужны.
-          Итоговый формат зависит от задачи, продолжительности и локации.
+          Перед событием мы определяем,
+          какие дополнительные слои действительно нужны.
         </p>
 
       </div>
@@ -1351,18 +1596,20 @@
     </section>
 
 
-
     <!-- FINAL -->
 
-    <section class="page final">
+    <section
+      class="page final"
+      id="contact"
+    >
 
       <h2
         class="final-title"
         data-ru="Одно событие. Несколько слоёв. Один след."
         data-en="One event. Multiple layers. One trace."
       >
-        Одно событие.<br>
-        Несколько слоёв.<br>
+        Одно событие.
+        Несколько слоёв.
         Один след.
       </h2>
 
@@ -1390,9 +1637,7 @@
             RU
           </button>
 
-          <span aria-hidden="true">
-            /
-          </span>
+          <span>/</span>
 
           <button
             type="button"
@@ -1412,17 +1657,94 @@
   </main>
 
 
+  <!-- EXAMPLE MODAL -->
+
+  <div
+    class="example-modal"
+    id="exampleModal"
+    aria-hidden="true"
+  >
+
+    <div class="example-modal-inner">
+
+      <div class="example-modal-head">
+
+        <p
+          class="example-modal-title"
+          id="exampleModalTitle"
+        >
+          PHOTO
+        </p>
+
+
+        <button
+          class="example-close"
+          id="exampleClose"
+          type="button"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="example-modal-content">
+
+        <div
+          class="example-placeholder"
+          id="examplePlaceholder"
+        >
+          PHOTO
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <script>
+    const menu =
+      document.getElementById("menu");
+
+    const overlay =
+      document.getElementById("overlay");
 
     const languageButtons =
       document.querySelectorAll(
         "[data-language]"
       );
 
-
     const translatedElements =
       document.querySelectorAll(
         "[data-ru][data-en]"
+      );
+
+    const exampleButtons =
+      document.querySelectorAll(
+        "[data-example]"
+      );
+
+    const exampleModal =
+      document.getElementById(
+        "exampleModal"
+      );
+
+    const exampleClose =
+      document.getElementById(
+        "exampleClose"
+      );
+
+    const exampleModalTitle =
+      document.getElementById(
+        "exampleModalTitle"
+      );
+
+    const examplePlaceholder =
+      document.getElementById(
+        "examplePlaceholder"
       );
 
 
@@ -1430,7 +1752,6 @@
 
       document.documentElement.lang =
         language;
-
 
       translatedElements.forEach(
         element => {
@@ -1444,7 +1765,6 @@
 
         }
       );
-
 
       languageButtons.forEach(
         button => {
@@ -1461,6 +1781,105 @@
       );
 
     }
+
+
+    function closeMenu() {
+
+      document.body.classList.remove(
+        "menu-open"
+      );
+
+      menu.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      overlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+    }
+
+
+    function openExample(type) {
+
+      const label =
+        type.toUpperCase();
+
+      exampleModalTitle.textContent =
+        label;
+
+      examplePlaceholder.textContent =
+        label;
+
+      exampleModal.classList.add(
+        "is-open"
+      );
+
+      exampleModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "modal-open"
+      );
+
+    }
+
+
+    function closeExample() {
+
+      exampleModal.classList.remove(
+        "is-open"
+      );
+
+      exampleModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.classList.remove(
+        "modal-open"
+      );
+
+    }
+
+
+    menu.addEventListener(
+      "click",
+      () => {
+
+        const open =
+          document.body.classList.toggle(
+            "menu-open"
+          );
+
+        menu.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+        overlay.setAttribute(
+          "aria-hidden",
+          String(!open)
+        );
+
+      }
+    );
+
+
+    overlay
+      .querySelectorAll("a")
+      .forEach(link => {
+
+        link.addEventListener(
+          "click",
+          closeMenu
+        );
+
+      });
 
 
     languageButtons.forEach(
@@ -1481,8 +1900,64 @@
     );
 
 
-    setLanguage("ru");
+    exampleButtons.forEach(
+      button => {
 
+        button.addEventListener(
+          "click",
+          () => {
+
+            openExample(
+              button.dataset.example
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+    exampleClose.addEventListener(
+      "click",
+      closeExample
+    );
+
+
+    exampleModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          exampleModal
+        ) {
+          closeExample();
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
+          closeMenu();
+          closeExample();
+
+        }
+
+      }
+    );
+
+
+    setLanguage("ru");
   </script>
 
 
