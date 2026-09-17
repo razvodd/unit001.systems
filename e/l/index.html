@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Events — multi-layer event documentation: photo, video, audio, space and data."
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <title>Events</title>
+
+  <style>
+    :root {
+      --paper: #fff;
+      --ink: #000;
+
+      --pad: clamp(22px, 3vw, 52px);
+
+      --small: clamp(11px, .8vw, 13px);
+      --body: clamp(18px, 1.55vw, 27px);
+      --display: clamp(72px, 10vw, 180px);
+
+      --gap: clamp(14px, 1.5vw, 24px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+
+      background: var(--paper);
+      color: var(--ink);
+
+      font-family:
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    a,
+    a:link,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+
+    /* --------------------------------
+       HEADER
+       -------------------------------- */
+
+    .header {
+      position: fixed;
+
+      top: 12px;
+      left: 12px;
+      right: 12px;
+
+      z-index: 100;
+
+      height: 54px;
+
+      display: grid;
+      grid-template-columns: 1fr 32px;
+      align-items: center;
+
+      padding: 0 18px;
+
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.78);
+
+      border-radius: 999px;
+
+      backdrop-filter: blur(20px) saturate(165%);
+      -webkit-backdrop-filter: blur(20px) saturate(165%);
+    }
+
+    .home-link {
+      display: block;
+
+      width: 120px;
+      height: 100%;
+    }
+
+    .menu {
+      position: relative;
+
+      width: 32px;
+      height: 32px;
+
+      padding: 0;
+
+      border: 0;
+      background: transparent;
+
+      cursor: pointer;
+    }
+
+    .menu span {
+      position: absolute;
+
+      top: 50%;
+      right: 0;
+
+      width: 28px;
+      height: 1px;
+
+      background: #000;
+
+      transform:
+        translateY(-50%)
+        rotate(0deg);
+
+      transform-origin: center;
+
+      transition:
+        transform .25s ease,
+        background .2s ease;
+    }
+
+    body.menu-open .menu span {
+      background: #fff;
+
+      transform:
+        translateY(-50%)
+        rotate(90deg);
+    }
+
+
+    /* --------------------------------
+       OVERLAY MENU
+       -------------------------------- */
+
+    .overlay {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 90;
+
+      display: flex;
+      align-items: flex-end;
+
+      padding:
+        0
+        var(--pad)
+        var(--pad);
+
+      background: #000;
+      color: #fff;
+
+      opacity: 0;
+      visibility: hidden;
+
+      pointer-events: none;
+
+      transition:
+        opacity .22s ease,
+        visibility .22s ease;
+    }
+
+    body.menu-open .overlay {
+      opacity: 1;
+      visibility: visible;
+
+      pointer-events: auto;
+    }
+
+    .overlay-inner {
+      width: 100%;
+    }
+
+    .overlay-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      margin-bottom: 32px;
+    }
+
+    .overlay-nav a {
+      display: block;
+
+      font-size: var(--display);
+      line-height: .78;
+
+      font-weight: 400;
+
+      letter-spacing: -.075em;
+
+      transform: translateX(-.055em);
+    }
+
+    .overlay-phone {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+
+    /* --------------------------------
+       BASE PAGE
+       -------------------------------- */
+
+    .page {
+      position: relative;
+
+      min-height: 100vh;
+
+      padding:
+        clamp(110px, 14vh, 180px)
+        var(--pad)
+        clamp(90px, 12vh, 150px);
+    }
+
+    .eyebrow {
+      margin: 0;
+
+      font-size: var(--small);
+      line-height: 1.2;
+
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+
+
+    /* --------------------------------
+       HERO
+       -------------------------------- */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .hero h1 {
+      margin:
+        0
+        0
+        clamp(44px, 6vh, 80px);
+
+      font-size: var(--display);
+      line-height: .78;
+
+      font-weight: 400;
+
+      letter-spacing: -.075em;
+
+      transform: translateX(-.055em);
+    }
+
+    .hero-bottom {
+      display: grid;
+
+      grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+      column-gap: var(--gap);
+
+      align-items: end;
+    }
+
+    .hero-copy {
+      grid-column: 1 / 7;
+
+      max-width: 720px;
+
+      margin: 0;
+
+      font-size: var(--body);
+      line-height: 1.22;
+    }
+
+    .hero-layers {
+      grid-column: 9 / 13;
+
+      display: flex;
+      flex-direction: column;
+
+      margin: 0;
+
+      font-size: var(--body);
+      line-height: 1.08;
+    }
+
+
+    /* --------------------------------
+       INTRO
+       -------------------------------- */
+
+    .intro {
+      display: grid;
+
+      grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+      column-gap: var(--gap);
+
+      align-items: start;
+    }
+
+    .intro .eyebrow {
+      grid-column: 1 / 4;
+    }
+
+    .intro-copy {
+      grid-column: 6 / 13;
+
+      max-width: 820px;
+    }
+
+    .intro-title {
+      margin:
+        0
+        0
+        clamp(40px, 6vh, 70px);
+
+      font-size: clamp(42px, 5.2vw, 92px);
+      line-height: .96;
+
+      font-weight: 400;
+
+      letter-spacing: -.055em;
+    }
+
+    .intro-text {
+      max-width: 700px;
+
+      margin: 0;
+
+      font-size: var(--body);
+      line-height: 1.28;
+    }
+
+
+    /* --------------------------------
+       LAYERS
+       -------------------------------- */
+
+    .layers {
+      padding-top: 14vh;
+      padding-bottom: 14vh;
+    }
+
+    .layers-head {
+      display: grid;
+
+      grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+      column-gap: var(--gap);
+    }
+
+    .layers-head .eyebrow {
+      grid-column: 1 / 5;
+    }
+
+    .layers-intro {
+      grid-column: 7 / 13;
+
+      max-width: 620px;
+
+      margin: 0;
+
+      font-size: var(--body);
+      line-height: 1.25;
+    }
+
+    .layer-list {
+      margin-top: 12vh;
+    }
+
+    .layer {
+      display: grid;
+
+      grid-template-columns:
+        minmax(42px, 1fr)
+        5fr
+        6fr;
+
+      column-gap: var(--gap);
+
+      align-items: start;
+
+      padding:
+        clamp(24px, 3.2vw, 52px)
+        0;
+
+      border-top: 1px solid #000;
+    }
+
+    .layer:last-child {
+      border-bottom: 1px solid #000;
+    }
+
+    .layer-number {
+      padding-top: .45em;
+
+      font-size: var(--small);
+    }
+
+    .layer h2 {
+      margin: 0;
+
+      font-size: clamp(48px, 6.5vw, 118px);
+      line-height: .84;
+
+      font-weight: 400;
+
+      letter-spacing: -.065em;
+    }
+
+    .layer p {
+      max-width: 620px;
+
+      margin: .35em 0 0;
+
+      font-size: var(--body);
+      line-height: 1.25;
+    }
+
+
+    /* --------------------------------
+       PROCESS
+       -------------------------------- */
+
+    .process {
+      display: grid;
+
+      grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+      column-gap: var(--gap);
+    }
+
+    .process .eyebrow {
+      grid-column: 1 / 4;
+    }
+
+    .process-content {
+      grid-column: 5 / 13;
+    }
+
+    .process-title {
+      max-width: 900px;
+
+      margin:
+        0
+        0
+        10vh;
+
+      font-size: clamp(48px, 6.5vw, 120px);
+      line-height: .9;
+
+      font-weight: 400;
+
+      letter-spacing: -.065em;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step {
+      display: grid;
+
+      grid-template-columns:
+        70px
+        1fr
+        1fr;
+
+      column-gap: var(--gap);
+
+      padding: 22px 0;
+
+      border-top: 1px solid #000;
+    }
+
+    .step:last-child {
+      border-bottom: 1px solid #000;
+    }
+
+    .step span {
+      font-size: var(--small);
+    }
+
+    .step strong {
+      font-size: var(--body);
+      font-weight: 400;
+    }
+
+    .step p {
+      max-width: 520px;
+
+      margin: 0;
+
+      font-size: var(--body);
+      line-height: 1.25;
+    }
+
+
+    /* --------------------------------
+       FORMATS
+       -------------------------------- */
+
+    .formats {
+      padding-top: 14vh;
+      padding-bottom: 14vh;
+    }
+
+    .formats-head {
+      display: grid;
+
+      grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+      column-gap: var(--gap);
+    }
+
+    .formats-head .eyebrow {
+      grid-column: 1 / 4;
+    }
+
+    .formats-title {
+      grid-column: 5 / 13;
+
+      max-width: 900px;
+
+      margin: 0;
+
+      font-size: clamp(48px, 6vw, 110px);
+      line-height: .92;
+
+      font-weight: 400;
+
+      letter-spacing: -.06em;
+    }
+
+    .format-list {
+      margin-top: 12vh;
+    }
+
+    .format {
+      display: grid;
+
+      grid-template-columns:
+        minmax(42px, 1fr)
+        6fr
+        3fr
+        2fr;
+
+      column-gap: var(--gap);
+
+      align-items: start;
+
+      padding:
+        clamp(26px, 3vw, 46px)
+        0;
+
+      border-top: 1px solid #000;
+    }
+
+    .format:last-child {
+      border-bottom: 1px solid #000;
+    }
+
+    .format-number {
+      padding-top: .35em;
+
+      font-size: var(--small);
+    }
+
+    .format h3 {
+      margin: 0;
+
+      font-size: clamp(36px, 4vw, 72px);
+      line-height: .95;
+
+      font-weight: 400;
+
+      letter-spacing: -.05em;
+    }
+
+    .format p {
+      margin: .2em 0 0;
+
+      font-size: var(--body);
+      line-height: 1.25;
+    }
+
+    .price {
+      text-align: right;
+
+      white-space: nowrap;
+    }
+
+
+    /* --------------------------------
+       PRICE
+       -------------------------------- */
+
+    .price-block {
+      display: grid;
+
+      grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+      column-gap: var(--gap);
+    }
+
+    .price-block .eyebrow {
+      grid-column: 1 / 4;
+    }
+
+    .price-main {
+      grid-column: 5 / 13;
+    }
+
+    .price-main h2 {
+      max-width: 1000px;
+
+      margin:
+        0
+        0
+        8vh;
+
+      font-size: clamp(58px, 8vw, 145px);
+      line-height: .84;
+
+      font-weight: 400;
+
+      letter-spacing: -.07em;
+    }
+
+    .price-main p {
+      max-width: 700px;
+
+      margin: 0 0 24px;
+
+      font-size: var(--body);
+      line-height: 1.28;
+    }
+
+    .price-big {
+      margin-top: 6vh !important;
+
+      font-size: clamp(42px, 5.5vw, 96px) !important;
+      line-height: .92 !important;
+
+      letter-spacing: -.055em;
+    }
+
+
+    /* --------------------------------
+       FINAL
+       -------------------------------- */
+
+    .final {
+      min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .final-copy {
+      max-width: 1000px;
+
+      margin: 0;
+
+      font-size: clamp(52px, 7vw, 130px);
+      line-height: .88;
+
+      letter-spacing: -.065em;
+    }
+
+    .final-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      gap: 24px;
+    }
+
+    .contact {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .final-note {
+      max-width: 420px;
+
+      margin: 0;
+
+      font-size: var(--small);
+      line-height: 1.35;
+
+      text-align: right;
+    }
+
+
+    /* --------------------------------
+       MOBILE
+       -------------------------------- */
+
+    @media (max-width: 760px) {
+
+      :root {
+        --pad: 18px;
+        --body: 18px;
+      }
+
+      .header {
+        top: 8px;
+        left: 8px;
+        right: 8px;
+
+        height: 50px;
+
+        padding: 0 14px;
+      }
+
+      .page {
+        padding-top: 110px;
+        padding-bottom: 90px;
+      }
+
+      .hero {
+        min-height: 100svh;
+      }
+
+      .hero h1 {
+        margin-bottom: 42px;
+      }
+
+      .hero-bottom,
+      .intro,
+      .layers-head,
+      .process,
+      .formats-head,
+      .price-block {
+        display: block;
+      }
+
+      .hero-copy,
+      .hero-layers,
+      .intro-copy,
+      .layers-intro,
+      .process-content,
+      .formats-title,
+      .price-main {
+        width: 100%;
+      }
+
+      .hero-layers {
+        margin-top: 36px;
+      }
+
+      .intro .eyebrow,
+      .layers-head .eyebrow,
+      .process .eyebrow,
+      .formats-head .eyebrow,
+      .price-block .eyebrow {
+        margin-bottom: 44px;
+      }
+
+      .layer {
+        grid-template-columns:
+          40px
+          1fr;
+
+        row-gap: 22px;
+      }
+
+      .layer p {
+        grid-column: 2;
+      }
+
+      .step {
+        grid-template-columns:
+          36px
+          1fr;
+
+        row-gap: 16px;
+      }
+
+      .step p {
+        grid-column: 2;
+      }
+
+      .format {
+        grid-template-columns:
+          36px
+          1fr;
+
+        row-gap: 18px;
+      }
+
+      .format p {
+        grid-column: 2;
+      }
+
+      .price {
+        grid-column: 2;
+
+        text-align: left;
+      }
+
+      .final-bottom {
+        display: block;
+      }
+
+      .final-note {
+        margin-top: 30px;
+
+        text-align: left;
+      }
+
+      .overlay-nav a {
+        font-size: 24vw;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <a
+      class="home-link"
+      href="/"
+      aria-label="Home"
+    ></a>
+
+
+    <button
+      class="menu"
+      id="menu"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <span></span>
+    </button>
+
+  </header>
+
+
+  <!-- GLOBAL MENU -->
+
+  <div class="overlay">
+
+    <div class="overlay-inner">
+
+      <nav class="overlay-nav">
+
+        <a href="/r/">
+          READY
+        </a>
+
+        <a href="/e/">
+          EVENT
+        </a>
+
+      </nav>
+
+
+      <a
+        class="overlay-phone"
+        href="tel:+79808007001"
+      >
+        7.980.800.7.001
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <main>
+
+
+    <!-- HERO -->
+
+    <section class="page hero">
+
+      <h1>
+        EVENTS
+      </h1>
+
+
+      <div class="hero-bottom">
+
+        <p class="hero-copy">
+          Event documentation built from several layers.
+          Not only photos — but the event as it happened.
+        </p>
+
+
+        <div class="hero-layers">
+          <span>PHOTO</span>
+          <span>VIDEO</span>
+          <span>AUDIO</span>
+          <span>SPACE</span>
+          <span>DATA</span>
+          <span>TRACE</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- INTRO -->
+
+    <section class="page intro">
+
+      <p class="eyebrow">
+        What is Events
+      </p>
+
+
+      <div class="intro-copy">
+
+        <h2 class="intro-title">
+          An event happens once.
+        </h2>
+
+
+        <p class="intro-text">
+          Events is a way to document more than the visible moment.
+          I record people, movement, sound, space and sequence
+          so the final result feels closer to the event itself.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- LAYERS -->
+
+    <section class="page layers">
+
+      <div class="layers-head">
+
+        <p class="eyebrow">
+          Layers
+        </p>
+
+
+        <p class="layers-intro">
+          Different sources become one record.
+          Each layer adds information the others cannot capture.
+        </p>
+
+      </div>
+
+
+      <div class="layer-list">
+
+
+        <article class="layer">
+
+          <span class="layer-number">
+            01
+          </span>
+
+          <h2>
+            PHOTO
+          </h2>
+
+          <p>
+            The main visual layer.
+            People, details, key moments and atmosphere.
+          </p>
+
+        </article>
+
+
+        <article class="layer">
+
+          <span class="layer-number">
+            02
+          </span>
+
+          <h2>
+            VIDEO
+          </h2>
+
+          <p>
+            Short fragments of movement and real moments.
+            Used where a still image is not enough.
+          </p>
+
+        </article>
+
+
+        <article class="layer">
+
+          <span class="layer-number">
+            03
+          </span>
+
+          <h2>
+            AUDIO
+          </h2>
+
+          <p>
+            Voices, phrases and the sound of the place.
+            Useful moments can become part of the final story.
+          </p>
+
+        </article>
+
+
+        <article class="layer">
+
+          <span class="layer-number">
+            04
+          </span>
+
+          <h2>
+            SPACE
+          </h2>
+
+          <p>
+            The location itself:
+            where people were, how the space looked and how the event moved through it.
+          </p>
+
+        </article>
+
+
+        <article class="layer">
+
+          <span class="layer-number">
+            05
+          </span>
+
+          <h2>
+            DATA
+          </h2>
+
+          <p>
+            Time, sequence and technical information.
+            Small details that help rebuild the event later.
+          </p>
+
+        </article>
+
+
+        <article class="layer">
+
+          <span class="layer-number">
+            06
+          </span>
+
+          <h2>
+            TRACE
+          </h2>
+
+          <p>
+            The final record:
+            selected material arranged as one system instead of separate files.
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- PROCESS -->
+
+    <section class="page process">
+
+      <p class="eyebrow">
+        How it works
+      </p>
+
+
+      <div class="process-content">
+
+        <h2 class="process-title">
+          I stay inside the event.
+          The system works around it.
+        </h2>
+
+
+        <div class="steps">
+
+
+          <div class="step">
+
+            <span>
+              01
+            </span>
+
+            <strong>
+              Before
+            </strong>
+
+            <p>
+              We discuss the event, important people,
+              timing and what must not be missed.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <span>
+              02
+            </span>
+
+            <strong>
+              During
+            </strong>
+
+            <p>
+              I document the event continuously
+              using several visual and audio layers.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <span>
+              03
+            </span>
+
+            <strong>
+              After
+            </strong>
+
+            <p>
+              The material is selected,
+              edited and organized into one clear structure.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <span>
+              04
+            </span>
+
+            <strong>
+              Delivery
+            </strong>
+
+            <p>
+              You receive finished photographs
+              and the additional layers agreed before the event.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- FORMATS -->
+
+    <section class="page formats">
+
+      <div class="formats-head">
+
+        <p class="eyebrow">
+          Formats
+        </p>
+
+
+        <h2 class="formats-title">
+          The system can stay simple
+          or become deeper.
+        </h2>
+
+      </div>
+
+
+      <div class="format-list">
+
+
+        <article class="format">
+
+          <span class="format-number">
+            01
+          </span>
+
+          <h3>
+            PHOTO
+          </h3>
+
+          <p>
+            Event photography.
+            The core layer.
+          </p>
+
+          <p class="price">
+            from 5 000 ₽ / hour
+          </p>
+
+        </article>
+
+
+        <article class="format">
+
+          <span class="format-number">
+            02
+          </span>
+
+          <h3>
+            PHOTO + VIDEO
+          </h3>
+
+          <p>
+            Photography plus short video fragments
+            from the same event.
+          </p>
+
+          <p class="price">
+            from 8 000 ₽ / hour
+          </p>
+
+        </article>
+
+
+        <article class="format">
+
+          <span class="format-number">
+            03
+          </span>
+
+          <h3>
+            MULTI-LAYER
+          </h3>
+
+          <p>
+            Photo, video, audio and additional event data
+            combined into one documentation system.
+          </p>
+
+          <p class="price">
+            custom
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- PRICE -->
+
+    <section class="page price-block">
+
+      <p class="eyebrow">
+        Price
+      </p>
+
+
+      <div class="price-main">
+
+        <h2>
+          Every event
+          is different.
+        </h2>
+
+
+        <p>
+          The final price depends on duration,
+          location and how many documentation layers are needed.
+        </p>
+
+
+        <p>
+          For a simple event,
+          photography can start with the standard hourly format.
+          Larger or multi-layer events are calculated separately.
+        </p>
+
+
+        <p class="price-big">
+          PHOTO<br>
+          from 5 000 ₽ / hour
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- FINAL -->
+
+    <section class="page final">
+
+      <p class="final-copy">
+        One event.<br>
+        Multiple layers.<br>
+        One record.
+      </p>
+
+
+      <div class="final-bottom">
+
+        <a
+          class="contact"
+          href="tel:+79808007001"
+        >
+          7.980.800.7.001
+        </a>
+
+
+        <p class="final-note">
+          Moscow · event photography and multi-layer documentation
+        </p>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <script>
+
+    const menu =
+      document.getElementById("menu");
+
+
+    menu.addEventListener(
+      "click",
+      () => {
+
+        const open =
+          document.body.classList.toggle(
+            "menu-open"
+          );
+
+
+        menu.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Escape") {
+
+          document.body.classList.remove(
+            "menu-open"
+          );
+
+          menu.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+
+</body>
+
+</html>
