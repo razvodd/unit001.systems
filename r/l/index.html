@@ -13,7 +13,7 @@
   <style>
     /* Shared phone position and typography, matching the homepage. */
     .unit-footer {
-      position: fixed;
+      position: static;
       inset: auto 0 0;
       z-index: 200;
       display: flex;
@@ -59,11 +59,9 @@
     body.menu-open .unit-footer,
     body:has(.overlay.open) .unit-footer { background: #000; color: #fff; }
     .unit-footer a:focus-visible,
-    .unit-footer button:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
-    body { padding-bottom: 70px; }
+    .unit-footer button:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; 
     @media (max-width: 700px) {
       .unit-footer { padding: 18px; gap: 18px; }
-      body { padding-bottom: 58px; }
     }
   </style>
 </head>
