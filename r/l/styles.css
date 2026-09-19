@@ -617,6 +617,54 @@ h2,
 .cta {
   font-size: var(--type-display);
 }
+/* Общая шапка, как на EVENTS */
+.header {
+  position: fixed;
+  inset: 12px 12px auto;
+  z-index: 300;
+  height: 54px;
+
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+  padding: 0 18px;
+
+  background: rgba(255, 255, 255, .58);
+  border: 1px solid rgba(255, 255, 255, .76);
+  border-radius: 999px;
+
+  backdrop-filter: blur(20px) saturate(165%);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
+  pointer-events: auto;
+}
+
+.header .wordmark {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  justify-self: start;
+
+  font: 400 13px/1 Helvetica, Arial, sans-serif;
+  color: #000;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.header .menu {
+  position: relative;
+  inset: auto;
+  width: 30px;
+  height: 30px;
+}
+
+.header .menu span {
+  width: 20px;
+}
+
+.header:has(.menu.active) .wordmark {
+  color: #000;
+}
 
 @media (max-width: 700px) {
   :root {
