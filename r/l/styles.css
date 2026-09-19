@@ -29,7 +29,21 @@ a { color: inherit; text-decoration: none; }
 }
 
 .wordmark {
-  display: none;
+  .wordmark {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  font: 400 13px/1 Helvetica, Arial, sans-serif;
+  color: #000;
+}
+
+.header:has(.menu.active) .wordmark {
+  color: #fff;
+}
 }
 
 .menu {
